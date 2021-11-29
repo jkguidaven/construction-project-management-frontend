@@ -1,21 +1,10 @@
-<amplify-authenticator class="authenticator">
-  <ng-template amplifySlot="header">
-    <div style="padding: var(--amplify-space-large); text-align: center">
-      <img
-        class="amplify-image"
-        alt="Amplify logo"
-        src="https://docs.amplify.aws/assets/logo-dark.svg"
-      />
-    </div>
-  </ng-template>
-
+<amplify-authenticator>
   <ng-template amplifySlot="sign-in-header">
     <h3
       class="amplify-heading"
       style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
     >
-      Welcome!!
-      Sign in to your account.
+      Sign in to your account
     </h3>
   </ng-template>
 
@@ -24,15 +13,7 @@
     let-user="user"
     let-signOut="signOut"
   >
-    <h1>Welcome {{ user.username }}!</h1>
+    <h2>Welcome, {{ user.username }}!</h2>
     <button (click)="signOut()">Sign Out</button>
-  </ng-template>
-
-  <ng-template amplifySlot="footer">
-    <div style="padding: var(--amplify-space-large); text-align: center">
-      <p class="amplify-text" style="color: var(--amplify-colors-neutral-80)">
-        © All Rights Reserved
-      </p>
-    </div>
   </ng-template>
 </amplify-authenticator>
