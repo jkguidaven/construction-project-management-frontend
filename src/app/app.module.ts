@@ -13,12 +13,14 @@ import awsconfig from '../aws-exports';
 import { SidenavComponent } from './common/sidenav/sidenav.component';
 import { MainComponent } from './layouts/main/main.component';
 import { MatIconModule } from '@angular/material/icon';
+import { DashboardComponent } from './views/dashboard.component';
+import { ProjectsComponent } from './views/projects.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent, MainComponent],
+  declarations: [AppComponent, SidenavComponent, MainComponent, DashboardComponent, ProjectsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

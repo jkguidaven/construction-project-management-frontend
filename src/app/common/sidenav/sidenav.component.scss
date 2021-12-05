@@ -7,6 +7,7 @@
   &.expand {
     .brand img {
       margin-right: 10px;
+      margin-bottom: 0;
     }
   }
 
@@ -19,6 +20,7 @@
     img {
       width: 32px;
       height: 32px;
+      margin-bottom: 10px;
     }
 
     h1 {
@@ -31,12 +33,16 @@
     margin-top: var(--spacing);
     list-style-type: none;
     padding: 0;
+    margin: 0;
 
-    li {
+    li a {
       display: flex;
       align-items: center;
       height: 56px;
       padding: 0 var(--spacing);
+      margin: 0;
+      color: var(--grey-color-1);
+      text-decoration: none;
 
       .mat-icon {
         margin-right: var(--spacing);
