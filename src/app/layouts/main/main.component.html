@@ -1,0 +1,9 @@
+<div class="main">
+  <div class="sidenav-container" [ngClass]="{ expand }">
+    <app-sidenav [(expand)]="expand"></app-sidenav>
+  </div>
+
+  <div class="content-container">
+    <ng-content></ng-content>
+  </div>
+</div>

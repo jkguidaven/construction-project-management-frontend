@@ -6,27 +6,28 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 /* Add Amplify imports */
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
+import { SidenavComponent } from './common/sidenav/sidenav.component';
+import { MainComponent } from './layouts/main/main.component';
+import { MatIconModule } from '@angular/material/icon';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, SidenavComponent, MainComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     BrowserAnimationsModule,
-    AmplifyAuthenticatorModule
+    AmplifyAuthenticatorModule,
+    MatIconModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

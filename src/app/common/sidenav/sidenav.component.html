@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="brand" (click)="toggle()">
+    <img src="../assets/images/logo.png" />
+    <h1 *ngIf="expand">Greyhammer</h1>
+  </div>
+
+  <ul class="menu" *ngFor="let item of menuItems">
+    <li [ngClass]="{ active: item.active }">
+      <mat-icon>{{ item.icon }}</mat-icon>
+      {{ item.label }}
+    </li>
+  </ul>
+</div>
