@@ -4,6 +4,12 @@
   padding: var(--spacing) 0;
   height: 100%;
 
+  &.expand {
+    .brand img {
+      margin-right: 10px;
+    }
+  }
+
   .brand {
     display: flex;
     justify-content: center;
@@ -13,7 +19,6 @@
     img {
       width: 32px;
       height: 32px;
-      margin-right: 10px;
     }
 
     h1 {
@@ -25,7 +30,6 @@
   ul.menu {
     margin-top: var(--spacing);
     list-style-type: none;
-    margin: 0;
     padding: 0;
 
     li {

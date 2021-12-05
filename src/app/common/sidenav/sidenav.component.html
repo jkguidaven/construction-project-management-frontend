@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{ expand }">
   <div class="brand" (click)="toggle()">
     <img src="../assets/images/logo.png" />
     <h1 *ngIf="expand">Greyhammer</h1>
@@ -7,7 +7,7 @@
   <ul class="menu" *ngFor="let item of menuItems">
     <li [ngClass]="{ active: item.active }">
       <mat-icon>{{ item.icon }}</mat-icon>
-      {{ item.label }}
+      <span *ngIf="expand">{{ item.label }}</span>
     </li>
   </ul>
 </div>
