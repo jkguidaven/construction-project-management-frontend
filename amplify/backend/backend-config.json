@@ -1,6 +1,21 @@
 {
   "auth": {
-    "greyhammererp1921969a": {
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "greyhammererpf409212bf409212b",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID"
+          ]
+        }
+      ]
+    },
+    "greyhammererpf409212bf409212b": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -11,7 +26,15 @@
           "EMAIL"
         ],
         "signupAttributes": [
-          "EMAIL"
+          "ADDRESS",
+          "BIRTHDATE",
+          "EMAIL",
+          "FAMILY_NAME",
+          "MIDDLE_NAME",
+          "GENDER",
+          "GIVEN_NAME",
+          "PHONE_NUMBER",
+          "PICTURE"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
@@ -22,7 +45,7 @@
           "SMS"
         ],
         "verificationMechanisms": [
-          "EMAIL"
+          "PHONE_NUMBER"
         ]
       }
     }
