@@ -1,53 +1,11 @@
 {
   "auth": {
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "greyhammererpf409212bf409212b",
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID"
-          ]
-        }
-      ]
-    },
-    "greyhammererpf409212bf409212b": {
+    "greyhammererp": {
       "service": "Cognito",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "ADDRESS",
-          "BIRTHDATE",
-          "EMAIL",
-          "FAMILY_NAME",
-          "MIDDLE_NAME",
-          "GENDER",
-          "GIVEN_NAME",
-          "PHONE_NUMBER",
-          "PICTURE"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "PHONE_NUMBER"
-        ]
-      }
+      "customAuth": false
     }
   }
 }
