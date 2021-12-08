@@ -1,0 +1,30 @@
+[
+  {
+    "groupName": "admin",
+    "precedence": 1
+  },
+  {
+    "groupName": "operation",
+    "precedence": 2
+  },
+  {
+    "groupName": "accounting",
+    "precedence": 3
+  },
+  {
+    "groupName": "SE",
+    "precedence": 4
+  },
+  {
+    "groupName": "QS",
+    "precedence": 5
+  },
+  {
+    "groupName": "CE",
+    "precedence": 6
+  },
+  {
+    "groupName": "procurement",
+    "precedence": 7
+  }
+]

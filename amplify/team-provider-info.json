@@ -1,15 +1,20 @@
 {
-  "staging": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-greyhammererp-staging-41105-authRole",
-      "UnauthRoleArn": "arn:aws:iam::657002046595:role/amplify-greyhammererp-staging-41105-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::657002046595:role/amplify-greyhammererp-staging-41105-authRole",
+      "AuthRoleName": "amplify-greyhammererp-dev-125429-authRole",
+      "UnauthRoleArn": "arn:aws:iam::657002046595:role/amplify-greyhammererp-dev-125429-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::657002046595:role/amplify-greyhammererp-dev-125429-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-greyhammererp-staging-41105-deployment",
-      "UnauthRoleName": "amplify-greyhammererp-staging-41105-unauthRole",
-      "StackName": "amplify-greyhammererp-staging-41105",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:657002046595:stack/amplify-greyhammererp-staging-41105/dcf9e8f0-57dc-11ec-a03b-0a285a2c53c0",
-      "AmplifyAppId": "dyw0rqfmsru3m"
+      "DeploymentBucketName": "amplify-greyhammererp-dev-125429-deployment",
+      "UnauthRoleName": "amplify-greyhammererp-dev-125429-unauthRole",
+      "StackName": "amplify-greyhammererp-dev-125429",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:657002046595:stack/amplify-greyhammererp-dev-125429/f12fa660-57e2-11ec-a3bb-0aa9015bf25e",
+      "AmplifyAppId": "dyw63woispvh2"
+    },
+    "categories": {
+      "auth": {
+        "greyhammererpf1204e2af1204e2a": {}
+      }
     }
   }
 }
