@@ -14,7 +14,13 @@
     let-signOut="signOut"
   >
     <app-main-layout>
-      <app-user-menu [user]="user" (signout)="signOut()"></app-user-menu>
+      <app-user-menu
+        [user]="user"
+        (profile)="viewProfile(user)"
+        (changePassword)="changePassword()"
+        (signout)="signOut()"
+      >
+      </app-user-menu>
       <router-outlet></router-outlet>
     </app-main-layout>
   </ng-template>
