@@ -1,0 +1,15 @@
+<div class="container">
+  <span>{{ user.attributes.given_name }}</span>
+
+  <img
+    class='profile-image'
+    src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+    [matMenuTriggerFor]="menu"
+  />
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="profile.emit()">Profile</button>
+    <button mat-menu-item (click)="changePassword.emit()">Change Password</button>
+    <button mat-menu-item (click)="signout.emit()">Logout</button>
+</mat-menu>
+</div>

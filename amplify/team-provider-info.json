@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "greyhammererpf1204e2af1204e2a": {}
+        "greyhammererpf1204e2af1204e2a": {},
+        "userPoolGroups": {}
       }
     }
   }
