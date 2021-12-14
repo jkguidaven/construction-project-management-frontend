@@ -1,0 +1,14 @@
+{
+  "resourceName": "s32a4b651a",
+  "policyUUID": "2a4b651a",
+  "bucketName": "greyhammererp6438cd9cdb0f4a0d86a45ccafc1402c9",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

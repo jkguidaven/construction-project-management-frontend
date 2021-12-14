@@ -1,12 +1,19 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "greyhammererpf1204e2af1204e2a": {
+        "greyhammererp793cf61d": {
+            "IdentityPoolId": "string",
+            "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string",
-            "CreatedSNSRole": "string"
+            "AppClientID": "string"
+        }
+    },
+    "storage": {
+        "s32a4b651a": {
+            "BucketName": "string",
+            "Region": "string"
         }
     }
 }

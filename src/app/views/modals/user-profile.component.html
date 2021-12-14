@@ -1,7 +1,7 @@
 <div class="container">
   <div class="side">
     <div *ngIf="ready; else sideloader">
-      <div class="profile-image-container">
+      <div class="profile-image-container" (click)="fileUpload.click()">
         <img class="profile-image" src="../assets/images/person.svg" />
         <img
           class="profile-image placeholder"
@@ -9,6 +9,14 @@
         />
       </div>
       <span>{{ email }}</span>
+
+      <input
+        type="file"
+        class="file-input"
+        (change)="onProfileImageChange($event)"
+        accept="image/png, image/jpeg"
+        #fileUpload
+      />
     </div>
 
     <ng-template #sideloader>

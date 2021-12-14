@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Auth from '@aws-amplify/auth';
+import Storage from '@aws-amplify/storage';
 
 @Component({
   selector: 'app-user-profile',
@@ -79,5 +80,16 @@ export class UserProfileComponent implements OnInit {
     day = day.length > 1 ? day : '0' + day;
 
     return month + '/' + day + '/' + year;
+  }
+
+  async onProfileImageChange(e): Promise<void> {
+    const file = e.target.files[0];
+    console.log('uploading..');
+    try {
+      await Storage.put('profile', file, { level: 'protected' });
+      console.log('done');
+    } catch (error) {
+      console.log('Error uploading file: ', error);
+    }
   }
 }

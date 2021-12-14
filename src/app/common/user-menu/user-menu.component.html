@@ -1,5 +1,5 @@
 <div class="container">
-  <span>{{ user.attributes.given_name }}</span>
+  <span>{{ user.attributes.given_name || user.attributes.email }}</span>
 
   <img
     class="profile-image"

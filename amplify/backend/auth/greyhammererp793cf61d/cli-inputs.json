@@ -1,10 +1,12 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "resourceNameTruncated": "greyhaf1204e2a",
-    "userPoolName": "greyhammererpf1204e2a_userpool_f1204e2a",
+    "identityPoolName": "greyhammererp793cf61d_identitypool_793cf61d",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "greyha793cf61d",
+    "userPoolName": "greyhammererp793cf61d_userpool_793cf61d",
     "autoVerifiedAttributes": [
-      "phone_number"
+      "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -18,9 +20,7 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email",
-      "family_name",
-      "given_name"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
@@ -31,28 +31,17 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "greyhaf1204e2a_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "greyha793cf61d_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "f1204e2a",
-    "resourceName": "greyhammererpf1204e2af1204e2a",
-    "authSelections": "userPoolOnly",
-    "useDefault": "manual",
+    "sharedId": "793cf61d",
+    "resourceName": "greyhammererp793cf61d",
+    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "default",
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroups": true,
-    "adminQueries": false,
     "triggers": {},
-    "hostedUI": false,
-    "userPoolGroupList": [
-      "admin",
-      "operation",
-      "accounting",
-      "SE",
-      "QS",
-      "CE",
-      "procurement"
-    ],
+    "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
