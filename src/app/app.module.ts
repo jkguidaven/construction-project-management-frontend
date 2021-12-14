@@ -35,6 +35,9 @@ import { UserProfileComponent } from './views/modals/user-profile.component';
 import { ChangePasswordComponent } from './views/modals/change-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { reducers, metaReducers } from './reducers';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -68,6 +71,11 @@ Amplify.configure(awsconfig);
     MatDatepickerModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    StoreModule.forRoot(reducers, { metaReducers }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "greyhammer-construction-erp-system"
+  "defaultProject": "greyhammer-construction-erp-system",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
