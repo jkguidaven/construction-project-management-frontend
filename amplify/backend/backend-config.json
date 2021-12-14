@@ -43,5 +43,13 @@
         ]
       }
     }
+  },
+  "storage": {
+    "greyhammererpeab0d71b": {
+      "service": "S3",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }
