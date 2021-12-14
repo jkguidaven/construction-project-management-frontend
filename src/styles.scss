@@ -49,6 +49,8 @@ body {
 }
 body {
   margin: 0;
+  position: absolute;
+  width: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -72,4 +74,8 @@ amplify-authenticator {
   --grey-color-2: rgba(159, 162, 180, 0.08);
   --red-color: red;
   --spacing: 16px;
+}
+
+.profile-modal .mat-dialog-container {
+  padding: 0;
 }

@@ -1,1 +1,75 @@
-<p>user-profile works!</p>
+<div class="container">
+  <div class="side">
+    <div *ngIf="ready; else sideloader">
+      <img
+        class="profile-image"
+        src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+      />
+      <span>{{ email }}</span>
+    </div>
+
+    <ng-template #sideloader>
+      <ngx-skeleton-loader
+        [theme]="{ width: '100px', height: '100px', margin: '16px' }"
+        appearance="circle"
+      ></ngx-skeleton-loader>
+    </ng-template>
+  </div>
+  <div class="main">
+    <h1>User Profile</h1>
+
+    <div *ngIf="ready; else loader">
+      <form [formGroup]="form">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstname" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastname" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Birthdate</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="birthdate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone" />
+        </mat-form-field>
+      </form>
+
+      <div class="actions">
+        <button mat-flat-button (click)="dismiss()">Cancel</button>
+        <button
+          mat-flat-button
+          type="submit"
+          color="primary"
+          [disabled]="!form.valid"
+          (click)="onSubmit()"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+
+    <ng-template #loader>
+      <ngx-skeleton-loader
+        count="4"
+        [theme]="{ height: '50px', margin: '16px 0' }"
+        animation="progress"
+      ></ngx-skeleton-loader>
+    </ng-template>
+  </div>
+</div>

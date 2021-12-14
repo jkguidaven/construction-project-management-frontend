@@ -21,9 +21,12 @@ export class AppComponent {
     });
   }
 
-  viewProfile(profile: any): void {
+  viewProfile(): void {
     const dialogRef = this.dialog.open(UserProfileComponent, {
-      data: profile,
+      maxWidth: '800px',
+      width: '100%',
+      panelClass: 'profile-modal',
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(() => {

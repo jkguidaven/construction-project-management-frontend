@@ -14,6 +14,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+/* Other 3rd party library */
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 /* Add Amplify imports */
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
@@ -29,6 +34,7 @@ import { UserMenuComponent } from './common/user-menu/user-menu.component';
 import { UserProfileComponent } from './views/modals/user-profile.component';
 import { ChangePasswordComponent } from './views/modals/change-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -58,6 +64,10 @@ Amplify.configure(awsconfig);
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgxSkeletonLoaderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
