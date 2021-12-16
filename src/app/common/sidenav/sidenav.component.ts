@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import Auth from '@aws-amplify/auth';
 
 @Component({
   selector: 'app-sidenav',
@@ -10,9 +11,18 @@ export class SidenavComponent implements OnInit {
   @Input() expand: boolean = false;
   @Output() expandChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  groups: any[];
+
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadRolesAndMenu();
+  }
+
+  async loadRolesAndMenu(): Promise<void> {
+    const user = await Auth.currentAuthenticatedUser();
+    this.groups = user.signInUserSession.accessToken.payload['cognito:groups'];
+  }
 
   toggle(): void {
     this.expandChange.emit(!this.expand);

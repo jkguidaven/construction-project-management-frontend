@@ -21,7 +21,15 @@
         (signout)="signOut()"
       >
       </app-user-menu>
-      <router-outlet></router-outlet>
+      <router-outlet *ngIf="hasGroup(user); else noGroup"></router-outlet>
+
+      <ng-template #noGroup>
+        <div class="no-group-message">
+          <img src="../assets/images/no-access.png" />
+          It appears you are not assigned to a group. Please contact your
+          administrator.
+        </div>
+      </ng-template>
     </app-main-layout>
   </ng-template>
 </amplify-authenticator>

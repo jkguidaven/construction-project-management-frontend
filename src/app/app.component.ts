@@ -33,4 +33,10 @@ export class AppComponent {
       // TO-DO
     });
   }
+
+  hasGroup(user: any): boolean {
+    return Boolean(
+      user.signInUserSession.accessToken.payload['cognito:groups']
+    );
+  }
 }
