@@ -1,1 +1,35 @@
-<p>dashboard works!</p>
+<app-page-layout title="Dashboard">
+
+  <div class="quick-stats-box">
+    <app-card>
+      <h1 class="label">Draft</h1>
+      <h1 class="value">0</h1>
+    </app-card>
+    <app-card>
+      <h1 class="label">Active</h1>
+      <h1 class="value">0</h1>
+    </app-card>
+    <app-card>
+      <h1 class="label">Overdue</h1>
+      <h1 class="value">0</h1>
+    </app-card>
+    <app-card>
+      <h1 class="label">Completed</h1>
+      <h1 class="value">0</h1>
+    </app-card>
+  </div>
+
+  <app-card >
+    <h1>Projects Chart</h1>
+
+    <div class="chart-container" #chartContainerRef>
+      <ngx-charts-pie-chart
+        [view]="[chartContainerRef.offsetWidth - 32, chartContainerRef.offsetHeight]"
+        [results]="projectData"
+        [legend]="false"
+        [labels]="true"
+      >
+      </ngx-charts-pie-chart>
+    </div>
+  </app-card>
+</app-page-layout>

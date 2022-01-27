@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 /* Other 3rd party library */
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 /* Add Amplify imports */
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
@@ -38,6 +39,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './reducers';
+import { PageComponent } from './layouts/page/page.component';
+import { CardComponent } from './common/card/card.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -52,6 +55,8 @@ Amplify.configure(awsconfig);
     UserMenuComponent,
     UserProfileComponent,
     ChangePasswordComponent,
+    PageComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +76,7 @@ Amplify.configure(awsconfig);
     MatDatepickerModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
+    NgxChartsModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

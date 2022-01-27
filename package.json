@@ -23,6 +23,7 @@
     "@aws-amplify/ui-angular": "^2.0.2",
     "@ngrx/store": "^13.0.1",
     "@ngrx/store-devtools": "^13.0.2",
+    "@swimlane/ngx-charts": "^20.0.1",
     "aws-amplify": "^4.3.8",
     "ngx-skeleton-loader": "^4.0.0",
     "rxjs": "~7.4.0",
