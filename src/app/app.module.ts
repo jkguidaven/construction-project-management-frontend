@@ -41,6 +41,7 @@ import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './reducers';
 import { PageComponent } from './layouts/page/page.component';
 import { CardComponent } from './common/card/card.component';
+import { DataTableComponent } from './common/data-table/data-table.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -57,6 +58,7 @@ Amplify.configure(awsconfig);
     ChangePasswordComponent,
     PageComponent,
     CardComponent,
+    DataTableComponent,
   ],
   imports: [
     BrowserModule,

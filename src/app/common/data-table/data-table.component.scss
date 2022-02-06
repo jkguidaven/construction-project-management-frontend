@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+  border-spacing: 0;
+
+  tr {
+    td, th {
+      padding: var(--spacing);
+      border-bottom: 1px solid var(--grey-color-5)!important;
+    }
+
+    th {
+      color: var(--grey-color-1);
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}
+
+::ng-deep app-card .container {
+  padding: 0!important;
+}

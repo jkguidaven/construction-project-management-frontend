@@ -1,0 +1,32 @@
+<app-card>
+  <table>
+    <thead>
+      <tr>
+        <th
+          *ngFor="let column of columns"
+          [attr.width]="column.width === undefined ? null : column.width"
+          [attr.align]="column.headerAlign ?? 'left'"
+        >
+          {{ column.label }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td
+          *ngFor="let column of columns"
+        >
+          {{ column.id }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          *ngFor="let column of columns"
+        >
+          {{ column.id }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-card>
