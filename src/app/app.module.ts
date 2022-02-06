@@ -42,6 +42,8 @@ import { reducers, metaReducers } from './reducers';
 import { PageComponent } from './layouts/page/page.component';
 import { CardComponent } from './common/card/card.component';
 import { DataTableComponent } from './common/data-table/data-table.component';
+import { AddProjectComponent } from './views/projects/add.component';
+import { ProjectListComponent } from './views/projects/list.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -59,6 +61,8 @@ Amplify.configure(awsconfig);
     PageComponent,
     CardComponent,
     DataTableComponent,
+    AddProjectComponent,
+    ProjectListComponent,
   ],
   imports: [
     BrowserModule,

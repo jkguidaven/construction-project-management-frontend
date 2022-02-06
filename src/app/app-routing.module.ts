@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './views/dashboard.component';
 import { ProjectsComponent } from './views/projects.component';
+import { AddProjectComponent } from './views/projects/add.component';
+import { ProjectListComponent } from './views/projects/list.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,16 @@ const routes: Routes = [
   {
     path: 'projects',
     component: ProjectsComponent,
+    children: [
+      {
+        path: '',
+        component: ProjectListComponent,
+      },
+      {
+        path: 'new',
+        component: AddProjectComponent,
+      }
+    ]
   },
 ];
 
