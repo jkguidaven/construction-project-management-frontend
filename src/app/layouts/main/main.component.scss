@@ -16,5 +16,8 @@
     flex-grow: 1;
     padding: var(--spacing);
     background-color: var(--grey-color-3);
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }

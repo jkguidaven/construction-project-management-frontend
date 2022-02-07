@@ -1,8 +1,16 @@
+:host {
+  display: block;
+  margin-bottom: var(--spacing);
 
-.container {
-  box-sizing: border-box;
-  padding: var(--spacing);
-  border: 1px solid  var(--grey-color-4);
-  border-radius: var(--border-radius);
-  background-color: var(--white-color);
+  .container {
+    box-sizing: border-box;
+    padding: var(--spacing);
+    border: 1px solid  var(--grey-color-4);
+    border-radius: var(--border-radius);
+    background-color: var(--white-color);
+
+    &.padless {
+      padding: 0!important;
+    }
+  }
 }

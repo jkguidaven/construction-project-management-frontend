@@ -1,1 +1,99 @@
-<p>add works!</p>
+<form>
+  <app-card>
+    <h1>Project Details</h1>
+
+    <h2>Project Information</h2>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Project Name</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row description="Input information of the project and requirements.">
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </app-form-row>
+
+
+    <h2>Customer Information</h2>
+
+    <app-form-row description="Select existing customer, otherwise input new customer details.">
+      <mat-form-field appearance="outline">
+        <mat-label>Customer</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </app-form-row>
+
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Full name</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </app-form-row>
+
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Address 1</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Address 2</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <div class="city-info-box">
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Postal</mat-label>
+          <input matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Province</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+    </app-form-row>
+
+
+    <app-form-row>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput />
+        </mat-form-field>
+    </app-form-row>
+  </app-card>
+
+  <app-card>
+    <h1>Project Requirements</h1>
+
+    <h2>Architectural Design</h2>
+
+    <app-form-row description="If customer has existing design please attached design documents.">
+      <mat-form-field appearance="outline">
+        <mat-label>Has existing design?</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </app-form-row>
+  </app-card>
+</form>
