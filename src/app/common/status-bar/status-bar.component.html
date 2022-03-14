@@ -1,0 +1,20 @@
+<div
+  class="status-bar-item"
+  *ngFor="let item of items; let i = index; let first = first; let last = last"
+  [ngClass]="{
+    done: i < completed,
+    active: i === completed
+  }"
+  [ngStyle]="{
+    'z-index': items.length - i
+  }"
+>
+  <div *ngIf="!first" class="triangle-left-base"></div>
+  <div *ngIf="!first" class="triangle-left"></div>
+
+  <h1>{{ item.label }}</h1>
+  <h2>{{ item.sub }}</h2>
+
+  <div *ngIf="!last" class="triangle-right-base"></div>
+  <div *ngIf="!last" class="triangle-right"></div>
+</div>

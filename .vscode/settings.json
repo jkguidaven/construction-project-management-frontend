@@ -1,0 +1,16 @@
+{
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "prettier.printWidth": 120,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  }
+}
