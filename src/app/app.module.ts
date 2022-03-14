@@ -47,6 +47,7 @@ import { ProjectListComponent } from './views/projects/list.component';
 import { ViewProjectComponent } from './views/projects/view.component';
 import { FormRowComponent } from './common/form/row.component';
 import { StatusBarComponent } from './common/status-bar/status-bar.component';
+import { AttachmentCardComponent } from './common/attachment-card/attachment-card.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -69,6 +70,7 @@ Amplify.configure(awsconfig);
     FormRowComponent,
     ViewProjectComponent,
     StatusBarComponent,
+    AttachmentCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,95 @@
 <app-status-bar [items]="statusBarItems" [completed]="1"></app-status-bar>
-<p>view works!</p>
 
+<app-card>
+  <h1>Project Details</h1>
+
+  <h2>Project Information</h2>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Project Name</mat-label>
+      <input matInput disabled />
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row
+    description="Input information of the project and requirements."
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput disabled></textarea>
+    </mat-form-field>
+  </app-form-row>
+
+  <h2>Customer Information</h2>
+
+  <app-form-row
+    description="Select existing customer, otherwise input new customer details."
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Customer</mat-label>
+      <input matInput disabled />
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Full name</mat-label>
+      <input matInput disabled />
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Address 1</mat-label>
+      <textarea matInput disabled></textarea>
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Address 2</mat-label>
+      <textarea matInput disabled></textarea>
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <div class="city-info-box">
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput disabled />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Postal</mat-label>
+        <input matInput disabled />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Province</mat-label>
+        <input matInput disabled />
+      </mat-form-field>
+    </div>
+  </app-form-row>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput disabled />
+    </mat-form-field>
+  </app-form-row>
+</app-card>
+
+<app-card>
+  <h1>Attachments</h1>
+
+  <div class="attachment-list">
+    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
+    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
+  </div>
+</app-card>

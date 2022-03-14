@@ -76,7 +76,7 @@ amplify-authenticator {
   --grey-color-4: #e5e5e5;
   --grey-color-5: #e0e4ec;
   --white-color: #fff;
-  --green-color: #1BB55C;
+  --green-color: #1bb55c;
   --red-color: red;
   --spacing: 16px;
   --border-radius: 5px;
@@ -84,4 +84,17 @@ amplify-authenticator {
 
 .profile-modal .mat-dialog-container {
   padding: 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.city-info-box {
+  display: flex;
+  flex-direction: row;
+
+  :nth-child(2) {
+    margin: 0 var(--spacing);
+  }
 }

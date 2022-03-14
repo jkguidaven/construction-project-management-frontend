@@ -1,0 +1,11 @@
+app-card {
+  margin: 16px 0 0;
+
+  .attachment-list {
+    display: flex;
+
+    > * {
+      margin: var(--spacing);
+    }
+  }
+}
