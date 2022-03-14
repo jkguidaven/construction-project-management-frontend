@@ -4,6 +4,7 @@ import { DashboardComponent } from './views/dashboard.component';
 import { ProjectsComponent } from './views/projects.component';
 import { AddProjectComponent } from './views/projects/add.component';
 import { ProjectListComponent } from './views/projects/list.component';
+import { ViewProjectComponent } from './views/projects/view.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'new',
         component: AddProjectComponent,
+      },
+      {
+        path: ':id',
+        component: ViewProjectComponent,
       }
     ]
   },

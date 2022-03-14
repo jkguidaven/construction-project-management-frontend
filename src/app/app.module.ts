@@ -44,6 +44,7 @@ import { CardComponent } from './common/card/card.component';
 import { DataTableComponent } from './common/data-table/data-table.component';
 import { AddProjectComponent } from './views/projects/add.component';
 import { ProjectListComponent } from './views/projects/list.component';
+import { ViewProjectComponent } from './views/projects/view.component';
 import { FormRowComponent } from './common/form/row.component';
 
 /* Configure Amplify resources */
@@ -65,6 +66,7 @@ Amplify.configure(awsconfig);
     AddProjectComponent,
     ProjectListComponent,
     FormRowComponent,
+    ViewProjectComponent,
   ],
   imports: [
     BrowserModule,
