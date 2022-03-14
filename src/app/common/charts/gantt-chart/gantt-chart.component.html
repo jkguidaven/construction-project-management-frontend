@@ -1,0 +1,21 @@
+<div class="content">
+  <div class="divider">
+    <div class="year-divider" *ngFor="let section of sections">
+      <div class="month-divider">
+        <span *ngFor="let sub of section.sub"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="heading">
+    <div class="year-heading" *ngFor="let section of sections">
+      <div class="month-heading">
+        <span *ngFor="let sub of section.sub">
+          {{ getMonthString(sub) }}
+        </span>
+      </div>
+
+      <span>{{ section.label }}</span>
+    </div>
+  </div>
+</div>

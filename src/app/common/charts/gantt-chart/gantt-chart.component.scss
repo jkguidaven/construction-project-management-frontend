@@ -1,0 +1,60 @@
+$width-per-section: 200px;
+
+.content {
+  height: 500px;
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+
+  .divider {
+    display: flex;
+    flex-grow: 1;
+
+    .year-divider {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+
+      .month-divider {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        span {
+          border-left: 1px solid rgb(230, 230, 230);
+          width: $width-per-section;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .data {
+    height: 500px;
+    width: 100%;
+  }
+}
+
+.heading {
+  display: flex;
+  background-color: white;
+
+  .year-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7rem;
+    color: rgb(180, 180, 180);
+
+    .month-heading {
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+
+      span {
+        width: $width-per-section;
+        font-size: 0.9rem;
+        color: rgb(109, 109, 109);
+      }
+    }
+  }
+}

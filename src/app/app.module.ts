@@ -49,6 +49,8 @@ import { ViewProjectComponent } from './views/projects/view.component';
 import { FormRowComponent } from './common/form/row.component';
 import { StatusBarComponent } from './common/status-bar/status-bar.component';
 import { AttachmentCardComponent } from './common/attachment-card/attachment-card.component';
+import { GanttChartComponent } from './common/charts/gantt-chart/gantt-chart.component';
+import { ViewProjectScheduleComponent } from './views/projects/view-project-schedule.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -72,6 +74,8 @@ Amplify.configure(awsconfig);
     ViewProjectComponent,
     StatusBarComponent,
     AttachmentCardComponent,
+    GanttChartComponent,
+    ViewProjectScheduleComponent,
   ],
   imports: [
     BrowserModule,
