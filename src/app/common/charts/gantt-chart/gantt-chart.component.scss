@@ -1,7 +1,5 @@
-$width-per-section: 200px;
-
 .content {
-  height: 500px;
+  height: 600px;
   padding: var(--spacing);
   display: flex;
   flex-direction: column;
@@ -21,39 +19,58 @@ $width-per-section: 200px;
         height: 100%;
         span {
           border-left: 1px solid rgb(230, 230, 230);
-          width: $width-per-section;
           height: 100%;
         }
       }
     }
   }
 
-  .data {
-    height: 500px;
-    width: 100%;
-  }
-}
-
-.heading {
-  display: flex;
-  background-color: white;
-
-  .year-heading {
+  .heading {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.7rem;
-    color: rgb(180, 180, 180);
+    background-color: white;
 
-    .month-heading {
+    .year-heading {
       display: flex;
-      flex-direction: row;
-      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      color: rgb(180, 180, 180);
 
-      span {
-        width: $width-per-section;
-        font-size: 0.9rem;
-        color: rgb(109, 109, 109);
+      .month-heading {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+
+        span {
+          font-size: 0.9rem;
+          color: rgb(109, 109, 109);
+        }
+      }
+    }
+  }
+
+  .data {
+    height: 550px;
+    margin-bottom: -500px;
+    width: 100%;
+    max-height: 550px;
+    overflow: auto;
+
+    .task {
+      display: flex;
+      margin: var(--spacing) 0;
+      position: relative;
+      min-height: 50px;
+
+      .task-item {
+        color: white;
+        padding: var(--spacing);
+        border-radius: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: absolute;
+        box-sizing: border-box;
+        white-space: nowrap;
       }
     }
   }

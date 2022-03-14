@@ -45,7 +45,6 @@ export class ViewProjectScheduleComponent implements OnInit {
             },
           ],
         },
-        ,
         {
           id: 1,
           label: 'Backfilling',
@@ -56,13 +55,13 @@ export class ViewProjectScheduleComponent implements OnInit {
               progress: 0,
             },
             {
-              from: new Date(2022, 4, 1),
-              to: new Date(2022, 4, 16),
+              from: new Date(2022, 4, 2),
+              to: new Date(2022, 4, 18),
               progress: 0,
             },
             {
-              from: new Date(2022, 4, 16),
-              to: new Date(2022, 5, 16),
+              from: new Date(2022, 4, 21),
+              to: new Date(2022, 6, 17),
               progress: 0,
             },
           ],

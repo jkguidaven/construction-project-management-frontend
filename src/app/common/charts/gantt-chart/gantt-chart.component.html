@@ -1,8 +1,31 @@
 <div class="content">
+  <div class="data">
+    <div class="group" *ngFor="let group of tasks">
+      {{ group.label }}
+
+      <div class="task" *ngFor="let task of group.tasks; let i = index">
+        <div
+          class="task-item"
+          *ngFor="let item of task.dates; let ti = index"
+          [ngStyle]="{
+            'background-color': getTaskColor(i),
+            left: getTaskPosByDate(item.from, dividerGap) + 'px',
+            width: getTaskWidth(item, dividerGap) + 'px'
+          }"
+        >
+          {{ task.label }} P{{ ti + 1 }}
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="divider">
     <div class="year-divider" *ngFor="let section of sections">
       <div class="month-divider">
-        <span *ngFor="let sub of section.sub"></span>
+        <span
+          *ngFor="let sub of section.sub"
+          [ngStyle]="{ width: dividerGap + 'px' }"
+        ></span>
       </div>
     </div>
   </div>
@@ -10,7 +33,10 @@
   <div class="heading">
     <div class="year-heading" *ngFor="let section of sections">
       <div class="month-heading">
-        <span *ngFor="let sub of section.sub">
+        <span
+          *ngFor="let sub of section.sub"
+          [ngStyle]="{ width: dividerGap + 'px' }"
+        >
           {{ getMonthString(sub) }}
         </span>
       </div>

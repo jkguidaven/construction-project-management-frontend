@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 export interface GroupTask {
   label: string;
@@ -27,6 +28,16 @@ export class GanttChartComponent implements OnInit {
   @Input() endDate: Date;
   @Input() tasks: GroupTask[];
 
+  dividerGap: number = 200;
+
+  @Input() colorScheme: string[] = [
+    '#2DB6F5',
+    '#FFC107',
+    '#FF8A65',
+    '#E289F2',
+    '#39C86A',
+  ];
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -46,6 +57,45 @@ export class GanttChartComponent implements OnInit {
       'NOV',
       'DEC',
     ][month];
+  }
+
+  getTaskColor(index: number): string {
+    return this.colorScheme[index % this.colorScheme.length];
+  }
+
+  getTaskPosByDate(from: Date, size: number): number {
+    const year = from.getFullYear();
+    const month = from.getMonth();
+    const day = from.getDay() + 1;
+    const sections = this.sections;
+
+    const daysInMonth = moment(`${year}-${month}`, 'YYYY-MM').daysInMonth();
+    let i = 0;
+
+    for (let section of sections) {
+      if (section.label === year) {
+        for (let sub of section.sub) {
+          if (sub === month) {
+            break;
+          } else {
+            i++;
+          }
+        }
+
+        break;
+      } else {
+        i += section.sub.length;
+      }
+    }
+
+    const offset = (size / daysInMonth) * day;
+    return i * size + offset;
+  }
+
+  getTaskWidth(task: TaskDuration, size: number): number {
+    const start = this.getTaskPosByDate(task.from, size);
+    const end = this.getTaskPosByDate(task.to, size);
+    return end - start;
   }
 
   get sections() {
