@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTabsModule } from '@angular/material/tabs';
 
 /* Other 3rd party library */
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -88,6 +89,7 @@ Amplify.configure(awsconfig);
     MatButtonModule,
     MatDividerModule,
     MatDatepickerModule,
+    MatTabsModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
     NgxChartsModule,
