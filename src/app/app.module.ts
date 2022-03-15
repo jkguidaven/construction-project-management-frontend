@@ -52,6 +52,8 @@ import { AttachmentCardComponent } from './common/attachment-card/attachment-car
 import { GanttChartComponent } from './common/charts/gantt-chart/gantt-chart.component';
 import { ViewProjectScheduleComponent } from './views/projects/view-project-schedule.component';
 import { TasksComponent } from './views/tasks.component';
+import { TaskListComponent } from './views/tasks/list.component';
+import { TaskDetailsComponent } from './views/tasks/details.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -78,6 +80,8 @@ Amplify.configure(awsconfig);
     GanttChartComponent,
     ViewProjectScheduleComponent,
     TasksComponent,
+    TaskListComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     BrowserModule,

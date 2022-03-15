@@ -6,6 +6,8 @@ import { AddProjectComponent } from './views/projects/add.component';
 import { ProjectListComponent } from './views/projects/list.component';
 import { ViewProjectComponent } from './views/projects/view.component';
 import { TasksComponent } from './views/tasks.component';
+import { TaskDetailsComponent } from './views/tasks/details.component';
+import { TaskListComponent } from './views/tasks/list.component';
 
 const routes: Routes = [
   {
@@ -38,6 +40,16 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: TasksComponent,
+    children: [
+      {
+        path: '',
+        component: TaskListComponent,
+      },
+      {
+        path: ':id',
+        component: TaskDetailsComponent,
+      },
+    ],
   },
 ];
 
