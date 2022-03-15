@@ -33,6 +33,7 @@ export class SidenavComponent implements OnInit {
     return [
       { label: 'Dashboard', icon: 'home', link: '/dashboard' },
       { label: 'Projects', icon: 'dashboard', link: '/projects' },
+      { label: 'Tasks', icon: 'assignment', link: '/tasks' },
     ];
   }
 
