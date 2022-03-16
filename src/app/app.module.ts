@@ -54,6 +54,12 @@ import { ViewProjectScheduleComponent } from './views/projects/view-project-sche
 import { TasksComponent } from './views/tasks.component';
 import { TaskListComponent } from './views/tasks/list.component';
 import { TaskDetailsComponent } from './views/tasks/details.component';
+import { DesignTaskComponent } from './views/tasks/type/design-task.component';
+import { CostEstimateTaskComponent } from './views/tasks/type/cost-estimate-task.component';
+import { ProcurementTaskComponent } from './views/tasks/type/procurement-task.component';
+import { CostEstimateApprovalTaskComponent } from './views/tasks/type/cost-estimate-approval-task.component';
+import { AccountingApprovalTaskComponent } from './views/tasks/type/accounting-approval-task.component';
+import { StakeholderApprovalTaskComponent } from './views/tasks/type/stakeholder-approval-task.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -82,6 +88,12 @@ Amplify.configure(awsconfig);
     TasksComponent,
     TaskListComponent,
     TaskDetailsComponent,
+    DesignTaskComponent,
+    CostEstimateTaskComponent,
+    ProcurementTaskComponent,
+    CostEstimateApprovalTaskComponent,
+    AccountingApprovalTaskComponent,
+    StakeholderApprovalTaskComponent,
   ],
   imports: [
     BrowserModule,
