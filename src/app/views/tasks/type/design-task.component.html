@@ -1,1 +1,20 @@
-<p>design-task works!</p>
+<app-card>
+  <h1>Task</h1>
+  <app-form-row
+    description="Select status if ‘For Architectural Drawing’, ‘Waiting for Client’s approval’ or ‘Completed’"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <input matInput />
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <app-upload-file-dropbox></app-upload-file-dropbox>
+  </app-form-row>
+</app-card>
+
+<app-action-panel>
+  <button mat-raised-button>Save Progress</button>
+  <button mat-raised-button color="primary">Mark as Complete</button>
+</app-action-panel>

@@ -1,0 +1,26 @@
+<div class="drop-area" appUploadFileDropbox (drop)="onFileUpload($event)">
+  <mat-icon>save_alt</mat-icon>
+  Drag File to Upload
+</div>
+
+<div class="upload-info-box">
+  <h1>Uploading</h1>
+
+  <ul class="file-list">
+    <li *ngFor="let file of files">
+      <div class="label">
+        <mat-icon>{{
+          isImageFile(file) ? "image" : "insert_drive_file"
+        }}</mat-icon>
+        <span>{{ file.name }}</span>
+
+        <span class="spacer"></span>
+        <mat-icon>close</mat-icon>
+      </div>
+
+      <mat-progress-bar color="primary" mode="determinate" [value]="100">
+      </mat-progress-bar>
+      Completed
+    </li>
+  </ul>
+</div>
