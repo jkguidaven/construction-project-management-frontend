@@ -67,6 +67,7 @@ import { UploadFileDropboxComponent } from './common/upload-file-dropbox/upload-
 import { UploadFileDropboxDirective } from './common/upload-file-dropbox/upload-file-dropbox.directive';
 import { AddScopeComponent } from './views/modals/add-scope.component';
 import { AddScopeOfWorkTaskComponent } from './views/modals/add-scope-of-work-task.component';
+import { AddScopeOfWorkMaterialComponent } from './views/modals/add-scope-of-work-material.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -106,6 +107,7 @@ Amplify.configure(awsconfig);
     UploadFileDropboxDirective,
     AddScopeComponent,
     AddScopeOfWorkTaskComponent,
+    AddScopeOfWorkMaterialComponent,
   ],
   imports: [
     BrowserModule,

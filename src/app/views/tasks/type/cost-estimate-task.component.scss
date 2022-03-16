@@ -47,4 +47,21 @@ table.task-list {
     cursor: pointer;
     margin-left: var(--spacing);
   }
+
+  .add-material-button {
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+  }
+}
+
+app-action-panel {
+  button {
+    margin-left: calc(var(--spacing) / 2);
+  }
+}
+
+.material-list-container {
+  background-color: transparent !important;
+  padding: 0 !important;
 }

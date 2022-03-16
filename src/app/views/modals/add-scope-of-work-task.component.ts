@@ -34,6 +34,7 @@ export class AddScopeOfWorkTaskComponent implements OnInit {
         name: this.form.get('name').value as string,
         quantity: this.form.get('qty').value,
         unit: this.form.get('unit').value,
+        materials: [],
       };
 
       this.dialogRef.close(task);

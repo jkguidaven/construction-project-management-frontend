@@ -33,15 +33,32 @@
         </mat-expansion-panel-header>
 
         <table class="task-list">
-          <tr *ngFor="let task of scope.tasks; let i = index">
-            <td width="300px">{{ task.name }}</td>
-            <td align="right" width="100px">{{ task.quantity }}</td>
-            <td align="right" width="100px">{{ task.unit }}</td>
-            <td align="right">
-              <mat-icon (click)="editTask(task)">edit</mat-icon>
-              <mat-icon (click)="deleteTask(scope, i)">delete_forever</mat-icon>
-            </td>
-          </tr>
+          <tbody *ngFor="let task of scope.tasks; let i = index">
+            <tr>
+              <td width="300px">
+                {{ task.name }}
+              </td>
+              <td align="right" width="100px">{{ task.quantity }}</td>
+              <td align="right" width="100px">{{ task.unit }}</td>
+              <td align="right">
+                <mat-icon (click)="editTask(task)">edit</mat-icon>
+                <mat-icon (click)="deleteTask(scope, i)"
+                  >delete_forever</mat-icon
+                >
+              </td>
+            </tr>
+            <tr>
+              <td width="100%" colspan="4" class="material-list-container">
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="showAddMaterialsForm(task)"
+                >
+                  Add Material
+                </button>
+              </td>
+            </tr>
+          </tbody>
         </table>
 
         <button
@@ -55,3 +72,8 @@
     </mat-accordion>
   </ng-template>
 </app-card>
+
+<app-action-panel>
+  <button mat-raised-button>Save Progress</button>
+  <button mat-raised-button color="primary">Mark as Complete</button>
+</app-action-panel>

@@ -4,6 +4,7 @@ import {
   ScopeOfWork,
   ScopeOfWorkTask,
 } from 'src/app/models/scope-of-work.model';
+import { AddScopeOfWorkMaterialComponent } from '../../modals/add-scope-of-work-material.component';
 import { AddScopeOfWorkTaskComponent } from '../../modals/add-scope-of-work-task.component';
 import { AddScopeComponent } from '../../modals/add-scope.component';
 
@@ -57,6 +58,16 @@ export class CostEstimateTaskComponent implements OnInit {
         task.name = data.name;
         task.quantity = data.quantity;
         task.unit = data.unit;
+      }
+    });
+  }
+
+  showAddMaterialsForm(task: ScopeOfWorkTask): void {
+    const dialogRef = this.dialog.open(AddScopeOfWorkMaterialComponent);
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        task.materials.push(data);
       }
     });
   }
