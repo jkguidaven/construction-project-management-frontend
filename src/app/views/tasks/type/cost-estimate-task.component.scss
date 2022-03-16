@@ -55,6 +55,19 @@ table.task-list {
   }
 }
 
+table.material-list {
+  width: 100%;
+  margin-bottom: var(--spacing);
+  border-collapse: separate;
+  border-spacing: 0 2px;
+
+  tr {
+    td {
+      background-color: transparent;
+    }
+  }
+}
+
 app-action-panel {
   button {
     margin-left: calc(var(--spacing) / 2);
