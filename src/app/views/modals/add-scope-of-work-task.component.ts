@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ScopeOfWorkTask } from 'src/app/models/scope-of-work.model';
 
 @Component({
@@ -15,9 +15,18 @@ export class AddScopeOfWorkTaskComponent implements OnInit {
     unit: new FormControl('', []),
   });
 
-  constructor(private dialogRef: MatDialogRef<AddScopeOfWorkTaskComponent>) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ScopeOfWorkTask,
+    private dialogRef: MatDialogRef<AddScopeOfWorkTaskComponent>
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.data) {
+      this.form.get('name').setValue(this.data.name);
+      this.form.get('qty').setValue(this.data.quantity);
+      this.form.get('unit').setValue(this.data.unit);
+    }
+  }
 
   add(): void {
     if (this.form.valid) {

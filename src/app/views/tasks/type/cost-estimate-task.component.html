@@ -33,11 +33,14 @@
         </mat-expansion-panel-header>
 
         <table class="task-list">
-          <tr *ngFor="let task of scope.tasks">
+          <tr *ngFor="let task of scope.tasks; let i = index">
             <td width="300px">{{ task.name }}</td>
             <td align="right" width="100px">{{ task.quantity }}</td>
             <td align="right" width="100px">{{ task.unit }}</td>
-            <td></td>
+            <td align="right">
+              <mat-icon (click)="editTask(task)">edit</mat-icon>
+              <mat-icon (click)="deleteTask(scope, i)">delete_forever</mat-icon>
+            </td>
           </tr>
         </table>
 

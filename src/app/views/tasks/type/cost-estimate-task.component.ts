@@ -42,4 +42,22 @@ export class CostEstimateTaskComponent implements OnInit {
       }
     });
   }
+
+  deleteTask(scope: ScopeOfWork, index: number): void {
+    scope.tasks.splice(index, 1);
+  }
+
+  editTask(task: ScopeOfWorkTask): void {
+    const dialogRef = this.dialog.open(AddScopeOfWorkTaskComponent, {
+      data: task,
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        task.name = data.name;
+        task.quantity = data.quantity;
+        task.unit = data.unit;
+      }
+    });
+  }
 }

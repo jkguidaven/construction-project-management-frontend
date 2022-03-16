@@ -42,4 +42,9 @@ table.task-list {
       border-bottom-right-radius: 5px;
     }
   }
+
+  mat-icon {
+    cursor: pointer;
+    margin-left: var(--spacing);
+  }
 }
