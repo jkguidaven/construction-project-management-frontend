@@ -26,10 +26,28 @@
         *ngFor="let scope of scopes"
       >
         <mat-expansion-panel-header>
-          <mat-panel-title
-            ><h2>{{ scope.name }}</h2></mat-panel-title
-          >
+          <mat-panel-title>
+            <mat-icon>folder</mat-icon>
+            {{ scope.name }}
+          </mat-panel-title>
         </mat-expansion-panel-header>
+
+        <table class="task-list">
+          <tr *ngFor="let task of scope.tasks">
+            <td width="300px">{{ task.name }}</td>
+            <td align="right" width="100px">{{ task.quantity }}</td>
+            <td align="right" width="100px">{{ task.unit }}</td>
+            <td></td>
+          </tr>
+        </table>
+
+        <button
+          mat-button
+          color="primary"
+          (click)="showAddScopeWorkForm(scope)"
+        >
+          Add new task
+        </button>
       </mat-expansion-panel>
     </mat-accordion>
   </ng-template>

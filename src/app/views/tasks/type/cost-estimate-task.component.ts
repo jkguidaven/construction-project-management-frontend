@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
+import {
+  ScopeOfWork,
+  ScopeOfWorkTask,
+} from 'src/app/models/scope-of-work.model';
+import { AddScopeOfWorkTaskComponent } from '../../modals/add-scope-of-work-task.component';
 import { AddScopeComponent } from '../../modals/add-scope.component';
 
 @Component({
@@ -23,6 +27,18 @@ export class CostEstimateTaskComponent implements OnInit {
     dialogRef.afterClosed().subscribe((data: ScopeOfWork) => {
       if (data) {
         this.scopes.push(data);
+      }
+    });
+  }
+
+  showAddScopeWorkForm(scope: ScopeOfWork): void {
+    const dialogRef = this.dialog.open(AddScopeOfWorkTaskComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((data: ScopeOfWorkTask) => {
+      if (data) {
+        scope.tasks.push(data);
       }
     });
   }
