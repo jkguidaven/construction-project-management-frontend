@@ -1,0 +1,15 @@
+<h1>Add Scope</h1>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Scope Name</mat-label>
+    <input matInput formControlName="name" (keyup.enter)="add()" />
+  </mat-form-field>
+</form>
+
+<div class="action-panel">
+  <button mat-button>Cancel</button>
+  <button mat-button color="primary" (click)="add()" [disabled]="!form.valid">
+    Add
+  </button>
+</div>

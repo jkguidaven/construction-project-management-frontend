@@ -1,1 +1,36 @@
-<p>cost-estimate-task works!</p>
+<app-card>
+  <h1>Attachments</h1>
+
+  <div class="attachment-list">
+    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
+    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
+  </div>
+</app-card>
+
+<app-card>
+  <div class="header">
+    <h1>Scope of Work</h1>
+    <button mat-flat-button color="primary" (click)="showAddScopeForm()">
+      Add Scope
+    </button>
+  </div>
+
+  <div *ngIf="!scopes.length; else list" class="no-scope-message">
+    You have not yet added scope of work.
+  </div>
+
+  <ng-template #list>
+    <mat-accordion multi>
+      <mat-expansion-panel
+        class="mat-elevation-z0"
+        *ngFor="let scope of scopes"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><h2>{{ scope.name }}</h2></mat-panel-title
+          >
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-template>
+</app-card>

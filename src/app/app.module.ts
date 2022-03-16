@@ -18,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 /* Other 3rd party library */
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -64,6 +65,7 @@ import { StakeholderApprovalTaskComponent } from './views/tasks/type/stakeholder
 import { ActionPanelComponent } from './common/action-panel/action-panel.component';
 import { UploadFileDropboxComponent } from './common/upload-file-dropbox/upload-file-dropbox.component';
 import { UploadFileDropboxDirective } from './common/upload-file-dropbox/upload-file-dropbox.directive';
+import { AddScopeComponent } from './views/modals/add-scope.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -101,6 +103,7 @@ Amplify.configure(awsconfig);
     ActionPanelComponent,
     UploadFileDropboxComponent,
     UploadFileDropboxDirective,
+    AddScopeComponent,
   ],
   imports: [
     BrowserModule,
@@ -120,6 +123,7 @@ Amplify.configure(awsconfig);
     MatDatepickerModule,
     MatTabsModule,
     MatProgressBarModule,
+    MatExpansionModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
     NgxChartsModule,
