@@ -41,17 +41,45 @@
               <td align="right"></td>
             </tr>
             <tr>
-              <td width="100%" colspan="4" class="material-list-container">
+              <td colspan="4" class="material-list-container">
                 <table class="material-list">
                   <tr *ngFor="let material of task.materials">
-                    <td width="300px">
+                    <td>
                       {{ material.name }}
                     </td>
-                    <td align="right" width="100px">
+                    <td align="right" class="fixed">
                       {{ material.quantity }}
                     </td>
-                    <td align="right" width="100px">{{ material.unit }}</td>
-                    <td align="right"></td>
+                    <td align="right" class="fixed">{{ material.unit }}</td>
+                    <td align="right" class="fixed">
+                      <span
+                        *ngIf="material.pricePerUnit; else noPrice"
+                        (click)="addPrice(material)"
+                      >
+                        {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
+                        {{ material.unit }}
+                      </span>
+                      <ng-template #noPrice>
+                        <button
+                          mat-button
+                          color="primary"
+                          (click)="addPrice(material)"
+                        >
+                          Add Price
+                        </button>
+                      </ng-template>
+                    </td>
+                    <td align="right" class="fixed">
+                      <b
+                        *ngIf="material.pricePerUnit"
+                        (click)="addPrice(material)"
+                      >
+                        {{
+                          material.pricePerUnit * material.quantity
+                            | currency: "PHP":"symbol"
+                        }}
+                      </b>
+                    </td>
                   </tr>
                 </table>
               </td>

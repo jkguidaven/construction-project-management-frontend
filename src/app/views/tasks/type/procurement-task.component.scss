@@ -46,13 +46,13 @@ table.task-list {
     }
 
     td.fixed {
-      width: 100px;
+      width: 150px;
     }
 
     td:last-child {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
-      width: calc(100% - 500px);
+      width: calc(100% - 600px);
     }
   }
 
@@ -71,19 +71,6 @@ table.task-list {
   }
 }
 
-table.material-list {
-  width: 100%;
-  margin-bottom: var(--spacing);
-  border-collapse: separate;
-  border-spacing: 0 2px;
-
-  tr {
-    td {
-      background-color: transparent;
-    }
-  }
-}
-
 app-action-panel {
   button {
     margin-left: calc(var(--spacing) / 2);
@@ -94,6 +81,29 @@ app-action-panel {
   background-color: transparent !important;
   padding: 0 !important;
   min-height: 0 !important;
+  width: 100% !important;
+
+  table.material-list {
+    width: 100%;
+    margin-bottom: var(--spacing);
+    border-collapse: separate;
+    border-spacing: 0 2px;
+
+    tr {
+      td {
+        background-color: transparent;
+
+        span,
+        b {
+          cursor: pointer;
+        }
+      }
+    }
+
+    td.fixed {
+      width: 150px;
+    }
+  }
 }
 
 ::ng-deep {

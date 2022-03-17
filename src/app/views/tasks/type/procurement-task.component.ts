@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  ScopeOfWork,
+  ScopeOfWorkTaskMaterial,
+} from 'src/app/models/scope-of-work.model';
+import { AddScopeOfWorkMaterialPriceComponent } from '../../modals/add-scope-of-work-material-price.component';
 
 @Component({
   selector: 'app-procurement-task',
@@ -72,7 +77,19 @@ export class ProcurementTaskComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
+
+  addPrice(material: ScopeOfWorkTaskMaterial): void {
+    const dialogRef = this.dialog.open(AddScopeOfWorkMaterialPriceComponent, {
+      data: material,
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        material.pricePerUnit = data.pricePerUnit;
+      }
+    });
+  }
 }
