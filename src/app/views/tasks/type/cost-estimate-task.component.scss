@@ -24,7 +24,7 @@ table.task-list {
   width: 100%;
   margin-bottom: var(--spacing);
   border-collapse: separate;
-  border-spacing: 0 15px;
+  border-spacing: 0 1px;
 
   tr {
     td {
@@ -77,4 +77,10 @@ app-action-panel {
 .material-list-container {
   background-color: transparent !important;
   padding: 0 !important;
+}
+
+::ng-deep {
+  .mat-expansion-panel-body {
+    padding: 0 var(--spacing) !important;
+  }
 }
