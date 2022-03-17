@@ -28,24 +28,40 @@ table.task-list {
 
   tr {
     td {
-      padding: var(--spacing);
+      padding: calc(var(--spacing) - 3px);
+      display: inline-block;
       background-color: rgba(lightgrey, 0.3);
+      min-height: 52px;
+      box-sizing: border-box;
     }
 
     td:first-child {
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
+      width: 300px;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    td.fixed {
+      width: 100px;
     }
 
     td:last-child {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
+      width: calc(100% - 500px);
     }
   }
 
   mat-icon {
     cursor: pointer;
-    margin-left: var(--spacing);
+    margin-left: calc(var(--spacing) / 2);
+    width: 20px;
+    height: 20x;
+    font-size: 20px;
   }
 
   .add-material-button {
@@ -77,6 +93,7 @@ app-action-panel {
 .material-list-container {
   background-color: transparent !important;
   padding: 0 !important;
+  min-height: 0 !important;
 }
 
 ::ng-deep {

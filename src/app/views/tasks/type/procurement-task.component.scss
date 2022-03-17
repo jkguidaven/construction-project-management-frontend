@@ -28,7 +28,7 @@ table.task-list {
 
   tr {
     td {
-      padding: var(--spacing);
+      padding: calc(var(--spacing) - 3px);
       display: inline-block;
       background-color: rgba(lightgrey, 0.3);
       min-height: 52px;
@@ -58,7 +58,10 @@ table.task-list {
 
   mat-icon {
     cursor: pointer;
-    margin-left: var(--spacing);
+    margin-left: calc(var(--spacing) / 2);
+    width: 20px;
+    height: 20x;
+    font-size: 20px;
   }
 
   .add-material-button {
