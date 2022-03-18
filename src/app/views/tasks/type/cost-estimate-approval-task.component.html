@@ -1,1 +1,96 @@
 <p>cost-estimate-approval-task works!</p>
+<app-card>
+  <h1>Attachments</h1>
+
+  <div class="attachment-list">
+    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
+    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
+  </div>
+</app-card>
+
+<app-card>
+  <div class="header">
+    <h1>Scope of Work</h1>
+  </div>
+
+  <div *ngIf="!scopes.length; else list" class="no-scope-message">
+    You have not yet added scope of work.
+  </div>
+
+  <ng-template #list>
+    <mat-accordion multi>
+      <mat-expansion-panel
+        class="mat-elevation-z0"
+        *ngFor="let scope of scopes"
+        expanded
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>folder</mat-icon>
+            {{ scope.name }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <table class="task-list">
+          <tbody *ngFor="let task of scope.tasks; let i = index">
+            <tr>
+              <td width="300px">
+                {{ task.name }}
+              </td>
+              <td align="right" class="fixed">{{ task.quantity }}</td>
+              <td align="right" class="fixed">{{ task.unit }}</td>
+              <td align="right" class="fixed">
+                <span *ngIf="task.pricePerUnit">
+                  {{ task.pricePerUnit | currency: "PHP":"symbol" }} /
+                  {{ task.unit }}
+                </span>
+              </td>
+              <td align="right" class="fixed">
+                <span *ngIf="task.pricePerUnit">
+                  {{
+                    task.pricePerUnit * task.quantity | currency: "PHP":"symbol"
+                  }}
+                </span>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="4" class="material-list-container">
+                <table class="material-list">
+                  <tr *ngFor="let material of task.materials">
+                    <td>
+                      {{ material.name }}
+                    </td>
+                    <td align="right" class="fixed">
+                      {{ material.quantity }}
+                    </td>
+                    <td align="right" class="fixed">{{ material.unit }}</td>
+                    <td align="right" class="fixed">
+                      <span *ngIf="material.pricePerUnit">
+                        {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
+                        {{ material.unit }}
+                      </span>
+                    </td>
+                    <td align="right" class="fixed">
+                      <b *ngIf="material.pricePerUnit">
+                        {{
+                          material.pricePerUnit * material.quantity
+                            | currency: "PHP":"symbol"
+                        }}
+                      </b>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-template>
+</app-card>
+
+<app-action-panel>
+  <button mat-raised-button>Save Progress</button>
+  <button mat-raised-button color="primary">Mark as Complete</button>
+</app-action-panel>

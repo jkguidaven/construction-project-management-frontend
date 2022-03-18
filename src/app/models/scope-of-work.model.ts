@@ -7,6 +7,7 @@ export interface ScopeOfWorkTask {
   name: string;
   quantity?: number;
   unit?: string;
+  pricePerUnit?: number;
   materials: ScopeOfWorkTaskMaterial[];
 }
 

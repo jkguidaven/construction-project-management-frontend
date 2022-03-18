@@ -1,0 +1,113 @@
+app-card {
+  margin: 16px 0 0;
+
+  .attachment-list {
+    display: flex;
+
+    > * {
+      margin: var(--spacing);
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing);
+}
+
+mat-icon {
+  margin-right: var(--spacing);
+}
+
+table.task-list {
+  width: 100%;
+  margin-bottom: var(--spacing);
+  border-collapse: separate;
+  border-spacing: 0 1px;
+
+  tr {
+    td {
+      padding: calc(var(--spacing) - 3px);
+      display: inline-block;
+      background-color: rgba(lightgrey, 0.3);
+      min-height: 52px;
+      box-sizing: border-box;
+    }
+
+    td:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      width: 300px;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    td.fixed {
+      width: 150px;
+    }
+
+    td:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      width: calc(100% - 900px);
+    }
+  }
+
+  mat-icon {
+    cursor: pointer;
+    margin-left: calc(var(--spacing) / 2);
+    width: 20px;
+    height: 20x;
+    font-size: 20px;
+  }
+
+  .add-material-button {
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+  }
+}
+
+app-action-panel {
+  button {
+    margin-left: calc(var(--spacing) / 2);
+  }
+}
+
+.material-list-container {
+  background-color: transparent !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  width: 100% !important;
+
+  table.material-list {
+    width: 100%;
+    margin-bottom: var(--spacing);
+    border-collapse: separate;
+    border-spacing: 0 2px;
+
+    tr {
+      td {
+        background-color: transparent;
+
+        span,
+        b {
+          cursor: pointer;
+        }
+      }
+    }
+
+    td.fixed {
+      width: 150px;
+    }
+  }
+}
+
+::ng-deep {
+  .mat-expansion-panel-body {
+    padding: 0 var(--spacing) !important;
+  }
+}
