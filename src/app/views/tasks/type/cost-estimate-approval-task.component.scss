@@ -33,6 +33,13 @@ table.task-list {
       background-color: rgba(lightgrey, 0.3);
       min-height: 52px;
       box-sizing: border-box;
+
+      &.add-subcon-button-container {
+        max-height: 52px;
+        button {
+          margin-top: -5px;
+        }
+      }
     }
 
     td:first-child {

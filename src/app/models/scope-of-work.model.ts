@@ -17,5 +17,6 @@ export interface ScopeOfWorkTaskMaterial {
   quantity: number;
   contingency: number;
   pricePerUnit?: number;
+  subconPricePerUnit?: number;
   supplier?: string;
 }

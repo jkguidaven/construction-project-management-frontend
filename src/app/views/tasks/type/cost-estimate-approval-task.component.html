@@ -41,11 +41,21 @@
               </td>
               <td align="right" class="fixed"></td>
               <td align="right" class="fixed"></td>
-              <td align="right" class="fixed">
-                <span *ngIf="task.subconPricePerUnit">
+              <td align="right" class="fixed add-subcon-button-container">
+                <span *ngIf="task.subconPricePerUnit; else noSubconPrice">
                   {{ task.subconPricePerUnit | currency: "PHP":"symbol" }} /
                   {{ task.unit }}
                 </span>
+
+                <ng-template #noSubconPrice>
+                  <button
+                    mat-button
+                    color="primary"
+                    *ngIf="task.quantity && task.unit"
+                  >
+                    Add subcon budget
+                  </button>
+                </ng-template>
               </td>
               <td align="right" class="fixed">
                 <span *ngIf="task.subconPricePerUnit">
@@ -77,6 +87,39 @@
                       <b *ngIf="material.pricePerUnit">
                         {{
                           material.pricePerUnit * material.quantity
+                            | currency: "PHP":"symbol"
+                        }}
+                      </b>
+                    </td>
+
+                    <td align="right" class="fixed">
+                      <span
+                        *ngIf="
+                          material.subconPricePerUnit;
+                          else noSubconPriceMaterial
+                        "
+                      >
+                        {{
+                          material.subconPricePerUnit | currency: "PHP":"symbol"
+                        }}
+                        /
+                        {{ material.unit }}
+                      </span>
+
+                      <ng-template #noSubconPriceMaterial>
+                        <button
+                          mat-button
+                          color="primary"
+                          *ngIf="!(task.quantity && task.unit)"
+                        >
+                          Add subcon budget
+                        </button>
+                      </ng-template>
+                    </td>
+                    <td align="right" class="fixed">
+                      <b *ngIf="material.subconPricePerUnit">
+                        {{
+                          material.subconPricePerUnit * material.quantity
                             | currency: "PHP":"symbol"
                         }}
                       </b>
