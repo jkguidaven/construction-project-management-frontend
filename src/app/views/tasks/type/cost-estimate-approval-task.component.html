@@ -36,19 +36,23 @@
               <td width="300px">
                 {{ task.name }}
               </td>
-              <td align="right" class="fixed">{{ task.quantity }}</td>
-              <td align="right" class="fixed">{{ task.unit }}</td>
               <td align="right" class="fixed">
-                <span *ngIf="task.pricePerUnit">
-                  {{ task.pricePerUnit | currency: "PHP":"symbol" }} /
+                {{ task.quantity }} {{ task.unit }}
+              </td>
+              <td align="right" class="fixed"></td>
+              <td align="right" class="fixed"></td>
+              <td align="right" class="fixed">
+                <span *ngIf="task.subconPricePerUnit">
+                  {{ task.subconPricePerUnit | currency: "PHP":"symbol" }} /
                   {{ task.unit }}
                 </span>
               </td>
               <td align="right" class="fixed">
-                <span *ngIf="task.pricePerUnit">
-                  {{
-                    task.pricePerUnit * task.quantity | currency: "PHP":"symbol"
-                  }}
+                <span *ngIf="task.subconPricePerUnit">
+                  <b>{{
+                    task.subconPricePerUnit * task.quantity
+                      | currency: "PHP":"symbol"
+                  }}</b>
                 </span>
               </td>
               <td></td>
@@ -61,9 +65,8 @@
                       {{ material.name }}
                     </td>
                     <td align="right" class="fixed">
-                      {{ material.quantity }}
+                      {{ material.quantity }} {{ material.unit }}
                     </td>
-                    <td align="right" class="fixed">{{ material.unit }}</td>
                     <td align="right" class="fixed">
                       <span *ngIf="material.pricePerUnit">
                         {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
@@ -83,7 +86,6 @@
                     <td></td>
                     <td class="fixed"></td>
                     <td class="fixed"></td>
-                    <td class="fixed" align="right"></td>
                     <td class="fixed" align="right">
                       <b style="text-decoration: underline">{{
                         getTotalMaterialCost(task) | currency: "PHP":"symbol"
