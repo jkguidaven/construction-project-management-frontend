@@ -13,18 +13,9 @@
     </thead>
 
     <tbody>
-      <tr>
-        <td
-          *ngFor="let column of columns"
-        >
-          {{ column.id }}
-        </td>
-      </tr>
-      <tr>
-        <td
-          *ngFor="let column of columns"
-        >
-          {{ column.id }}
+      <tr *ngFor="let row of data">
+        <td *ngFor="let column of columns">
+          {{ column.label }}
         </td>
       </tr>
     </tbody>

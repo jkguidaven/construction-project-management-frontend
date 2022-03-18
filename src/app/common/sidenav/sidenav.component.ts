@@ -29,12 +29,14 @@ export class SidenavComponent implements OnInit {
   }
 
   get menuItems(): any[] {
-    // TO-DO should be pulled based from role
-    return [
-      { label: 'Dashboard', icon: 'home', link: '/dashboard' },
-      { label: 'Projects', icon: 'dashboard', link: '/projects' },
-      { label: 'Tasks', icon: 'assignment', link: '/tasks' },
-    ];
+    const list = [{ label: 'Dashboard', icon: 'home', link: '/dashboard' }];
+
+    if (this.groups && this.groups.indexOf('admin') > -1) {
+      list.push({ label: 'Projects', icon: 'dashboard', link: '/projects' });
+    }
+    list.push({ label: 'Tasks', icon: 'assignment', link: '/tasks' });
+
+    return list;
   }
 
   isActiveView(path: string): boolean {
