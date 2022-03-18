@@ -11,14 +11,14 @@
   <ng-template
     amplifySlot="authenticated"
     let-user="user"
-    let-signOut="signOut"
+    let-signOutFunction="signOut"
   >
     <app-main-layout>
       <app-user-menu
         [user]="user"
         (profile)="viewProfile()"
         (changePassword)="changePassword()"
-        (signout)="signOut()"
+        (signout)="signout(signOutFunction)"
       >
       </app-user-menu>
       <router-outlet *ngIf="hasGroup(user); else noGroup"></router-outlet>

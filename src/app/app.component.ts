@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ChangePasswordComponent } from './views/modals/change-password.component';
 import { UserProfileComponent } from './views/modals/user-profile.component';
 
@@ -11,7 +12,7 @@ import { UserProfileComponent } from './views/modals/user-profile.component';
 export class AppComponent {
   title = 'greyhammer-construction-erp-system';
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private router: Router) {}
 
   changePassword(): void {
     this.dialog.open(ChangePasswordComponent, {
@@ -38,5 +39,10 @@ export class AppComponent {
     return Boolean(
       user.signInUserSession.accessToken.payload['cognito:groups']
     );
+  }
+
+  signout(callback: any): void {
+    callback();
+    this.router.navigate(['/']);
   }
 }
