@@ -15,7 +15,12 @@
     <tbody>
       <tr *ngFor="let row of data">
         <td *ngFor="let column of columns">
-          {{ column.label }}
+          <ng-template
+            appRendererLoader
+            [renderer]="column.renderer"
+            [data]="row"
+            [field]="column.id"
+          ></ng-template>
         </td>
       </tr>
     </tbody>

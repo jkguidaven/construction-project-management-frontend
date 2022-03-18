@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DataTableRenderer } from './renderers/renderer';
 
 export interface DataTableColumnDef {
   id: string;
   label: string;
   width?: string;
   headerAlign?: 'left' | 'center' | 'right';
+  renderer?: InstanceType<any>;
 }
 
 @Component({

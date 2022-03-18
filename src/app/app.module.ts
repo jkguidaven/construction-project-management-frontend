@@ -76,7 +76,11 @@ import { ProjectScheduleViewerComponent } from './common/project-schedule-viewer
 import { ProjectOverviewViewerComponent } from './common/project-overview-viewer/project-overview-viewer.component';
 import { ProjectCostSummaryViewerComponent } from './common/project-cost-summary-viewer/project-cost-summary-viewer.component';
 import { ClientApprovalTaskComponent } from './views/tasks/type/client-approval-task.component';
-import { TextComponent } from './common/data-table/renderers/text.component';
+import { TextDataTableRendererComponent } from './common/data-table/renderers/text.component';
+import { DateDataTableRendererComponent } from './common/data-table/renderers/date.component';
+import { StatusDataTableRendererComponent } from './common/data-table/renderers/status.component';
+import { ActionDataTableRendererComponent } from './common/data-table/renderers/action.component';
+import { RendererLoaderDirective } from './common/data-table/renderer-loader.directive';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -125,7 +129,11 @@ Amplify.configure(awsconfig);
     ProjectOverviewViewerComponent,
     ProjectCostSummaryViewerComponent,
     ClientApprovalTaskComponent,
-    TextComponent,
+    TextDataTableRendererComponent,
+    DateDataTableRendererComponent,
+    StatusDataTableRendererComponent,
+    ActionDataTableRendererComponent,
+    RendererLoaderDirective,
   ],
   imports: [
     BrowserModule,
