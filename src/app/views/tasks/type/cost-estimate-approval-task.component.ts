@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   ScopeOfWork,
   ScopeOfWorkTask,
+  ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { AddScopeOfWorkMaterialSubconBudgetComponent } from '../../modals/add-scope-of-work-material-subcon-budget.component';
+import { AddScopeOfWorkTaskSubconBudgetComponent } from '../../modals/add-scope-of-work-task-subcon-budget.component';
 
 @Component({
   selector: 'app-cost-estimate-approval-task',
@@ -79,7 +83,7 @@ export class CostEstimateApprovalTaskComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
@@ -87,5 +91,37 @@ export class CostEstimateApprovalTaskComponent implements OnInit {
     return task.materials.reduce((total, material) => {
       return total + (material.pricePerUnit ?? 0);
     }, 0);
+  }
+
+  showAddTaskSubconBudgetForm(task: ScopeOfWorkTask): void {
+    const dialogRef = this.dialog.open(
+      AddScopeOfWorkTaskSubconBudgetComponent,
+      {
+        data: task,
+        width: '400px',
+      }
+    );
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        task.subconPricePerUnit = data.subconPricePerUnit;
+      }
+    });
+  }
+
+  showAddMaterialSubconBudgetForm(material: ScopeOfWorkTaskMaterial): void {
+    const dialogRef = this.dialog.open(
+      AddScopeOfWorkMaterialSubconBudgetComponent,
+      {
+        data: material,
+        width: '400px',
+      }
+    );
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        material.subconPricePerUnit = data.subconPricePerUnit;
+      }
+    });
   }
 }

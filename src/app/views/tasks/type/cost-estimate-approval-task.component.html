@@ -52,6 +52,7 @@
                     mat-button
                     color="primary"
                     *ngIf="task.quantity && task.unit"
+                    (click)="showAddTaskSubconBudgetForm(task)"
                   >
                     Add subcon budget
                   </button>
@@ -111,6 +112,7 @@
                           mat-button
                           color="primary"
                           *ngIf="!(task.quantity && task.unit)"
+                          (click)="showAddMaterialSubconBudgetForm(material)"
                         >
                           Add subcon budget
                         </button>
