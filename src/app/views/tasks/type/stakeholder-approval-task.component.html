@@ -1,1 +1,56 @@
-<p>stakeholder-approval-task works!</p>
+<app-card>
+  <div class="header">
+    <h1>Estimate cost Summary</h1>
+  </div>
+
+  <app-project-cost-summary-viewer
+    [scopes]="scopes"
+  ></app-project-cost-summary-viewer>
+
+  <div class="contractor-input-box">
+    <b>CONTRACTOR's PROFIT</b>
+    <mat-form-field appearance="outline">
+      <input matInput [formControl]="profitControl" type="number" />
+    </mat-form-field>
+  </div>
+
+  <div class="contractor-input-box">
+    <b>GRAND TOTAL</b>
+    <mat-form-field appearance="outline" class="disabled">
+      <input
+        matInput
+        [value]="grandTotal | currency: 'PHP':'symbol'"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+
+  <app-action-panel>
+    <a class="reject-button">Reject</a>
+    <a class="approve-button">Approve</a>
+  </app-action-panel>
+</app-card>
+
+<app-card>
+  <mat-tab-group>
+    <mat-tab label="Overview">
+      <br />
+      <app-project-overview-viewer></app-project-overview-viewer>
+    </mat-tab>
+    <mat-tab label="Design Documents">
+      <div class="attachment-list">
+        <app-attachment-card name="Design Doc 1" type="pdf">
+        </app-attachment-card>
+        <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Scope of Work">
+      <app-project-schedule-viewer
+        [scopes]="scopes"
+      ></app-project-schedule-viewer>
+    </mat-tab>
+    <mat-tab label="Project Schedule">
+      <app-view-project-schedule></app-view-project-schedule>
+    </mat-tab>
+  </mat-tab-group>
+</app-card>

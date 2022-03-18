@@ -3,32 +3,9 @@
     <h1>Estimate cost Summary</h1>
   </div>
 
-  <table>
-    <tr *ngFor="let scope of scopes">
-      <td>{{ scope.name }}</td>
-      <td width="10%" align="right">
-        <span *ngIf="getMaterialCost(scope)">{{
-          getMaterialCost(scope) | currency: "PHP":"symbol"
-        }}</span>
-      </td>
-      <td width="10%" align="right">
-        <span *ngIf="getLaborCost(scope)">{{
-          getLaborCost(scope) | currency: "PHP":"symbol"
-        }}</span>
-      </td>
-      <td width="10%" align="right">
-        {{ getSubTotal(scope) | currency: "PHP":"symbol" }}
-      </td>
-    </tr>
-    <tr class="total-container">
-      <td colspan="3" align="right"><b>GRAND TOTAL</b></td>
-      <td align="right">
-        <b>
-          {{ grandTotal | currency: "PHP":"symbol" }}
-        </b>
-      </td>
-    </tr>
-  </table>
+  <app-project-cost-summary-viewer
+    [scopes]="scopes"
+  ></app-project-cost-summary-viewer>
 
   <app-action-panel>
     <a class="reject-button">Reject</a>

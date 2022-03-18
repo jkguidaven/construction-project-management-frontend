@@ -1,0 +1,26 @@
+<table>
+  <tr *ngFor="let scope of scopes">
+    <td>{{ scope.name }}</td>
+    <td width="10%" align="right">
+      <span *ngIf="getMaterialCost(scope)">{{
+        getMaterialCost(scope) | currency: "PHP":"symbol"
+      }}</span>
+    </td>
+    <td width="10%" align="right">
+      <span *ngIf="getLaborCost(scope)">{{
+        getLaborCost(scope) | currency: "PHP":"symbol"
+      }}</span>
+    </td>
+    <td width="10%" align="right">
+      {{ getSubTotal(scope) | currency: "PHP":"symbol" }}
+    </td>
+  </tr>
+  <tr class="total-container">
+    <td colspan="3" align="right"><b>PROJECT COST</b></td>
+    <td align="right">
+      <b>
+        {{ grandTotal | currency: "PHP":"symbol" }}
+      </b>
+    </td>
+  </tr>
+</table>
