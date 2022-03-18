@@ -75,6 +75,7 @@ import { ScheduleProjectTaskComponent } from './views/tasks/type/schedule-projec
 import { ProjectScheduleViewerComponent } from './common/project-schedule-viewer/project-schedule-viewer.component';
 import { ProjectOverviewViewerComponent } from './common/project-overview-viewer/project-overview-viewer.component';
 import { ProjectCostSummaryViewerComponent } from './common/project-cost-summary-viewer/project-cost-summary-viewer.component';
+import { ClientApprovalTaskComponent } from './views/tasks/type/client-approval-task.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -122,6 +123,7 @@ Amplify.configure(awsconfig);
     ProjectScheduleViewerComponent,
     ProjectOverviewViewerComponent,
     ProjectCostSummaryViewerComponent,
+    ClientApprovalTaskComponent,
   ],
   imports: [
     BrowserModule,

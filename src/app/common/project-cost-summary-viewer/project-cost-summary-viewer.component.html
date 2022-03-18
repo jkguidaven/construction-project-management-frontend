@@ -18,8 +18,24 @@
   <tr class="total-container">
     <td colspan="3" align="right"><b>PROJECT COST</b></td>
     <td align="right">
-      <b>
+      <b class="value">
         {{ grandTotal | currency: "PHP":"symbol" }}
+      </b>
+    </td>
+  </tr>
+  <tr class="total-container" *ngIf="contractorPrice">
+    <td colspan="3" align="right"><b>CONTRACTOR'S PROFIT</b></td>
+    <td align="right">
+      <b class="value">
+        {{ contractorPrice | currency: "PHP":"symbol" }}
+      </b>
+    </td>
+  </tr>
+  <tr class="total-container" *ngIf="contractorPrice">
+    <td colspan="3" align="right"><b>CONTRACT PRICE</b></td>
+    <td align="right">
+      <b class="value">
+        {{ contractorPrice + grandTotal | currency: "PHP":"symbol" }}
       </b>
     </td>
   </tr>

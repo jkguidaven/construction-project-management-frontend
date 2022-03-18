@@ -11,6 +11,7 @@ import {
 })
 export class ProjectCostSummaryViewerComponent implements OnInit {
   @Input() scopes!: ScopeOfWork[];
+  @Input() contractorPrice!: number;
 
   constructor() {}
 

@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing);
+}
+
+app-card {
+  margin: 16px 0 0;
+
+  .attachment-list {
+    display: flex;
+
+    > * {
+      margin: var(--spacing);
+    }
+  }
+}
+
+app-action-panel {
+  a {
+    display: block;
+    padding: calc(var(--spacing) / 2) var(--spacing);
+    border-radius: 5px;
+    color: white;
+    opacity: 0.8;
+    cursor: pointer;
+    margin-left: var(--spacing);
+
+    &.approve-button {
+      background-color: var(--green-color);
+    }
+
+    &.reject-button {
+      background-color: var(--red-color);
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+app-action-panel {
+  button {
+    margin-left: calc(var(--spacing) / 2);
+  }
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountingApprovalTaskComponent } from './type/accounting-approval-task.component';
+import { ClientApprovalTaskComponent } from './type/client-approval-task.component';
 import { CostEstimateApprovalTaskComponent } from './type/cost-estimate-approval-task.component';
 import { CostEstimateTaskComponent } from './type/cost-estimate-task.component';
 import { DesignTaskComponent } from './type/design-task.component';
@@ -22,6 +23,7 @@ export class TaskDetailsComponent implements OnInit {
     'schedule-project': ScheduleProjectTaskComponent,
     'accounting-approval': AccountingApprovalTaskComponent,
     'stakeholder-approval': StakeholderApprovalTaskComponent,
+    'client-approval': ClientApprovalTaskComponent,
   };
 
   constructor(

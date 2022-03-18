@@ -3,5 +3,9 @@ table {
 
   .total-container td {
     padding: var(--spacing) 0;
+
+    .value {
+      text-decoration: underline;
+    }
   }
 }

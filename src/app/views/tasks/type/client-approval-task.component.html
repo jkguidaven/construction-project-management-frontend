@@ -1,0 +1,23 @@
+<app-card>
+  <div class="header">
+    <h2>Estimate cost Summary</h2>
+  </div>
+
+  <app-project-cost-summary-viewer
+    [scopes]="scopes"
+    [contractorPrice]="500000"
+  ></app-project-cost-summary-viewer>
+</app-card>
+
+<app-card>
+  <h2>Attach here Project Contract signed by the client</h2>
+
+  <app-form-row>
+    <app-upload-file-dropbox></app-upload-file-dropbox>
+  </app-form-row>
+</app-card>
+
+<app-action-panel>
+  <button mat-raised-button>Save Progress</button>
+  <button mat-raised-button color="primary">Mark as Complete</button>
+</app-action-panel>
