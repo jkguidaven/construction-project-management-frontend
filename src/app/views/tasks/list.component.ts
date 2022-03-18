@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { DataTableColumnDef } from 'src/app/common/data-table/data-table.component';
 
@@ -22,13 +23,21 @@ export class TaskListComponent implements OnInit {
     { id: 'task', label: 'Task' },
     { id: 'date', label: 'Date', width: '10%' },
     { id: 'status', label: 'Status', width: '10%' },
+    { id: 'action', label: 'Action', width: '10%' },
+  ];
+
+  columnCompleted: DataTableColumnDef[] = [
+    { id: 'project', label: 'Project name' },
+    { id: 'task', label: 'Task' },
+    { id: 'date', label: 'Date', width: '10%' },
+    { id: 'status', label: 'Status', width: '10%' },
   ];
 
   dataUnassigned: any[] = [];
   dataAssigned: any[] = [];
   dataCompleted: any[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.loadRolesAndMenu();
@@ -65,6 +74,12 @@ export class TaskListComponent implements OnInit {
       this.dataAssigned.push({
         ...item,
         status: 'inprogress',
+        action: {
+          label: 'View',
+          handler: () => {
+            this.router.navigate(['/task', toAssign]);
+          },
+        },
       });
 
       this.dataUnassigned.splice(index, 1);
