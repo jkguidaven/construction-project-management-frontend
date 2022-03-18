@@ -5,6 +5,7 @@ import { CostEstimateApprovalTaskComponent } from './type/cost-estimate-approval
 import { CostEstimateTaskComponent } from './type/cost-estimate-task.component';
 import { DesignTaskComponent } from './type/design-task.component';
 import { ProcurementTaskComponent } from './type/procurement-task.component';
+import { ScheduleProjectTaskComponent } from './type/schedule-project-task.component';
 import { StakeholderApprovalTaskComponent } from './type/stakeholder-approval-task.component';
 
 @Component({
@@ -18,6 +19,7 @@ export class TaskDetailsComponent implements OnInit {
     procurement: ProcurementTaskComponent,
     'cost-estimate': CostEstimateTaskComponent,
     'cost-estimate-approval': CostEstimateApprovalTaskComponent,
+    'schedule-project': ScheduleProjectTaskComponent,
     'accounting-approval': AccountingApprovalTaskComponent,
     'stakeholder-approval': StakeholderApprovalTaskComponent,
   };

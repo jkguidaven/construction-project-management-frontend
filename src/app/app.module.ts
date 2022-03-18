@@ -71,6 +71,7 @@ import { AddScopeOfWorkMaterialComponent } from './views/modals/add-scope-of-wor
 import { AddScopeOfWorkMaterialPriceComponent } from './views/modals/add-scope-of-work-material-price.component';
 import { AddScopeOfWorkTaskSubconBudgetComponent } from './views/modals/add-scope-of-work-task-subcon-budget.component';
 import { AddScopeOfWorkMaterialSubconBudgetComponent } from './views/modals/add-scope-of-work-material-subcon-budget.component';
+import { ScheduleProjectTaskComponent } from './views/tasks/type/schedule-project-task.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -114,6 +115,7 @@ Amplify.configure(awsconfig);
     AddScopeOfWorkMaterialPriceComponent,
     AddScopeOfWorkTaskSubconBudgetComponent,
     AddScopeOfWorkMaterialSubconBudgetComponent,
+    ScheduleProjectTaskComponent,
   ],
   imports: [
     BrowserModule,
