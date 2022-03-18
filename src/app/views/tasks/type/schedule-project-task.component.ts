@@ -89,47 +89,4 @@ export class ScheduleProjectTaskComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  getSubTotal(scope: ScopeOfWork): number {
-    let total = 0;
-    for (let task of scope.tasks) {
-      if (task.subconPricePerUnit && task.quantity) {
-        total += task.subconPricePerUnit * task.quantity;
-      }
-
-      for (let material of task.materials) {
-        if (material.pricePerUnit && material.quantity) {
-          total += material.pricePerUnit * material.quantity;
-        }
-
-        if (material.subconPricePerUnit && material.quantity) {
-          total += material.subconPricePerUnit * material.quantity;
-        }
-      }
-    }
-
-    return total;
-  }
-
-  get grandTotal(): number {
-    let total = 0;
-
-    for (let scope of this.scopes) {
-      total += this.getSubTotal(scope);
-    }
-
-    return total;
-  }
-
-  getTotalMaterialCost(task: ScopeOfWorkTask): number {
-    return task.materials.reduce((total, material) => {
-      return total + (material.pricePerUnit * material.quantity ?? 0);
-    }, 0);
-  }
-
-  getTotalLaborCost(task: ScopeOfWorkTask): number {
-    return task.materials.reduce((total, material) => {
-      return total + (material.subconPricePerUnit * material.quantity ?? 0);
-    }, 0);
-  }
 }
