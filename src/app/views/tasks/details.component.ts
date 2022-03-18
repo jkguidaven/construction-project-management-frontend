@@ -33,8 +33,23 @@ export class TaskDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // TO-DO: Task type should be determine from task data
-    const taskType = this.activatedRoute.snapshot.queryParams['type'];
+    const taskType = this.getTaskType(
+      this.activatedRoute.snapshot.params['id']
+    );
 
     this.viewContainerRef.createComponent(this.taskComponent[taskType]);
+  }
+
+  getTaskType(id: string): string {
+    return {
+      '1': 'design',
+      '2': 'cost-estimate',
+      '3': 'procurement',
+      '4': 'cost-estimate-approval',
+      '5': 'schedule-project',
+      '6': 'accounting-approval',
+      '7': 'stakeholder-approval',
+      '8': 'client-approval',
+    }[id];
   }
 }

@@ -102,6 +102,109 @@ export class TaskListComponent implements OnInit {
         },
       });
     }
+
+    if (this.groups.indexOf('qs') > -1) {
+      this.dataUnassigned.push({
+        id: 2,
+        name: 'House remodelling',
+        task: 'Define Scope of Work',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(2);
+          },
+        },
+      });
+    }
+
+    if (this.groups.indexOf('procurement') > -1) {
+      this.dataUnassigned.push({
+        id: 3,
+        name: 'House remodelling',
+        task: 'Price canvassing',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(3);
+          },
+        },
+      });
+    }
+
+    if (this.groups.indexOf('ce') > -1) {
+      this.dataUnassigned.push({
+        id: 4,
+        name: 'House remodelling',
+        task: 'For Review',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(4);
+          },
+        },
+      });
+    }
+
+    if (this.groups.indexOf('operation') > -1) {
+      this.dataUnassigned.push({
+        id: 5,
+        name: 'House remodelling',
+        task: 'For Schedule',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(5);
+          },
+        },
+      });
+    }
+
+    if (this.groups.indexOf('accounting') > -1) {
+      this.dataUnassigned.push({
+        id: 6,
+        name: 'House remodelling',
+        task: 'For Review',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(6);
+          },
+        },
+      });
+
+      this.dataUnassigned.push({
+        id: 8,
+        name: 'House remodelling',
+        task: 'For Client Approval',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(8);
+          },
+        },
+      });
+    }
+
+    if (this.groups.indexOf('stakeholder') > -1) {
+      this.dataUnassigned.push({
+        id: 7,
+        name: 'House remodelling',
+        task: 'For Review',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(7);
+          },
+        },
+      });
+    }
   }
 
   assign(toAssign: number): void {
@@ -115,7 +218,7 @@ export class TaskListComponent implements OnInit {
         action: {
           label: 'View',
           handler: () => {
-            this.router.navigate(['/task', toAssign]);
+            this.router.navigate(['/tasks', toAssign]);
           },
         },
       });
