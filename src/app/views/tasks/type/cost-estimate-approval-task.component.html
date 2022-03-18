@@ -42,7 +42,11 @@
               <td align="right" class="fixed"></td>
               <td align="right" class="fixed"></td>
               <td align="right" class="fixed add-subcon-button-container">
-                <span *ngIf="task.subconPricePerUnit; else noSubconPrice">
+                <span
+                  *ngIf="task.subconPricePerUnit; else noSubconPrice"
+                  (click)="showAddTaskSubconBudgetForm(task)"
+                  style="cursor: pointer"
+                >
                   {{ task.subconPricePerUnit | currency: "PHP":"symbol" }} /
                   {{ task.unit }}
                 </span>
@@ -59,12 +63,23 @@
                 </ng-template>
               </td>
               <td align="right" class="fixed">
-                <span *ngIf="task.subconPricePerUnit">
-                  <b>{{
+                <span
+                  *ngIf="task.subconPricePerUnit"
+                  (click)="showAddTaskSubconBudgetForm(task)"
+                  style="cursor: pointer"
+                  >{{
                     task.subconPricePerUnit * task.quantity
                       | currency: "PHP":"symbol"
-                  }}</b>
+                  }}
                 </span>
+              </td>
+              <td align="right" class="fixed">
+                <b *ngIf="task.subconPricePerUnit"
+                  >{{
+                    task.subconPricePerUnit * task.quantity
+                      | currency: "PHP":"symbol"
+                  }}
+                </b>
               </td>
               <td></td>
             </tr>
@@ -85,12 +100,12 @@
                       </span>
                     </td>
                     <td align="right" class="fixed">
-                      <b *ngIf="material.pricePerUnit">
+                      <span *ngIf="material.pricePerUnit">
                         {{
                           material.pricePerUnit * material.quantity
                             | currency: "PHP":"symbol"
                         }}
-                      </b>
+                      </span>
                     </td>
 
                     <td align="right" class="fixed">
@@ -119,9 +134,19 @@
                       </ng-template>
                     </td>
                     <td align="right" class="fixed">
-                      <b *ngIf="material.subconPricePerUnit">
+                      <span *ngIf="material.subconPricePerUnit">
                         {{
                           material.subconPricePerUnit * material.quantity
+                            | currency: "PHP":"symbol"
+                        }}
+                      </span>
+                    </td>
+
+                    <td align="right" class="fixed">
+                      <b *ngIf="material.subconPricePerUnit">
+                        {{
+                          material.subconPricePerUnit * material.quantity +
+                            material.pricePerUnit * material.quantity
                             | currency: "PHP":"symbol"
                         }}
                       </b>
@@ -132,8 +157,20 @@
                     <td class="fixed"></td>
                     <td class="fixed"></td>
                     <td class="fixed" align="right">
-                      <b style="text-decoration: underline">{{
+                      <b>{{
                         getTotalMaterialCost(task) | currency: "PHP":"symbol"
+                      }}</b>
+                    </td>
+                    <td class="fixed"></td>
+                    <td class="fixed" align="right">
+                      <b>{{
+                        getTotalLaborCost(task) | currency: "PHP":"symbol"
+                      }}</b>
+                    </td>
+                    <td class="fixed" align="right">
+                      <b>{{
+                        getTotalMaterialCost(task) + getTotalLaborCost(task)
+                          | currency: "PHP":"symbol"
                       }}</b>
                     </td>
                   </tr>
@@ -142,8 +179,21 @@
             </tr>
           </tbody>
         </table>
+
+        <div class="total-description">
+          <div class="label">SUB TOTAL</div>
+          <div class="value">
+            {{ getSubTotal(scope) | currency: "PHP":"symbol" }}
+          </div>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
+    <div class="total-description grand">
+      <div class="label">GRAND TOTAL</div>
+      <div class="value">
+        {{ grandTotal | currency: "PHP":"symbol" }}
+      </div>
+    </div>
   </ng-template>
 </app-card>
 

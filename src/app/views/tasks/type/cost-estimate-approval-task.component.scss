@@ -58,7 +58,7 @@ table.task-list {
     td:last-child {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
-      width: calc(100% - 900px);
+      width: calc(100% - 1050px);
     }
   }
 
@@ -115,5 +115,33 @@ app-action-panel {
 ::ng-deep {
   .mat-expansion-panel-body {
     padding: 0 var(--spacing) !important;
+  }
+}
+
+.total-description {
+  display: flex;
+  font-weight: bold;
+  text-align: right;
+  margin-top: -20px;
+  margin-bottom: 20px;
+
+  .label {
+    box-sizing: border-box;
+    width: 900px;
+    padding: var(--spacing);
+  }
+
+  .value {
+    box-sizing: border-box;
+    width: 150px;
+    padding: var(--spacing);
+  }
+
+  &.grand {
+    margin-left: var(--spacing);
+
+    .value {
+      text-decoration: underline;
+    }
   }
 }
