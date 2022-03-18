@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
   ScopeOfWork,
+  ScopeOfWorkTask,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
 import { AddScopeOfWorkMaterialPriceComponent } from '../../modals/add-scope-of-work-material-price.component';
@@ -91,5 +92,11 @@ export class ProcurementTaskComponent implements OnInit {
         material.pricePerUnit = data.pricePerUnit;
       }
     });
+  }
+
+  getTotalMaterialCost(task: ScopeOfWorkTask): number {
+    return task.materials.reduce((total, material) => {
+      return total + (material.pricePerUnit ?? 0);
+    }, 0);
   }
 }

@@ -29,6 +29,7 @@ export class CostEstimateApprovalTaskComponent implements OnInit {
           name: 'Backfilling',
           unit: 'cu.m.',
           quantity: 210.74,
+          pricePerUnit: 24,
           materials: [],
         },
       ],

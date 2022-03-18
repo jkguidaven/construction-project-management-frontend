@@ -81,6 +81,17 @@
                       </b>
                     </td>
                   </tr>
+                  <tr *ngIf="getTotalMaterialCost(task)">
+                    <td></td>
+                    <td class="fixed"></td>
+                    <td class="fixed"></td>
+                    <td class="fixed" align="right"><b>TOTAL COST</b></td>
+                    <td class="fixed" align="right">
+                      <b style="text-decoration: underline">{{
+                        getTotalMaterialCost(task) | currency: "PHP":"symbol"
+                      }}</b>
+                    </td>
+                  </tr>
                 </table>
               </td>
             </tr>
