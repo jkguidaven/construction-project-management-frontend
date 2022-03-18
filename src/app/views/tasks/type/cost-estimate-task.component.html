@@ -24,11 +24,12 @@
       <mat-expansion-panel
         class="mat-elevation-z0"
         *ngFor="let scope of scopes"
+        expanded
       >
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>folder</mat-icon>
-            {{ scope.name }}
+            {{ scope.name | uppercase }}
           </mat-panel-title>
         </mat-expansion-panel-header>
 

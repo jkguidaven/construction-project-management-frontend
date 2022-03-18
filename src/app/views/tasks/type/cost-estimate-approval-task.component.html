@@ -1,4 +1,3 @@
-<p>cost-estimate-approval-task works!</p>
 <app-card>
   <h1>Attachments</h1>
 
@@ -78,6 +77,17 @@
                             | currency: "PHP":"symbol"
                         }}
                       </b>
+                    </td>
+                  </tr>
+                  <tr *ngIf="getTotalMaterialCost(task)">
+                    <td></td>
+                    <td class="fixed"></td>
+                    <td class="fixed"></td>
+                    <td class="fixed" align="right"></td>
+                    <td class="fixed" align="right">
+                      <b style="text-decoration: underline">{{
+                        getTotalMaterialCost(task) | currency: "PHP":"symbol"
+                      }}</b>
                     </td>
                   </tr>
                 </table>

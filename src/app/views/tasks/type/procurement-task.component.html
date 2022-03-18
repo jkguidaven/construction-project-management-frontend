@@ -26,7 +26,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>folder</mat-icon>
-            {{ scope.name }}
+            {{ scope.name | uppercase }}
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -85,7 +85,7 @@
                     <td></td>
                     <td class="fixed"></td>
                     <td class="fixed"></td>
-                    <td class="fixed" align="right"><b>TOTAL COST</b></td>
+                    <td class="fixed" align="right"><b>MATERIRAL COST</b></td>
                     <td class="fixed" align="right">
                       <b style="text-decoration: underline">{{
                         getTotalMaterialCost(task) | currency: "PHP":"symbol"

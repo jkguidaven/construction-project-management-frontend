@@ -96,7 +96,12 @@ export class ProcurementTaskComponent implements OnInit {
 
   getTotalMaterialCost(task: ScopeOfWorkTask): number {
     return task.materials.reduce((total, material) => {
-      return total + (material.pricePerUnit ?? 0);
+      return (
+        total +
+        (material.pricePerUnit && material.quantity
+          ? material.pricePerUnit * material.quantity
+          : 0)
+      );
     }, 0);
   }
 }

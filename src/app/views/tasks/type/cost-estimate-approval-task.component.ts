@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
+import {
+  ScopeOfWork,
+  ScopeOfWorkTask,
+} from 'src/app/models/scope-of-work.model';
 
 @Component({
   selector: 'app-cost-estimate-approval-task',
@@ -82,4 +85,10 @@ export class CostEstimateApprovalTaskComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  getTotalMaterialCost(task: ScopeOfWorkTask): number {
+    return task.materials.reduce((total, material) => {
+      return total + (material.pricePerUnit ?? 0);
+    }, 0);
+  }
 }
