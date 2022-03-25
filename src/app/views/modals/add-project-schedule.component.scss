@@ -1,0 +1,41 @@
+.action-panel {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.schedule-table-container {
+  overflow: auto;
+
+  .row {
+    display: flex;
+    width: 100%;
+
+    &:first-child {
+      .column {
+        background-color: rgb(241, 241, 241);
+      }
+    }
+
+    .column {
+      width: 100%;
+      max-width: 100px;
+      min-width: 100px;
+      padding: var(--spacing);
+      min-height: 20px;
+      text-align: center;
+      border: 1px solid rgb(211, 211, 211);
+
+      &:first-child {
+        max-width: 200px;
+        min-width: 200px;
+        background-color: rgb(226, 226, 226);
+        text-align: left;
+        position: fixed;
+      }
+
+      &:nth-child(2) {
+        margin-left: 200px;
+      }
+    }
+  }
+}

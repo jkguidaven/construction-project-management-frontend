@@ -15,9 +15,25 @@
   <app-project-schedule-viewer [scopes]="scopes"></app-project-schedule-viewer>
 </app-card>
 
-<app-card>
+<app-card class="timeline-card">
   <div class="header">
     <h1>Timeline</h1>
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="showAddProjectScheduleForm()"
+    >
+      Add Schedule
+    </button>
+  </div>
+
+  <div class="timeline">
+    <app-gantt-chart
+      [startDate]="startDate"
+      [endDate]="endDate"
+      [tasks]="groupTasks"
+    ></app-gantt-chart>
   </div>
 </app-card>
 

@@ -15,3 +15,9 @@ app-card {
   justify-content: space-between;
   margin-bottom: var(--spacing);
 }
+
+.timeline-card {
+  .timeline {
+    overflow: auto;
+  }
+}

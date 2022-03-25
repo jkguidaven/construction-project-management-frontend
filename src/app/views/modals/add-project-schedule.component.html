@@ -1,0 +1,59 @@
+<h1>Add Project Schedule</h1>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Scope of work</mat-label>
+    <mat-select formControlName="scope">
+      <mat-option *ngFor="let scope of scopes" [value]="scope">
+        {{ scope.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Task</mat-label>
+    <mat-select formControlName="task">
+      <mat-option *ngFor="let task of currentTaskList" [value]="task">
+        {{ task.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Project Schedule</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" formControlName="from" />
+      <input matEndDate placeholder="End date" formControlName="to" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+</form>
+
+<div class="schedule-table-container" *ngIf="hasDates">
+  <div class="row">
+    <div class="column">Date</div>
+    <div class="column" *ngFor="let date of scheduledDates">
+      {{ date.getMonth() }} / {{ date.getDate() }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="column">Labor</div>
+    <div class="column" *ngFor="let date of scheduledDates">
+      {{ (100 / scheduledDates.length).toFixed(2) }}%
+    </div>
+  </div>
+  <div class="row" *ngFor="let material of materials">
+    <div class="column">{{ material.name }}</div>
+    <div class="column" *ngFor="let date of scheduledDates">
+      {{ (100 / scheduledDates.length).toFixed(2) }}%
+    </div>
+  </div>
+</div>
+
+<div class="action-panel">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button color="primary" (click)="add()" [disabled]="!form.valid">
+    Add
+  </button>
+</div>

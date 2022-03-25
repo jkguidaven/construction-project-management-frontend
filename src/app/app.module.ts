@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
 
 /* Other 3rd party library */
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -81,6 +82,7 @@ import { DateDataTableRendererComponent } from './common/data-table/renderers/da
 import { StatusDataTableRendererComponent } from './common/data-table/renderers/status.component';
 import { ActionDataTableRendererComponent } from './common/data-table/renderers/action.component';
 import { RendererLoaderDirective } from './common/data-table/renderer-loader.directive';
+import { AddProjectScheduleComponent } from './views/modals/add-project-schedule.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -134,6 +136,7 @@ Amplify.configure(awsconfig);
     StatusDataTableRendererComponent,
     ActionDataTableRendererComponent,
     RendererLoaderDirective,
+    AddProjectScheduleComponent,
   ],
   imports: [
     BrowserModule,
@@ -154,6 +157,7 @@ Amplify.configure(awsconfig);
     MatTabsModule,
     MatProgressBarModule,
     MatExpansionModule,
+    MatSelectModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
     NgxChartsModule,
