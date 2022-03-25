@@ -1,6 +1,8 @@
 import { Component, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountingApprovalTaskComponent } from './type/accounting-approval-task.component';
+import { ApproveMaterialRequestComponent } from './type/approve-material-request.component';
+import { ApproveProgressReportComponent } from './type/approve-progress-report.component';
 import { ClientApprovalTaskComponent } from './type/client-approval-task.component';
 import { CostEstimateApprovalTaskComponent } from './type/cost-estimate-approval-task.component';
 import { CostEstimateTaskComponent } from './type/cost-estimate-task.component';
@@ -24,6 +26,8 @@ export class TaskDetailsComponent implements OnInit {
     'accounting-approval': AccountingApprovalTaskComponent,
     'stakeholder-approval': StakeholderApprovalTaskComponent,
     'client-approval': ClientApprovalTaskComponent,
+    'approve-material-request': ApproveMaterialRequestComponent,
+    'approve-progress-report': ApproveProgressReportComponent,
   };
 
   constructor(
@@ -50,6 +54,8 @@ export class TaskDetailsComponent implements OnInit {
       '6': 'accounting-approval',
       '7': 'stakeholder-approval',
       '8': 'client-approval',
+      '9': 'approve-material-request',
+      '10': 'approve-progress-report',
     }[id];
   }
 }

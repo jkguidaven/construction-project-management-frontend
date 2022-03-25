@@ -92,6 +92,8 @@ import { AddProgressReportComponent } from './views/progress-report/add.componen
 import { AddMaterialRequestComponent } from './views/material-request/add.component';
 import { ViewMaterialRequestComponent } from './views/material-request/view.component';
 import { ViewProgressReportComponent } from './views/progress-report/view.component';
+import { ApproveMaterialRequestComponent } from './views/tasks/type/approve-material-request.component';
+import { ApproveProgressReportComponent } from './views/tasks/type/approve-progress-report.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -155,6 +157,8 @@ Amplify.configure(awsconfig);
     ProgressReportListComponent,
     AddProgressReportComponent,
     ViewProgressReportComponent,
+    ApproveMaterialRequestComponent,
+    ApproveProgressReportComponent,
   ],
   imports: [
     BrowserModule,
