@@ -1,1 +1,59 @@
-<p>view progress report work!</p>
+<form [formGroup]="form">
+  <app-card>
+    <h2>View Progress Report</h2>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="project">
+          <mat-option value="1"> House remodelling </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Scope of Work</mat-label>
+        <mat-select formControlName="scope">
+          <mat-option [value]="scope" *ngFor="let scope of scopes">{{
+            scope.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Task</mat-label>
+        <mat-select formControlName="task">
+          <mat-option [value]="task" *ngFor="let task of tasks">{{
+            task.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <div class="row">
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <mat-label>Report Date</mat-label>
+            <input matInput [matDatepicker]="picker" [value]="now" disabled />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <mat-label>Completed (%)</mat-label>
+            <input matInput type="number" value="56" disabled />
+          </mat-form-field>
+        </div>
+      </div>
+    </app-form-row>
+  </app-card>
+</form>
