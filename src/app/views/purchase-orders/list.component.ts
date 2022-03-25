@@ -11,7 +11,9 @@ import { DateDataTableRendererComponent } from 'src/app/common/data-table/render
 })
 export class PurchaseOrderListComponent implements OnInit {
   columns: DataTableColumnDef[] = [
+    { id: 'id', label: 'PO #' },
     { id: 'vendor', label: 'Vendor' },
+    { id: 'project', label: 'Project' },
     { id: 'total', label: 'Total' },
     {
       id: 'date',
