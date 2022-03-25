@@ -7,6 +7,7 @@ import { ClientApprovalTaskComponent } from './type/client-approval-task.compone
 import { CostEstimateApprovalTaskComponent } from './type/cost-estimate-approval-task.component';
 import { CostEstimateTaskComponent } from './type/cost-estimate-task.component';
 import { DesignTaskComponent } from './type/design-task.component';
+import { ForPurchaseOrderComponent } from './type/for-purchase-order.component';
 import { ProcurementTaskComponent } from './type/procurement-task.component';
 import { ScheduleProjectTaskComponent } from './type/schedule-project-task.component';
 import { StakeholderApprovalTaskComponent } from './type/stakeholder-approval-task.component';
@@ -28,6 +29,7 @@ export class TaskDetailsComponent implements OnInit {
     'client-approval': ClientApprovalTaskComponent,
     'approve-material-request': ApproveMaterialRequestComponent,
     'approve-progress-report': ApproveProgressReportComponent,
+    'for-purchase-order': ForPurchaseOrderComponent,
   };
 
   constructor(
@@ -56,6 +58,7 @@ export class TaskDetailsComponent implements OnInit {
       '8': 'client-approval',
       '9': 'approve-material-request',
       '10': 'approve-progress-report',
+      '11': 'for-purchase-order',
     }[id];
   }
 }

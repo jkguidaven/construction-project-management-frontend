@@ -157,6 +157,19 @@ export class TaskListComponent implements OnInit {
           },
         },
       });
+
+      this.dataUnassigned.push({
+        id: 11,
+        name: 'House remodelling',
+        task: 'For PO',
+        date: new Date(),
+        action: {
+          label: 'Assigned',
+          handler: () => {
+            this.assign(11);
+          },
+        },
+      });
     }
 
     if (this.groups.indexOf('ce') > -1) {
