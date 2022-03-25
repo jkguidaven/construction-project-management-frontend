@@ -1,1 +1,78 @@
-<p>approve-material-request works!</p>
+<form [formGroup]="form">
+  <app-card>
+    <h2>Approve Material Request</h2>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="project">
+          <mat-option value="1"> House remodelling </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Scope of Work</mat-label>
+        <mat-select formControlName="scope">
+          <mat-option [value]="scope" *ngFor="let scope of scopes">{{
+            scope.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Task</mat-label>
+        <mat-select formControlName="task">
+          <mat-option [value]="task" *ngFor="let task of tasks">{{
+            task.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row *ngIf="form.get('task').value">
+      <div class="row">
+        <div class="column"><b>Materials</b></div>
+        <div class="column"><b>Total Budget</b></div>
+        <div class="column"><b>Released</b></div>
+        <div class="column"><b>Remaining</b></div>
+        <div class="column"><b>Request (qty)</b></div>
+      </div>
+      <div class="row" *ngFor="let material of materials">
+        <div class="column">{{ material.name }}</div>
+        <div class="column">{{ material.quantity }} {{ material.unit }}</div>
+        <div class="column">{{ material.released }} {{ material.unit }}</div>
+        <div class="column">
+          {{ material.quantity - material.released }} {{ material.unit }}
+        </div>
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <mat-label></mat-label>
+            <input
+              matInput
+              type="number"
+              [value]="material.requested"
+              disabled
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </app-form-row>
+  </app-card>
+
+  <app-action-panel>
+    <button mat-raised-button (click)="router.navigate(['/tasks'])">
+      Reject
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="router.navigate(['/tasks'])"
+    >
+      Approve
+    </button>
+  </app-action-panel>
+</form>

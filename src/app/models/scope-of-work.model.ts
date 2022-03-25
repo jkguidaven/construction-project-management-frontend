@@ -19,4 +19,6 @@ export interface ScopeOfWorkTaskMaterial {
   pricePerUnit?: number;
   subconPricePerUnit?: number;
   supplier?: string;
+  released?: number;
+  requested?: number;
 }
