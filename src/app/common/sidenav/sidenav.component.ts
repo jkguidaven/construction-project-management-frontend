@@ -34,9 +34,27 @@ export class SidenavComponent implements OnInit {
     if (this.groups && this.groups.indexOf('admin') > -1) {
       list.push({ label: 'Projects', icon: 'dashboard', link: '/projects' });
     }
-    list.push({ label: 'Tasks', icon: 'assignment', link: '/tasks' });
+
+    if (this.groups && this.hasTaskModule(this.groups))
+      list.push({ label: 'Tasks', icon: 'assignment', link: '/tasks' });
 
     return list;
+  }
+
+  hasTaskModule(groups: string[]) {
+    const hasTaskGroups = [
+      'ce',
+      'qs',
+      'procurement',
+      'design',
+      'operation',
+      'stakeholder',
+      'accounting',
+    ];
+    for (let group of groups) {
+      if (hasTaskGroups.indexOf(group) > -1) return true;
+    }
+    return false;
   }
 
   isActiveView(path: string): boolean {
