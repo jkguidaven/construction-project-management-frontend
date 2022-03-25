@@ -1,7 +1,5 @@
 <form>
   <app-card>
-    <h1>Project Details</h1>
-
     <h2>Project Information</h2>
 
     <app-form-row>
@@ -11,23 +9,25 @@
       </mat-form-field>
     </app-form-row>
 
-    <app-form-row description="Input information of the project and requirements.">
+    <app-form-row
+      description="Input information of the project and requirements."
+    >
       <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
         <textarea matInput></textarea>
       </mat-form-field>
     </app-form-row>
 
-
     <h2>Customer Information</h2>
 
-    <app-form-row description="Select existing customer, otherwise input new customer details.">
+    <app-form-row
+      description="Select existing customer, otherwise input new customer details."
+    >
       <mat-form-field appearance="outline">
         <mat-label>Customer</mat-label>
         <input matInput />
       </mat-form-field>
     </app-form-row>
-
 
     <app-form-row>
       <mat-form-field appearance="outline">
@@ -35,7 +35,6 @@
         <input matInput />
       </mat-form-field>
     </app-form-row>
-
 
     <app-form-row>
       <mat-form-field appearance="outline">
@@ -70,17 +69,16 @@
       </div>
     </app-form-row>
 
-
     <app-form-row>
-        <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
-          <input matInput />
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput />
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput />
+      </mat-form-field>
     </app-form-row>
   </app-card>
 
@@ -89,11 +87,20 @@
 
     <h2>Architectural Design</h2>
 
-    <app-form-row description="If customer has existing design please attached design documents.">
+    <app-form-row
+      description="If customer has existing design please attached design documents."
+    >
       <mat-form-field appearance="outline">
         <mat-label>Has existing design?</mat-label>
-        <input matInput />
+        <mat-select [formControl]="hasExistingDesignControl">
+          <mat-option [value]="true"> Yes </mat-option>
+          <mat-option [value]="false"> No </mat-option>
+        </mat-select>
       </mat-form-field>
+    </app-form-row>
+
+    <app-form-row *ngIf="hasExistingDesignControl.value">
+      <app-upload-file-dropbox></app-upload-file-dropbox>
     </app-form-row>
   </app-card>
 </form>

@@ -1,0 +1,9 @@
+a {
+  cursor: pointer;
+  color: var(--link-color);
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

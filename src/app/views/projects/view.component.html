@@ -16,13 +16,21 @@
 </app-card>
 
 <app-card>
-  <mat-tab-group>
+  <mat-tab-group animationDuration="0ms">
     <mat-tab label="Project Schedule">
       <app-view-project-schedule></app-view-project-schedule>
     </mat-tab>
-    <mat-tab label="Budget Tracking"> Budget Tracking </mat-tab>
-    <mat-tab label="Purchase Orders"> Purchase Orders </mat-tab>
-    <mat-tab label="Billing Progress"> Purchase Orders </mat-tab>
-    <mat-tab label="Document Logs"> Purchase Orders </mat-tab>
+    <mat-tab label="Budget Tracking">
+      <div class="content">Budget Tracking</div>
+    </mat-tab>
+    <mat-tab label="Purchase Orders">
+      <div class="content">Purchase Orders</div>
+    </mat-tab>
+    <mat-tab label="Billing Progress">
+      <div class="content">Purchase Orders</div>
+    </mat-tab>
+    <mat-tab label="Document Logs">
+      <div class="content">Purchase Orders</div>
+    </mat-tab>
   </mat-tab-group>
 </app-card>

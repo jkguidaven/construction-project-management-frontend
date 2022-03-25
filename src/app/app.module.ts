@@ -78,6 +78,7 @@ import { ProjectOverviewViewerComponent } from './common/project-overview-viewer
 import { ProjectCostSummaryViewerComponent } from './common/project-cost-summary-viewer/project-cost-summary-viewer.component';
 import { ClientApprovalTaskComponent } from './views/tasks/type/client-approval-task.component';
 import { TextDataTableRendererComponent } from './common/data-table/renderers/text.component';
+import { LinkDataTableRendererComponent } from './common/data-table/renderers/link.component';
 import { DateDataTableRendererComponent } from './common/data-table/renderers/date.component';
 import { StatusDataTableRendererComponent } from './common/data-table/renderers/status.component';
 import { ActionDataTableRendererComponent } from './common/data-table/renderers/action.component';
@@ -137,6 +138,7 @@ Amplify.configure(awsconfig);
     ActionDataTableRendererComponent,
     RendererLoaderDirective,
     AddProjectScheduleComponent,
+    LinkDataTableRendererComponent,
   ],
   imports: [
     BrowserModule,
