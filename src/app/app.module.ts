@@ -86,9 +86,10 @@ import { RendererLoaderDirective } from './common/data-table/renderer-loader.dir
 import { AddProjectScheduleComponent } from './views/modals/add-project-schedule.component';
 import { MaterialRequestComponent } from './views/material-request.component';
 import { ProgressReportComponent } from './views/progress-report.component';
-import { AddComponent } from './views/material-request/add.component';
 import { MaterialRequestListComponent } from './views/material-request/list.component';
 import { ProgressReportListComponent } from './views/progress-report/list.component';
+import { AddProgressReportComponent } from './views/progress-report/add.component';
+import { AddMaterialRequestComponent } from './views/material-request/add.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -146,9 +147,10 @@ Amplify.configure(awsconfig);
     LinkDataTableRendererComponent,
     MaterialRequestComponent,
     MaterialRequestListComponent,
+    AddMaterialRequestComponent,
     ProgressReportComponent,
     ProgressReportListComponent,
-    AddComponent,
+    AddProgressReportComponent,
   ],
   imports: [
     BrowserModule,

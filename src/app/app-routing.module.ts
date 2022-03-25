@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './views/dashboard.component';
 import { MaterialRequestComponent } from './views/material-request.component';
+import { AddMaterialRequestComponent } from './views/material-request/add.component';
 import { MaterialRequestListComponent } from './views/material-request/list.component';
 import { ProgressReportComponent } from './views/progress-report.component';
+import { AddProgressReportComponent } from './views/progress-report/add.component';
 import { ProgressReportListComponent } from './views/progress-report/list.component';
 import { ProjectsComponent } from './views/projects.component';
 import { AddProjectComponent } from './views/projects/add.component';
@@ -63,6 +65,10 @@ const routes: Routes = [
         path: '',
         component: MaterialRequestListComponent,
       },
+      {
+        path: 'new',
+        component: AddMaterialRequestComponent,
+      },
     ],
   },
   {
@@ -72,6 +78,10 @@ const routes: Routes = [
       {
         path: '',
         component: ProgressReportListComponent,
+      },
+      {
+        path: 'new',
+        component: AddProgressReportComponent,
       },
     ],
   },
