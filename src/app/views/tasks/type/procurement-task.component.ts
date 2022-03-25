@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import {
   ScopeOfWork,
   ScopeOfWorkTask,
@@ -78,7 +79,7 @@ export class ProcurementTaskComponent implements OnInit {
     },
   ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public router: Router) {}
 
   ngOnInit(): void {}
 

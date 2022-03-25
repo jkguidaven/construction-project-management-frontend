@@ -104,5 +104,11 @@
 
 <app-action-panel>
   <button mat-raised-button>Save Progress</button>
-  <button mat-raised-button color="primary">Mark as Complete</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="router.navigate(['/tasks'])"
+  >
+    Mark as Complete
+  </button>
 </app-action-panel>

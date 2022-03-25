@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
 
 @Component({
@@ -83,7 +84,7 @@ export class ClientApprovalTaskComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(public router: Router) {}
 
   ngOnInit(): void {}
 }

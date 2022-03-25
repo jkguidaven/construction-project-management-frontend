@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import {
   ScopeOfWork,
   ScopeOfWorkTask,
@@ -16,7 +17,7 @@ import { AddScopeComponent } from '../../modals/add-scope.component';
 export class CostEstimateTaskComponent implements OnInit {
   scopes: ScopeOfWork[] = [];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public router: Router) {}
 
   ngOnInit(): void {}
 

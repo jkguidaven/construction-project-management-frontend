@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import {
   GroupTask,
   Task,
@@ -94,7 +95,7 @@ export class ScheduleProjectTaskComponent implements OnInit {
     },
   ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public router: Router) {}
 
   ngOnInit(): void {
     this.groupTasks = this.scopes.map((scope) => {
@@ -125,8 +126,6 @@ export class ScheduleProjectTaskComponent implements OnInit {
 
         if (group) {
           const task = group.tasks.find(({ id }) => data.task.name === id);
-
-          console.log({ task, data });
 
           if (task) {
             task.dates.push({
