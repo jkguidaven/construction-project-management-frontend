@@ -1,0 +1,26 @@
+.po-no-container {
+  display: flex;
+  justify-content: space-between;
+  mat-form-field {
+    max-width: 300px;
+  }
+}
+
+table {
+  width: 100%;
+  padding: var(--spacing);
+
+  thead {
+    tr {
+      td {
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+button {
+  margin-left: calc(var(--spacing) / 2);
+}

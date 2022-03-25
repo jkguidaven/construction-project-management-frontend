@@ -1,1 +1,128 @@
-<p>add works!</p>
+<app-card>
+  <h2>Add Purchase Order</h2>
+
+  <app-form-row>
+    <div class="po-no-container">
+      <mat-form-field appearance="outline">
+        <mat-label>PO #</mat-label>
+        <input matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>PO Date</mat-label>
+        <input matInput [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Term</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </div>
+  </app-form-row>
+
+  <app-form-row description="Select which project">
+    <mat-form-field appearance="outline">
+      <mat-label>Project</mat-label>
+      <mat-select>
+        <mat-option value="1"> House remodelling </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Supplier</mat-label>
+      <input matInput />
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Supplier</mat-label>
+      <input matInput />
+    </mat-form-field>
+  </app-form-row>
+
+  <app-form-row>
+    <mat-form-field appearance="outline">
+      <mat-label>Supplier Address</mat-label>
+      <textarea matInput rows="5"></textarea>
+    </mat-form-field>
+  </app-form-row>
+</app-card>
+
+<app-card>
+  <h2>Particulars</h2>
+  <table>
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>Item Description</td>
+        <td>qty</td>
+        <td>unit</td>
+        <td>price</td>
+        <td>amount</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let line of lines; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input matInput />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input matInput />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input matInput />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input matInput />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input matInput disabled />
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <button mat-button color="primary" (click)="addLine()">
+            Add Line
+          </button>
+        </td>
+        <td><b>GRAND TOTAL</b></td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              disabled
+              value="{{ 0 | currency: 'PHP':'symbol' }}"
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-card>
+
+<app-action-panel>
+  <button mat-raised-button>Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="router.navigate(['/tasks'])"
+  >
+    Create
+  </button>
+</app-action-panel>
