@@ -106,7 +106,7 @@ export class TaskListComponent implements OnInit {
     if (this.groups.indexOf('qs') > -1) {
       this.dataUnassigned.push({
         id: 2,
-        name: 'House remodelling',
+        name: 'Building Mall',
         task: 'Define Scope of Work',
         date: new Date(),
         action: {
