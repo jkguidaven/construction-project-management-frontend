@@ -5,6 +5,9 @@
   text-align: center;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
 
   &:hover {
     background-color: var(--green-color);
