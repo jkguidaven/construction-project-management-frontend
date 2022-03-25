@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './views/dashboard.component';
-import { MaterialRequestComponent } from './views/material-request/material-request.component';
-import { ProgressReportComponent } from './views/progress-report/progress-report.component';
+import { MaterialRequestComponent } from './views/material-request.component';
+import { MaterialRequestListComponent } from './views/material-request/list.component';
+import { ProgressReportComponent } from './views/progress-report.component';
+import { ProgressReportListComponent } from './views/progress-report/list.component';
 import { ProjectsComponent } from './views/projects.component';
 import { AddProjectComponent } from './views/projects/add.component';
 import { ProjectListComponent } from './views/projects/list.component';
@@ -56,10 +58,22 @@ const routes: Routes = [
   {
     path: 'material-request',
     component: MaterialRequestComponent,
+    children: [
+      {
+        path: '',
+        component: MaterialRequestListComponent,
+      },
+    ],
   },
   {
     path: 'progress-report',
     component: ProgressReportComponent,
+    children: [
+      {
+        path: '',
+        component: ProgressReportListComponent,
+      },
+    ],
   },
 ];
 

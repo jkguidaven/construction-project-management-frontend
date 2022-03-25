@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  app-data-table {
+    width: 100%;
+  }
+
+  .add-button {
+    color: var(--green-color);
+    text-transform: uppercase;
+    margin: var(--spacing);
+  }
+}
