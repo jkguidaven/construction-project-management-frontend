@@ -95,6 +95,10 @@ import { ViewProgressReportComponent } from './views/progress-report/view.compon
 import { ApproveMaterialRequestComponent } from './views/tasks/type/approve-material-request.component';
 import { ApproveProgressReportComponent } from './views/tasks/type/approve-progress-report.component';
 import { ForPurchaseOrderComponent } from './views/tasks/type/for-purchase-order.component';
+import { PurchaseOrdersComponent } from './views/purchase-orders.component';
+import { PurchaseOrderListComponent } from './views/purchase-orders/list.component';
+import { ViewPurchaseOrderComponent } from './views/purchase-orders/view.component';
+import { AddPurchaseOrderComponent } from './views/purchase-orders/add.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -161,6 +165,10 @@ Amplify.configure(awsconfig);
     ApproveMaterialRequestComponent,
     ApproveProgressReportComponent,
     ForPurchaseOrderComponent,
+    PurchaseOrdersComponent,
+    PurchaseOrderListComponent,
+    ViewPurchaseOrderComponent,
+    AddPurchaseOrderComponent,
   ],
   imports: [
     BrowserModule,

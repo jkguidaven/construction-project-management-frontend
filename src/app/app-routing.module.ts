@@ -13,6 +13,10 @@ import { ProjectsComponent } from './views/projects.component';
 import { AddProjectComponent } from './views/projects/add.component';
 import { ProjectListComponent } from './views/projects/list.component';
 import { ViewProjectComponent } from './views/projects/view.component';
+import { PurchaseOrdersComponent } from './views/purchase-orders.component';
+import { AddPurchaseOrderComponent } from './views/purchase-orders/add.component';
+import { PurchaseOrderListComponent } from './views/purchase-orders/list.component';
+import { ViewPurchaseOrderComponent } from './views/purchase-orders/view.component';
 import { TasksComponent } from './views/tasks.component';
 import { TaskDetailsComponent } from './views/tasks/details.component';
 import { TaskListComponent } from './views/tasks/list.component';
@@ -92,6 +96,24 @@ const routes: Routes = [
       {
         path: ':id',
         component: ViewProgressReportComponent,
+      },
+    ],
+  },
+  {
+    path: 'purchase-orders',
+    component: PurchaseOrdersComponent,
+    children: [
+      {
+        path: '',
+        component: PurchaseOrderListComponent,
+      },
+      {
+        path: 'new',
+        component: AddPurchaseOrderComponent,
+      },
+      {
+        path: ':id',
+        component: ViewPurchaseOrderComponent,
       },
     ],
   },

@@ -1,1 +1,84 @@
-<p>for-purchase-order works!</p>
+<form [formGroup]="form">
+  <app-card>
+    <h2>Material Request (For PO)</h2>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="project">
+          <mat-option value="1"> House remodelling </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Scope of Work</mat-label>
+        <mat-select formControlName="scope">
+          <mat-option [value]="scope" *ngFor="let scope of scopes">{{
+            scope.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Task</mat-label>
+        <mat-select formControlName="task">
+          <mat-option [value]="task" *ngFor="let task of tasks">{{
+            task.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row *ngIf="form.get('task').value">
+      <div class="row">
+        <div class="column"><b>Materials</b></div>
+        <div class="column"><b>Total Budget</b></div>
+        <div class="column"><b>Released</b></div>
+        <div class="column"><b>Remaining</b></div>
+        <div class="column"><b>Request (qty)</b></div>
+      </div>
+      <div class="row" *ngFor="let material of materials">
+        <div class="column">{{ material.name }}</div>
+        <div class="column">{{ material.quantity }} {{ material.unit }}</div>
+        <div class="column">{{ material.released }} {{ material.unit }}</div>
+        <div class="column">
+          {{ material.quantity - material.released }} {{ material.unit }}
+        </div>
+        <div class="column">{{ material.requested }} {{ material.unit }}</div>
+      </div>
+    </app-form-row>
+  </app-card>
+
+  <app-card>
+    <h2 class="po-header">
+      Purchase Orders
+
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="router.navigate(['/purchase-orders', 'new'])"
+      >
+        <mat-icon>add</mat-icon>Create PO
+      </button>
+    </h2>
+
+    <app-data-table [columns]="columns"> </app-data-table>
+  </app-card>
+
+  <app-action-panel>
+    <button mat-raised-button (click)="router.navigate(['/tasks'])">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="router.navigate(['/tasks'])"
+    >
+      Mark as Complete
+    </button>
+  </app-action-panel>
+</form>

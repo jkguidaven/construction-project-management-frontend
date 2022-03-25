@@ -52,6 +52,14 @@ export class SidenavComponent implements OnInit {
       });
     }
 
+    if (this.groups && this.groups.indexOf('procurement') > -1) {
+      list.push({
+        label: 'Purchase Orders',
+        icon: 'assignment',
+        link: '/purchase-orders',
+      });
+    }
+
     return list;
   }
 
