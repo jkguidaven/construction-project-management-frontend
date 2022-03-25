@@ -4,9 +4,11 @@ import { DashboardComponent } from './views/dashboard.component';
 import { MaterialRequestComponent } from './views/material-request.component';
 import { AddMaterialRequestComponent } from './views/material-request/add.component';
 import { MaterialRequestListComponent } from './views/material-request/list.component';
+import { ViewMaterialRequestComponent } from './views/material-request/view.component';
 import { ProgressReportComponent } from './views/progress-report.component';
 import { AddProgressReportComponent } from './views/progress-report/add.component';
 import { ProgressReportListComponent } from './views/progress-report/list.component';
+import { ViewProgressReportComponent } from './views/progress-report/view.component';
 import { ProjectsComponent } from './views/projects.component';
 import { AddProjectComponent } from './views/projects/add.component';
 import { ProjectListComponent } from './views/projects/list.component';
@@ -69,6 +71,10 @@ const routes: Routes = [
         path: 'new',
         component: AddMaterialRequestComponent,
       },
+      {
+        path: ':id',
+        component: ViewMaterialRequestComponent,
+      },
     ],
   },
   {
@@ -82,6 +88,10 @@ const routes: Routes = [
       {
         path: 'new',
         component: AddProgressReportComponent,
+      },
+      {
+        path: ':id',
+        component: ViewProgressReportComponent,
       },
     ],
   },

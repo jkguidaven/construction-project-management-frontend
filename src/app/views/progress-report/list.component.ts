@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataTableColumnDef } from 'src/app/common/data-table/data-table.component';
 import { ActionDataTableRendererComponent } from 'src/app/common/data-table/renderers/action.component';
 import { DateDataTableRendererComponent } from 'src/app/common/data-table/renderers/date.component';
@@ -39,12 +40,14 @@ export class ProgressReportListComponent implements OnInit {
       date: new Date(),
       action: {
         label: 'View',
-        handler: () => {},
+        handler: () => {
+          this.router.navigate(['/progress-report', 1]);
+        },
       },
     },
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 }
