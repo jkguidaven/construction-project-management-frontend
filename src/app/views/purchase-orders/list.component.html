@@ -1,1 +1,15 @@
-<p>list works!</p>
+<app-card>
+  <h2 class="po-header">
+    Purchase Orders
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="router.navigate(['/purchase-orders', 'new'])"
+    >
+      <mat-icon>add</mat-icon>Create PO
+    </button>
+  </h2>
+
+  <app-data-table [columns]="columns"> </app-data-table>
+</app-card>
