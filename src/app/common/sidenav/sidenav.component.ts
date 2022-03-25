@@ -38,6 +38,20 @@ export class SidenavComponent implements OnInit {
     if (this.groups && this.hasTaskModule(this.groups))
       list.push({ label: 'Tasks', icon: 'assignment', link: '/tasks' });
 
+    if (this.groups && this.groups.indexOf('site') > -1) {
+      list.push({
+        label: 'Report progress',
+        icon: 'report',
+        link: '/progress-report',
+      });
+
+      list.push({
+        label: 'Material request',
+        icon: 'assignment',
+        link: '/material-request',
+      });
+    }
+
     return list;
   }
 
