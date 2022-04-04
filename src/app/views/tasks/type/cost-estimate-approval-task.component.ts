@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GroupTask } from 'src/app/common/charts/gantt-chart/gantt-chart.component';
 import {
   ScopeOfWork,
   ScopeOfWorkTask,
@@ -15,6 +16,10 @@ import { AddScopeOfWorkTaskSubconBudgetComponent } from '../../modals/add-scope-
   styleUrls: ['./cost-estimate-approval-task.component.scss'],
 })
 export class CostEstimateApprovalTaskComponent implements OnInit {
+  startDate: Date = new Date();
+  endDate: Date = new Date(2023, 3, 5);
+  groupTasks: GroupTask[] = [];
+
   scopes: ScopeOfWork[] = [
     {
       name: 'EARTHWORK',
