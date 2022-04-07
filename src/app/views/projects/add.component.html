@@ -1,11 +1,11 @@
-<form>
+<form [formGroup]="form">
   <app-card>
     <h2>Project Information</h2>
 
     <app-form-row>
       <mat-form-field appearance="outline">
         <mat-label>Project Name</mat-label>
-        <input matInput />
+        <input matInput formControlName="name" />
       </mat-form-field>
     </app-form-row>
 
@@ -14,7 +14,7 @@
     >
       <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
     </app-form-row>
 
@@ -24,60 +24,67 @@
       description="Select existing customer, otherwise input new customer details."
     >
       <mat-form-field appearance="outline">
-        <mat-label>Customer</mat-label>
-        <input matInput />
-      </mat-form-field>
-    </app-form-row>
-
-    <app-form-row>
-      <mat-form-field appearance="outline">
-        <mat-label>Full name</mat-label>
-        <input matInput />
+        <input
+          type="text"
+          matInput
+          formControlName="customer"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option
+            *ngFor="let customer of filterCustomer(customers$ | async)"
+            [value]="customer"
+          >
+            {{ customer.name }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </app-form-row>
 
     <app-form-row>
       <mat-form-field appearance="outline">
         <mat-label>Address 1</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="address1"></textarea>
       </mat-form-field>
     </app-form-row>
 
     <app-form-row>
       <mat-form-field appearance="outline">
         <mat-label>Address 2</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="address2"></textarea>
       </mat-form-field>
     </app-form-row>
 
     <app-form-row>
-      <div class="city-info-box">
-        <mat-form-field appearance="outline">
-          <mat-label>City</mat-label>
-          <input matInput />
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" />
+      </mat-form-field>
+    </app-form-row>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Postal</mat-label>
-          <input matInput />
-        </mat-form-field>
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Postal</mat-label>
+        <input matInput formControlName="postal" />
+      </mat-form-field>
+    </app-form-row>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Province</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </div>
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Province</mat-label>
+        <input matInput formControlName="province" />
+      </mat-form-field>
     </app-form-row>
 
     <app-form-row>
       <mat-form-field appearance="outline">
         <mat-label>Phone Number</mat-label>
-        <input matInput />
+        <input matInput formControlName="phone" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput />
+        <input matInput formControlName="email" />
       </mat-form-field>
     </app-form-row>
   </app-card>
@@ -92,15 +99,29 @@
     >
       <mat-form-field appearance="outline">
         <mat-label>Has existing design?</mat-label>
-        <mat-select [formControl]="hasExistingDesignControl">
+        <mat-select formControlName="hasExistingDesign">
           <mat-option [value]="true"> Yes </mat-option>
           <mat-option [value]="false"> No </mat-option>
         </mat-select>
       </mat-form-field>
     </app-form-row>
 
-    <app-form-row *ngIf="hasExistingDesignControl.value">
+    <app-form-row *ngIf="form.get('hasExistingDesign').value">
       <app-upload-file-dropbox></app-upload-file-dropbox>
     </app-form-row>
   </app-card>
 </form>
+
+<app-action-panel>
+  <button mat-raised-button (click)="router.navigate(['/projects'])">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+    [disabled]="!form.valid || processing"
+  >
+    Save
+  </button>
+</app-action-panel>

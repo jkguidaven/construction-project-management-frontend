@@ -20,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 /* Other 3rd party library */
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -99,6 +100,7 @@ import { PurchaseOrdersComponent } from './views/purchase-orders.component';
 import { PurchaseOrderListComponent } from './views/purchase-orders/list.component';
 import { ViewPurchaseOrderComponent } from './views/purchase-orders/view.component';
 import { AddPurchaseOrderComponent } from './views/purchase-orders/add.component';
+import { HttpClientModule } from '@angular/common/http';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -176,6 +178,7 @@ Amplify.configure(awsconfig);
     ReactiveFormsModule,
     StoreModule.forRoot({}, {}),
     BrowserAnimationsModule,
+    HttpClientModule,
     AmplifyAuthenticatorModule,
     MatIconModule,
     MatMenuModule,
@@ -190,6 +193,7 @@ Amplify.configure(awsconfig);
     MatProgressBarModule,
     MatExpansionModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
     NgxChartsModule,
