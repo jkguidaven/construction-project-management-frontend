@@ -1,19 +1,31 @@
 <div class="container">
   <app-card>
     <h1>Unassigned Tasks</h1>
-    <app-data-table [columns]="columnUnassigned" [data]="dataUnassigned">
+    <app-data-table
+      [columns]="columnUnassigned"
+      [data]="dataUnassigned"
+      [loading]="loadingUnassignedTasks"
+    >
     </app-data-table>
   </app-card>
 
   <app-card>
     <h1>Inprogress Tasks</h1>
-    <app-data-table [columns]="columnAssigned" [data]="dataAssigned">
+    <app-data-table
+      [columns]="columnAssigned"
+      [data]="dataAssigned"
+      [loading]="loadingAssignedTasks"
+    >
     </app-data-table>
   </app-card>
 
   <app-card>
     <h1>Completed Tasks</h1>
-    <app-data-table [columns]="columnCompleted" [data]="dataCompleted">
+    <app-data-table
+      [columns]="columnCompleted"
+      [data]="dataCompleted"
+      [loading]="loadingCompletedTasks"
+    >
     </app-data-table>
   </app-card>
 </div>

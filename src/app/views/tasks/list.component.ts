@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
+import { finalize } from 'rxjs';
 import { DataTableColumnDef } from 'src/app/common/data-table/data-table.component';
 import { ActionDataTableRendererComponent } from 'src/app/common/data-table/renderers/action.component';
 import { DateDataTableRendererComponent } from 'src/app/common/data-table/renderers/date.component';
 import { StatusDataTableRendererComponent } from 'src/app/common/data-table/renderers/status.component';
+import { Task } from 'src/app/models/task.model';
+import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 
 @Component({
   selector: 'app-list',
@@ -75,7 +78,14 @@ export class TaskListComponent implements OnInit {
   dataAssigned: any[] = [];
   dataCompleted: any[] = [];
 
-  constructor(private router: Router) {}
+  loadingUnassignedTasks: boolean;
+  loadingAssignedTasks: boolean;
+  loadingCompletedTasks: boolean;
+
+  constructor(
+    private router: Router,
+    private taskClientAPI: TaskClientApiService
+  ) {}
 
   ngOnInit(): void {
     this.loadRolesAndMenu();
@@ -84,185 +94,132 @@ export class TaskListComponent implements OnInit {
   async loadRolesAndMenu(): Promise<void> {
     const user = await Auth.currentAuthenticatedUser();
     this.groups = user.signInUserSession.accessToken.payload['cognito:groups'];
-    this.loadUnAssignedTask();
+    this.loadUnassignedTasks();
+    this.loadAssignedTasks();
+    this.loadCompletedTasks();
   }
 
-  loadUnAssignedTask(): void {
-    if (this.groups.indexOf('design') > -1) {
-      this.dataUnassigned.push({
-        id: 1,
-        name: 'House remodelling',
-        task: 'Architectural Design',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(1);
+  loadUnassignedTasks(): void {
+    this.loadingUnassignedTasks = true;
+    this.taskClientAPI
+      .getTasks('unassigned')
+      .pipe(finalize(() => (this.loadingUnassignedTasks = false)))
+      .subscribe((tasks: Task[]) => {
+        this.dataUnassigned = tasks.map((task: Task) => ({
+          id: task.id,
+          name: task.project.name,
+          date: task.date,
+          task: this.getTaskName(task),
+          action: {
+            label: 'Assign',
+            handler: () => {
+              this.assign(task);
+            },
           },
-        },
+        }));
       });
-    }
-
-    if (this.groups.indexOf('qs') > -1) {
-      this.dataUnassigned.push({
-        id: 2,
-        name: 'Building Mall',
-        task: 'Define Scope of Work',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(2);
-          },
-        },
-      });
-
-      this.dataUnassigned.push({
-        id: 9,
-        name: 'House remodelling',
-        task: 'Approve Material request',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(9);
-          },
-        },
-      });
-
-      this.dataUnassigned.push({
-        id: 10,
-        name: 'House remodelling',
-        task: 'Approve Progress report',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(10);
-          },
-        },
-      });
-    }
-
-    if (this.groups.indexOf('procurement') > -1) {
-      this.dataUnassigned.push({
-        id: 3,
-        name: 'House remodelling',
-        task: 'Price canvassing',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(3);
-          },
-        },
-      });
-
-      this.dataUnassigned.push({
-        id: 11,
-        name: 'House remodelling',
-        task: 'For PO',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(11);
-          },
-        },
-      });
-    }
-
-    if (this.groups.indexOf('ce') > -1) {
-      this.dataUnassigned.push({
-        id: 4,
-        name: 'House remodelling',
-        task: 'For Review',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(4);
-          },
-        },
-      });
-    }
-
-    if (this.groups.indexOf('operation') > -1) {
-      this.dataUnassigned.push({
-        id: 5,
-        name: 'House remodelling',
-        task: 'For Schedule',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(5);
-          },
-        },
-      });
-    }
-
-    if (this.groups.indexOf('accounting') > -1) {
-      this.dataUnassigned.push({
-        id: 6,
-        name: 'House remodelling',
-        task: 'For Review',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(6);
-          },
-        },
-      });
-
-      this.dataUnassigned.push({
-        id: 8,
-        name: 'House remodelling',
-        task: 'For Client Approval',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(8);
-          },
-        },
-      });
-    }
-
-    if (this.groups.indexOf('stakeholder') > -1) {
-      this.dataUnassigned.push({
-        id: 7,
-        name: 'House remodelling',
-        task: 'For Review',
-        date: new Date(),
-        action: {
-          label: 'Assigned',
-          handler: () => {
-            this.assign(7);
-          },
-        },
-      });
-    }
   }
 
-  assign(toAssign: number): void {
-    const index = this.dataUnassigned.findIndex(({ id }) => id === toAssign);
-    const item = this.dataUnassigned[index];
-
-    if (item) {
-      this.dataAssigned.push({
-        ...item,
-        status: 'inprogress',
-        action: {
-          label: 'View',
-          handler: () => {
-            this.router.navigate(['/tasks', toAssign]);
+  loadAssignedTasks(): void {
+    this.loadingAssignedTasks = true;
+    this.taskClientAPI
+      .getTasks('pending')
+      .pipe(finalize(() => (this.loadingAssignedTasks = false)))
+      .subscribe((tasks: Task[]) => {
+        this.dataAssigned = tasks.map((task: Task) => ({
+          id: task.id,
+          name: task.project.name,
+          date: task.date,
+          task: this.getTaskName(task),
+          status: task.status,
+          action: {
+            label: 'View',
+            handler: () => {
+              this.router.navigate(['/tasks', task.id]);
+            },
           },
-        },
+        }));
       });
+  }
 
-      this.dataUnassigned.splice(index, 1);
+  loadCompletedTasks(): void {
+    this.loadingCompletedTasks = true;
+    this.taskClientAPI
+      .getTasks('completed')
+      .pipe(finalize(() => (this.loadingCompletedTasks = false)))
+      .subscribe((tasks: Task[]) => {
+        this.dataCompleted = tasks.map((task: Task) => ({
+          id: task.id,
+          name: task.project.name,
+          date: task.date,
+          task: this.getTaskName(task),
+          status: task.status,
+          action: {
+            label: 'View',
+            handler: () => {
+              this.router.navigate(['/tasks', task.id]);
+            },
+          },
+        }));
+      });
+  }
+
+  assign(task: Task): void {
+    this.taskClientAPI.assignTask(task).subscribe((accepted) => {
+      if (accepted) {
+        const index = this.dataUnassigned.findIndex(({ id }) => id === task.id);
+        const item = this.dataUnassigned[index];
+
+        if (item) {
+          this.dataAssigned.push({
+            ...item,
+            status: 'inprogress',
+            action: {
+              label: 'View',
+              handler: () => {
+                this.router.navigate(['/tasks', task.id]);
+              },
+            },
+          });
+
+          this.dataUnassigned.splice(index, 1);
+        }
+      }
+    });
+  }
+
+  getTaskName(task: Task): string {
+    switch (task.type) {
+      case 'FOR_ARCHITECTURAL_DESIGN':
+        return 'For Architectural Design';
+
+      case 'DEFINE_SCOPE_OF_WORK':
+        return 'Define scope of work';
+
+      case 'PRICE_CANVASSING':
+        return 'Material Price Canvassing';
+
+      case 'SCHEDULE_PROJECT':
+        return 'Schedule Project';
+
+      case 'COST_ESTIMATE_APPROVAL':
+        return 'Finalize Cost Estimate';
+
+      case 'ACCOUNTING_APPROVAL':
+      case 'STATEKHOLDER_APPROVAL':
+      case 'MATERIAL_REQUEST_APPROVAL':
+      case 'MATERIAL_REQUEST_APPROVAL_CE':
+      case 'PROGRESS_APPROVAL':
+      case 'PROGRESS_APPROVAL_CE':
+        return 'For Approval';
+
+      case 'FOR_PURCHASE_ORDER':
+        return 'For PO';
+
+      case 'CLIENT_APPROVAL':
+        return `For Client's Approval`;
     }
+
+    return 'Unknown';
   }
 }
