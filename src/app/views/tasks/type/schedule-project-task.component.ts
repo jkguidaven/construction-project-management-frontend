@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import {
@@ -8,13 +8,15 @@ import {
 } from 'src/app/common/charts/gantt-chart/gantt-chart.component';
 import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
 import { AddProjectScheduleComponent } from '../../modals/add-project-schedule.component';
+import { TaskHandler } from './task-handler';
 
 @Component({
   selector: 'app-schedule-project-task',
   templateUrl: './schedule-project-task.component.html',
   styleUrls: ['./schedule-project-task.component.scss'],
 })
-export class ScheduleProjectTaskComponent implements OnInit {
+export class ScheduleProjectTaskComponent implements OnInit, TaskHandler {
+  @Input() task!: any;
   startDate: Date = new Date();
   endDate: Date = new Date(2023, 3, 5);
   groupTasks: GroupTask[] = [];
@@ -137,5 +139,9 @@ export class ScheduleProjectTaskComponent implements OnInit {
         }
       }
     });
+  }
+
+  setTask(task: any): void {
+    this.task = task;
   }
 }

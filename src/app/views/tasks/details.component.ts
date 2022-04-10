@@ -13,6 +13,7 @@ import { ForPurchaseOrderComponent } from './type/for-purchase-order.component';
 import { ProcurementTaskComponent } from './type/procurement-task.component';
 import { ScheduleProjectTaskComponent } from './type/schedule-project-task.component';
 import { StakeholderApprovalTaskComponent } from './type/stakeholder-approval-task.component';
+import { TaskHandler } from './type/task-handler';
 
 @Component({
   selector: 'app-details',
@@ -44,7 +45,10 @@ export class TaskDetailsComponent implements OnInit {
     this.taskClientAPI
       .getTask(this.activatedRoute.snapshot.params['id'] as number)
       .subscribe((task: Task) => {
-        this.viewContainerRef.createComponent(this.taskComponent[task.type]);
+        const componentRef = this.viewContainerRef.createComponent(
+          this.taskComponent[task.type]
+        );
+        (<TaskHandler>componentRef.instance).setTask(task);
       });
   }
 }

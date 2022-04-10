@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   ScopeOfWork,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { Task } from 'src/app/models/task.model';
+import { TaskClientApiService } from 'src/app/services/task-client-api.service';
+import { TaskHandler } from './task-handler';
 
 @Component({
   selector: 'app-stakeholder-approval-task',
   templateUrl: './stakeholder-approval-task.component.html',
   styleUrls: ['./stakeholder-approval-task.component.scss'],
 })
-export class StakeholderApprovalTaskComponent implements OnInit {
+export class StakeholderApprovalTaskComponent implements OnInit, TaskHandler {
+  @Input() task!: Task;
+
   profitControl: FormControl = new FormControl(0, []);
   scopes: ScopeOfWork[] = [
     {
@@ -88,7 +94,10 @@ export class StakeholderApprovalTaskComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private taskClientAPI: TaskClientApiService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -134,5 +143,15 @@ export class StakeholderApprovalTaskComponent implements OnInit {
       this.scopes.reduce((total, scope) => total + this.getSubTotal(scope), 0) +
       (this.profitControl.value ?? 0)
     );
+  }
+
+  setTask(task: Task): void {
+    this.task = task;
+  }
+
+  complete() {
+    this.taskClientAPI.completeTask(this.task).subscribe(() => {
+      this.router.navigate(['/tasks']);
+    });
   }
 }

@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
+import { Task } from 'src/app/models/task.model';
+import { TaskClientApiService } from 'src/app/services/task-client-api.service';
+import { TaskHandler } from './task-handler';
 
 @Component({
   selector: 'app-client-approval-task',
   templateUrl: './client-approval-task.component.html',
   styleUrls: ['./client-approval-task.component.scss'],
 })
-export class ClientApprovalTaskComponent implements OnInit {
+export class ClientApprovalTaskComponent implements OnInit, TaskHandler {
+  @Input() task!: Task;
+
   scopes: ScopeOfWork[] = [
     {
       name: 'EARTHWORK',
@@ -84,7 +89,20 @@ export class ClientApprovalTaskComponent implements OnInit {
     },
   ];
 
-  constructor(public router: Router) {}
+  constructor(
+    public router: Router,
+    private taskClientAPI: TaskClientApiService
+  ) {}
 
   ngOnInit(): void {}
+
+  setTask(task: Task): void {
+    this.task = task;
+  }
+
+  complete() {
+    this.taskClientAPI.completeTask(this.task).subscribe(() => {
+      this.router.navigate(['/tasks']);
+    });
+  }
 }

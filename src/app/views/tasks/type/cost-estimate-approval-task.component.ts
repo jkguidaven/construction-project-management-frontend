@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GroupTask } from 'src/app/common/charts/gantt-chart/gantt-chart.component';
@@ -7,15 +7,20 @@ import {
   ScopeOfWorkTask,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { Task } from 'src/app/models/task.model';
+import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 import { AddScopeOfWorkMaterialSubconBudgetComponent } from '../../modals/add-scope-of-work-material-subcon-budget.component';
 import { AddScopeOfWorkTaskSubconBudgetComponent } from '../../modals/add-scope-of-work-task-subcon-budget.component';
+import { TaskHandler } from './task-handler';
 
 @Component({
   selector: 'app-cost-estimate-approval-task',
   templateUrl: './cost-estimate-approval-task.component.html',
   styleUrls: ['./cost-estimate-approval-task.component.scss'],
 })
-export class CostEstimateApprovalTaskComponent implements OnInit {
+export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
+  @Input() task!: Task;
+
   startDate: Date = new Date();
   endDate: Date = new Date(2023, 3, 5);
   groupTasks: GroupTask[] = [];
@@ -89,7 +94,11 @@ export class CostEstimateApprovalTaskComponent implements OnInit {
     },
   ];
 
-  constructor(private dialog: MatDialog, public router: Router) {}
+  constructor(
+    private dialog: MatDialog,
+    public router: Router,
+    private taskClientAPI: TaskClientApiService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -165,6 +174,16 @@ export class CostEstimateApprovalTaskComponent implements OnInit {
       if (data) {
         material.subconPricePerUnit = data.subconPricePerUnit;
       }
+    });
+  }
+
+  setTask(task: Task): void {
+    this.task = task;
+  }
+
+  complete() {
+    this.taskClientAPI.completeTask(this.task).subscribe(() => {
+      this.router.navigate(['/tasks']);
     });
   }
 }

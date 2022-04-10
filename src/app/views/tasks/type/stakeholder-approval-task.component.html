@@ -27,7 +27,7 @@
 
   <app-action-panel>
     <a class="reject-button">Reject</a>
-    <a class="approve-button">Approve</a>
+    <a class="approve-button" (click)="complete()">Approve</a>
   </app-action-panel>
 </app-card>
 
@@ -35,7 +35,9 @@
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Overview">
       <br />
-      <app-project-overview-viewer></app-project-overview-viewer>
+      <app-project-overview-viewer
+        [project]="task.project"
+      ></app-project-overview-viewer>
     </mat-tab>
     <mat-tab label="Design Documents">
       <div class="attachment-list">

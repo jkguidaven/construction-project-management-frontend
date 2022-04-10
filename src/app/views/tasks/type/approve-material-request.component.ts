@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   ScopeOfWork,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { Task } from 'src/app/models/task.model';
+import { TaskHandler } from './task-handler';
 
 @Component({
   selector: 'app-approve-material-request',
   templateUrl: './approve-material-request.component.html',
   styleUrls: ['./approve-material-request.component.scss'],
 })
-export class ApproveMaterialRequestComponent implements OnInit {
+export class ApproveMaterialRequestComponent implements OnInit, TaskHandler {
+  @Input() task!: Task;
+
   form: FormGroup = new FormGroup({
     project: new FormControl(undefined, [Validators.required]),
     scope: new FormControl(undefined, [Validators.required]),
@@ -125,5 +129,9 @@ export class ApproveMaterialRequestComponent implements OnInit {
       return this.form.get('task').value.materials;
     }
     return [];
+  }
+
+  setTask(task: Task): void {
+    this.task = task;
   }
 }

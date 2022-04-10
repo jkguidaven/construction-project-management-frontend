@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataTableColumnDef } from 'src/app/common/data-table/data-table.component';
@@ -8,18 +8,22 @@ import {
   ScopeOfWork,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { Task } from 'src/app/models/task.model';
+import { TaskHandler } from './task-handler';
 
 @Component({
   selector: 'app-for-purchase-order',
   templateUrl: './for-purchase-order.component.html',
   styleUrls: ['./for-purchase-order.component.scss'],
 })
-export class ForPurchaseOrderComponent implements OnInit {
+export class ForPurchaseOrderComponent implements OnInit, TaskHandler {
   form: FormGroup = new FormGroup({
     project: new FormControl(undefined, [Validators.required]),
     scope: new FormControl(undefined, [Validators.required]),
     task: new FormControl(undefined, [Validators.required]),
   });
+
+  @Input() task: Task;
 
   columns: DataTableColumnDef[] = [
     { id: 'vendor', label: 'Vendor' },
@@ -130,6 +134,10 @@ export class ForPurchaseOrderComponent implements OnInit {
     this.form.get('project').setValue('Home remodelling');
     this.form.get('scope').setValue(this.scopes[1]);
     this.form.get('task').setValue(this.scopes[1].tasks[0]);
+  }
+
+  setTask(task: Task): void {
+    this.task = task;
   }
 
   get tasks(): ScopeOfWork[] {

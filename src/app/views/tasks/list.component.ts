@@ -58,7 +58,7 @@ export class TaskListComponent implements OnInit {
   ];
 
   columnCompleted: DataTableColumnDef[] = [
-    { id: 'project', label: 'Project name' },
+    { id: 'name', label: 'Project name' },
     { id: 'task', label: 'Task' },
     {
       id: 'date',
@@ -173,7 +173,7 @@ export class TaskListComponent implements OnInit {
         if (item) {
           this.dataAssigned.push({
             ...item,
-            status: 'inprogress',
+            status: 'PENDING',
             action: {
               label: 'View',
               handler: () => {

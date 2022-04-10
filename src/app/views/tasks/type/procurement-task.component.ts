@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import {
@@ -6,14 +6,19 @@ import {
   ScopeOfWorkTask,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { Task } from 'src/app/models/task.model';
+import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 import { AddScopeOfWorkMaterialPriceComponent } from '../../modals/add-scope-of-work-material-price.component';
+import { TaskHandler } from './task-handler';
 
 @Component({
   selector: 'app-procurement-task',
   templateUrl: './procurement-task.component.html',
   styleUrls: ['./procurement-task.component.scss'],
 })
-export class ProcurementTaskComponent implements OnInit {
+export class ProcurementTaskComponent implements OnInit, TaskHandler {
+  @Input() task: Task;
+
   scopes: ScopeOfWork[] = [
     {
       name: 'EARTHWORK',
@@ -79,7 +84,11 @@ export class ProcurementTaskComponent implements OnInit {
     },
   ];
 
-  constructor(private dialog: MatDialog, public router: Router) {}
+  constructor(
+    private dialog: MatDialog,
+    public router: Router,
+    private taskClientAPI: TaskClientApiService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -104,5 +113,15 @@ export class ProcurementTaskComponent implements OnInit {
           : 0)
       );
     }, 0);
+  }
+
+  setTask(task: Task): void {
+    this.task = task;
+  }
+
+  complete() {
+    this.taskClientAPI.completeTask(this.task).subscribe(() => {
+      this.router.navigate(['/tasks']);
+    });
   }
 }

@@ -18,9 +18,9 @@ export class StatusDataTableRendererComponent
 
   get color(): string {
     switch (this.data[this.field]) {
-      case 'inprogress':
+      case 'PENDING':
         return '#E8D52E';
-      case 'completed':
+      case 'COMPLETED':
         return '#449D25';
     }
 

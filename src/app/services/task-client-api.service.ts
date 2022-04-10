@@ -59,6 +59,23 @@ export class TaskClientApiService {
     );
   }
 
+  completeTask(task: Task): Observable<boolean> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .post(`${TASK_API_ENDPOINT}/${task.id}/complete`, null, {
+            headers: {
+              Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+            },
+          })
+          .pipe(
+            catchError(() => of(false)),
+            map(() => true)
+          );
+      })
+    );
+  }
+
   private getAuth(): Observable<CognitoUserSession> {
     return from(Auth.currentSession());
   }
