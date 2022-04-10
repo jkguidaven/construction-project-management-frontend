@@ -1,3 +1,12 @@
 <app-page-layout title="Projects">
-  <router-outlet></router-outlet>
+  <div *ngIf="hasAccess; else noAccess">
+    <router-outlet></router-outlet>
+  </div>
+
+  <ng-template #noAccess>
+    <div class="no-access-message">
+      <img src="../assets/images/no-access.png" />
+      It appears you do not have access to this page.
+    </div>
+  </ng-template>
 </app-page-layout>
