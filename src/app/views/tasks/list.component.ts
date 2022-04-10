@@ -72,6 +72,12 @@ export class TaskListComponent implements OnInit {
       width: '10%',
       renderer: StatusDataTableRendererComponent,
     },
+    {
+      id: 'action',
+      label: 'Action',
+      width: '10%',
+      renderer: ActionDataTableRendererComponent,
+    },
   ];
 
   dataUnassigned: any[] = [];

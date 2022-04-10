@@ -22,8 +22,13 @@
 </app-card>
 
 <app-action-panel>
-  <button mat-raised-button>Save Progress</button>
-  <button mat-raised-button color="primary" (click)="complete()">
+  <button mat-raised-button>Exit</button>
+  <button
+    *ngIf="task.status != 'COMPLETED'"
+    mat-raised-button
+    color="primary"
+    (click)="complete()"
+  >
     Mark as Complete
   </button>
 </app-action-panel>
