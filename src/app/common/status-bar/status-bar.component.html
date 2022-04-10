@@ -12,8 +12,10 @@
   <div *ngIf="!first" class="triangle-left-base"></div>
   <div *ngIf="!first" class="triangle-left"></div>
 
-  <h1>{{ item.label }}</h1>
-  <h2>{{ item.sub }}</h2>
+  <div class="content">
+    <h1>{{ item.label }}</h1>
+    <h2 *ngIf="sub && i === completed">{{ sub }}</h2>
+  </div>
 
   <div *ngIf="!last" class="triangle-right-base"></div>
   <div *ngIf="!last" class="triangle-right"></div>

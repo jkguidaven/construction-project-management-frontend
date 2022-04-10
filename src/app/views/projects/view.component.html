@@ -1,9 +1,22 @@
-<app-status-bar [items]="statusBarItems" [completed]="1"></app-status-bar>
+<div *ngIf="project">
+  <app-status-bar
+    *ngIf="project.status !== 'CANCELLED'; else cancelledStatusBar"
+    [items]="statusBarItems"
+    [completed]="completedStatus"
+    [sub]="substatus"
+  >
+  </app-status-bar>
+
+  <ng-template #cancelledStatusBar>
+    <app-status-bar [items]="statusBarItemsCancelled" [completed]="3">
+    </app-status-bar>
+  </ng-template>
+</div>
 
 <app-card>
-  <h1>Project Details</h1>
-
-  <app-project-overview-viewer></app-project-overview-viewer>
+  <app-project-overview-viewer
+    [project]="project"
+  ></app-project-overview-viewer>
 </app-card>
 
 <app-card>

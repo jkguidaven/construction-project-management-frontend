@@ -28,6 +28,20 @@ export class ProjectClientApiService {
     );
   }
 
+  get(id: number): Observable<Project> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .get(`${PROJECT_API_ENDPOINT}/${id}`, {
+            headers: {
+              Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+            },
+          })
+          .pipe(map((result) => result as Project));
+      })
+    );
+  }
+
   getAll(
     page: number = 0,
     size: number = 25,

@@ -7,6 +7,7 @@ export class Project {
   customer?: Customer;
   hasExistingDesign?: boolean;
   status?: string;
+  designStatus?: string;
 }
 
 export class ProjectPageResult {
