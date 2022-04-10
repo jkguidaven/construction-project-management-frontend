@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize, Observable } from 'rxjs';
+import { catchError, finalize, Observable } from 'rxjs';
+import { FileUpload } from 'src/app/common/upload-file-dropbox/upload-file-dropbox.component';
 import { Customer } from 'src/app/models/customer.model';
 import { Project } from 'src/app/models/project.model';
 import { CustomerClientApiService } from 'src/app/services/customer-client-api.service';
@@ -28,6 +29,8 @@ export class AddProjectComponent implements OnInit {
     email: new FormControl(),
     hasExistingDesign: new FormControl(null, [Validators.required]),
   });
+
+  uploads: FileUpload[] = [];
 
   processing!: boolean;
 
@@ -82,6 +85,8 @@ export class AddProjectComponent implements OnInit {
   }
 
   submit(): void {
+    if (!this.submittable) return;
+
     this.processing = true;
     const selectedCustomer = this.form.get('customer').value;
     const customer: Customer =
@@ -107,9 +112,19 @@ export class AddProjectComponent implements OnInit {
 
     this.projectClientAPI
       .add(project)
-      .pipe(finalize(() => (this.processing = false)))
+      .pipe(
+        catchError(() => {
+          this.processing = false;
+          return null;
+        })
+      )
       .subscribe((project: Project) => {
-        this.router.navigate(['/projects', project.id]);
+        if (project) {
+          if (project.hasExistingDesign) {
+          } else {
+            this.redirectToProject(project.id);
+          }
+        }
       });
   }
 
@@ -122,5 +137,25 @@ export class AddProjectComponent implements OnInit {
             : false;
         })
       : [];
+  }
+
+  redirectToProject(id: number) {
+    this.router.navigate(['/projects', id]);
+  }
+
+  get submittable(): boolean {
+    if (this.processing) {
+      return false;
+    }
+
+    if (!this.form.valid) {
+      return false;
+    }
+
+    if (this.form.get('hasExistingDesign').value && this.uploads.length === 0) {
+      return false;
+    }
+
+    return true;
   }
 }

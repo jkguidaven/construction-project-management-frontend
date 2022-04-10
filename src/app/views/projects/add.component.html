@@ -107,7 +107,7 @@
     </app-form-row>
 
     <app-form-row *ngIf="form.get('hasExistingDesign').value">
-      <app-upload-file-dropbox></app-upload-file-dropbox>
+      <app-upload-file-dropbox [(uploads)]="uploads"></app-upload-file-dropbox>
     </app-form-row>
   </app-card>
 </form>
@@ -120,7 +120,7 @@
     mat-raised-button
     color="primary"
     (click)="submit()"
-    [disabled]="!form.valid || processing"
+    [disabled]="!submittable"
   >
     Save
   </button>

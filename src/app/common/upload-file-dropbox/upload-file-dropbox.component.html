@@ -1,24 +1,41 @@
-<div class="drop-area" appUploadFileDropbox (drop)="onFileUpload($event)">
+<div
+  class="drop-area"
+  appUploadFileDropbox
+  (drop)="onFileUpload($event)"
+  (click)="fileUpload.click()"
+>
   <mat-icon>save_alt</mat-icon>
   Drag File to Upload
 </div>
 
+<input
+  type="file"
+  class="file-input"
+  (change)="onFileSelected($event)"
+  multiple
+  #fileUpload
+/>
+
 <div class="upload-info-box">
   <ul class="file-list">
-    <li *ngFor="let file of files">
+    <li *ngFor="let upload of uploads; let i = index">
       <div class="label">
         <mat-icon>{{
-          isImageFile(file) ? "image" : "insert_drive_file"
+          isImageFile(upload.file) ? "image" : "insert_drive_file"
         }}</mat-icon>
-        <span>{{ file.name }}</span>
+        <span>{{ upload.file.name }}</span>
 
         <span class="spacer"></span>
-        <mat-icon>close</mat-icon>
+        <mat-icon class="remove-button" (click)="remove(i)">close</mat-icon>
       </div>
 
-      <mat-progress-bar color="primary" mode="determinate" [value]="100">
+      <mat-progress-bar
+        color="primary"
+        mode="determinate"
+        [value]="upload.progress"
+      >
       </mat-progress-bar>
-      Completed
+      {{ upload.progress === 100 ? "Completed" : upload.progress + "%" }}
     </li>
   </ul>
 </div>
