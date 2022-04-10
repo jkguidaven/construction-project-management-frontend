@@ -1,10 +1,13 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, finalize, Observable } from 'rxjs';
+import { catchError, finalize, Observable, of } from 'rxjs';
 import { FileUpload } from 'src/app/common/upload-file-dropbox/upload-file-dropbox.component';
+import { Attachment } from 'src/app/models/attachment.model';
 import { Customer } from 'src/app/models/customer.model';
 import { Project } from 'src/app/models/project.model';
+import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
 import { CustomerClientApiService } from 'src/app/services/customer-client-api.service';
 import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
 
@@ -37,6 +40,7 @@ export class AddProjectComponent implements OnInit {
   constructor(
     private customerClientAPI: CustomerClientApiService,
     private projectClientAPI: ProjectClientApiService,
+    private attachmentClientAPI: AttachmentClientApiService,
     public router: Router
   ) {}
 
@@ -121,6 +125,7 @@ export class AddProjectComponent implements OnInit {
       .subscribe((project: Project) => {
         if (project) {
           if (project.hasExistingDesign) {
+            this.beginUpload(project.id);
           } else {
             this.redirectToProject(project.id);
           }
@@ -157,5 +162,39 @@ export class AddProjectComponent implements OnInit {
     }
 
     return true;
+  }
+
+  beginUpload(projectId: number, currentUploadIndex: number = 0): void {
+    const upload: FileUpload = this.uploads[currentUploadIndex];
+
+    if (upload) {
+      const attachment: Attachment = {
+        type: 'CONTRACT',
+        file: upload.file,
+        name: upload.file.name,
+      };
+
+      this.attachmentClientAPI
+        .uploadAttachment(projectId, attachment)
+        .pipe(
+          catchError(() => {
+            return of(null);
+          })
+        )
+        .subscribe((event) => {
+          if (event == null) {
+            this.beginUpload(projectId, currentUploadIndex + 1);
+          }
+          if (event.type === HttpEventType.UploadProgress) {
+            upload.progress = (upload.file.size / event.total) * 100;
+          } else if (event.type === HttpEventType.Response) {
+            this.beginUpload(projectId, currentUploadIndex + 1);
+            upload.progress = 100;
+          }
+        });
+    } else {
+      // We are done
+      this.redirectToProject(projectId);
+    }
   }
 }
