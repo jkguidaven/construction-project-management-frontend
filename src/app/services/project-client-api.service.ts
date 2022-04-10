@@ -28,11 +28,26 @@ export class ProjectClientApiService {
     );
   }
 
-  getAll(page: number = 0, size: number = 25): Observable<ProjectPageResult> {
+  getAll(
+    page: number = 0,
+    size: number = 25,
+    sortBy: string,
+    sortDir: string
+  ): Observable<ProjectPageResult> {
     return this.getAuth().pipe(
       mergeMap((auth: CognitoUserSession) => {
+        let query = `page=${page}&size=${size}`;
+
+        if (sortBy) {
+          query += `&sortBy=${sortBy}`;
+
+          if (sortDir === 'desc') {
+            query += '&desc';
+          }
+        }
+
         return this.httpClient
-          .get(`${PROJECT_API_ENDPOINT}?page=${page}&size=${size}`, {
+          .get(`${PROJECT_API_ENDPOINT}?${query}`, {
             headers: {
               Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
             },

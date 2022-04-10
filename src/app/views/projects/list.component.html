@@ -12,7 +12,9 @@
     [paginated]="true"
     [sortable]="true"
     [(sort)]="sort"
+    (sortChange)="refreshList()"
     [(sortDir)]="sortDir"
+    (sortDirChange)="refreshList()"
     [length]="result ? result.total : 0"
   >
   </app-data-table>

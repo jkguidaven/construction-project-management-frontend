@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { DataTableColumnDef } from 'src/app/common/data-table/data-table.component';
@@ -19,7 +13,7 @@ import { ProjectClientApiService } from 'src/app/services/project-client-api.ser
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ProjectListComponent implements OnInit, OnChanges {
+export class ProjectListComponent implements OnInit {
   columns: DataTableColumnDef[] = [
     {
       id: 'id',
@@ -62,14 +56,10 @@ export class ProjectListComponent implements OnInit, OnChanges {
     this.refreshList();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('wow change');
-  }
-
   refreshList(): void {
     this.loading = true;
     this.projectClientAPI
-      .getAll(this.page, this.size)
+      .getAll(this.page, this.size, this.sort, this.sortDir)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe((result) => {
         this.result = result;

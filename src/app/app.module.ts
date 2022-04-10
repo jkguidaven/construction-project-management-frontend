@@ -40,7 +40,7 @@ import { ProjectsComponent } from './views/projects.component';
 import { UserMenuComponent } from './common/user-menu/user-menu.component';
 import { UserProfileComponent } from './views/modals/user-profile.component';
 import { ChangePasswordComponent } from './views/modals/change-password.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -176,6 +176,7 @@ Amplify.configure(awsconfig);
     ProjectStatusDataTableRendererComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

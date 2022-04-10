@@ -47,7 +47,12 @@ export class DataTableComponent implements OnInit {
     }
 
     if (sort === this.sort) {
-      this.sortDirChange.emit(this.sortDir === 'desc' ? 'asc' : 'desc');
+      if (this.sortDir === 'desc') {
+        this.sortChange.emit(null);
+        this.sortDirChange.emit(null);
+      } else {
+        this.sortDirChange.emit(this.sortDir === 'desc' ? 'asc' : 'desc');
+      }
     } else {
       this.sortChange.emit(sort);
       this.sortDirChange.emit(null);

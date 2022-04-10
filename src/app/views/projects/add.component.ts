@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { filter, finalize, Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { Customer } from 'src/app/models/customer.model';
 import { Project } from 'src/app/models/project.model';
 import { CustomerClientApiService } from 'src/app/services/customer-client-api.service';
@@ -26,7 +26,7 @@ export class AddProjectComponent implements OnInit {
     province: new FormControl(),
     phone: new FormControl(),
     email: new FormControl(),
-    hasExistingDesign: new FormControl(),
+    hasExistingDesign: new FormControl(null, [Validators.required]),
   });
 
   processing!: boolean;
