@@ -3,5 +3,17 @@
     <mat-icon>add</mat-icon>
     Add New Project
   </button>
-  <app-data-table [columns]="columns" [data]="data"> </app-data-table>
+  <app-data-table
+    [columns]="columns"
+    [data]="data"
+    [loading]="loading"
+    [(size)]="size"
+    [(page)]="page"
+    [paginated]="true"
+    [sortable]="true"
+    [(sort)]="sort"
+    [(sortDir)]="sortDir"
+    [length]="result ? result.total : 0"
+  >
+  </app-data-table>
 </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, map, mergeMap, Observable } from 'rxjs';
-import { Project } from '../models/project.model';
+import { Project, ProjectPageResult } from '../models/project.model';
 import { CognitoUserSession } from 'amazon-cognito-identity-js';
 import { Auth } from 'aws-amplify';
 import { environment } from 'src/environments/environment';
@@ -24,6 +24,20 @@ export class ProjectClientApiService {
             },
           })
           .pipe(map((result) => result as Project));
+      })
+    );
+  }
+
+  getAll(page: number = 0, size: number = 25): Observable<ProjectPageResult> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .get(`${PROJECT_API_ENDPOINT}?page=${page}&size=${size}`, {
+            headers: {
+              Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+            },
+          })
+          .pipe(map((result) => result as ProjectPageResult));
       })
     );
   }

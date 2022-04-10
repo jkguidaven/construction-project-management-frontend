@@ -3,16 +3,30 @@ table {
   border-spacing: 0;
 
   tr {
-    td, th {
+    td,
+    th {
       padding: var(--spacing);
-      border-bottom: 1px solid var(--grey-color-5)!important;
+      border-bottom: 1px solid var(--grey-color-5) !important;
     }
 
     th {
       color: var(--grey-color-1);
       font-size: 14px;
       font-weight: bold;
+      user-select: none;
     }
   }
 }
 
+.sortable {
+  table thead tr th {
+    cursor: pointer;
+
+    mat-icon {
+      font-size: 15px;
+      height: 15px;
+      width: 15px;
+      color: black;
+    }
+  }
+}

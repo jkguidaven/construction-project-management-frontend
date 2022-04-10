@@ -6,4 +6,12 @@ export class Project {
   description: string;
   customer?: Customer;
   hasExistingDesign?: boolean;
+  status?: string;
+}
+
+export class ProjectPageResult {
+  count: number;
+  page: number;
+  total: number;
+  results: Project[];
 }

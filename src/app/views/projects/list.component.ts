@@ -1,20 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { DataTableColumnDef } from 'src/app/common/data-table/data-table.component';
 import { DateDataTableRendererComponent } from 'src/app/common/data-table/renderers/date.component';
 import { LinkDataTableRendererComponent } from 'src/app/common/data-table/renderers/link.component';
-import { StatusDataTableRendererComponent } from 'src/app/common/data-table/renderers/status.component';
+import { ProjectStatusDataTableRendererComponent } from 'src/app/common/data-table/renderers/project-status.component';
+import { ProjectPageResult } from 'src/app/models/project.model';
+import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ProjectListComponent implements OnInit {
+export class ProjectListComponent implements OnInit, OnChanges {
   columns: DataTableColumnDef[] = [
+    {
+      id: 'id',
+      label: 'ID',
+      renderer: LinkDataTableRendererComponent,
+    },
     {
       id: 'name',
       label: 'Project name',
-      renderer: LinkDataTableRendererComponent,
     },
     { id: 'customer', label: 'Customer name' },
     {
@@ -27,22 +41,63 @@ export class ProjectListComponent implements OnInit {
       id: 'status',
       label: 'Status',
       width: '10%',
-      renderer: StatusDataTableRendererComponent,
+      renderer: ProjectStatusDataTableRendererComponent,
     },
   ];
 
-  data: any = [
-    {
-      id: 1,
-      name: 'House remodelling',
-      customer: 'James Kenneth A. Guidaven',
-      date: new Date(),
-      status: 'Design',
-      link: ['/projects', 1],
-    },
-  ];
+  result!: ProjectPageResult;
+  size: number = 25;
+  loading!: boolean;
 
-  constructor() {}
+  sort!: string;
+  sortDir!: string;
 
-  ngOnInit(): void {}
+  constructor(
+    private projectClientAPI: ProjectClientApiService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.refreshList();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('wow change');
+  }
+
+  refreshList(): void {
+    this.loading = true;
+    this.projectClientAPI
+      .getAll(this.page, this.size)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe((result) => {
+        this.result = result;
+      });
+  }
+
+  get data(): any[] {
+    return this.result
+      ? this.result.results.map((project) => ({
+          id: project.id,
+          name: project.name,
+          customer: project.customer.name,
+          status: project.status,
+          link: ['/projects', project.id],
+        }))
+      : [];
+  }
+
+  get page(): number {
+    const page = this.activatedRoute.snapshot.queryParams['page'];
+    return page ? Number(page) : 0;
+  }
+
+  set page(value: number) {
+    this.router.navigate(['/projects'], {
+      queryParams: { page: value },
+    });
+
+    setTimeout(() => this.refreshList(), 100);
+  }
 }

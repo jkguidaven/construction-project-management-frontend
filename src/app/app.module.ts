@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 /* Other 3rd party library */
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -101,6 +102,7 @@ import { PurchaseOrderListComponent } from './views/purchase-orders/list.compone
 import { ViewPurchaseOrderComponent } from './views/purchase-orders/view.component';
 import { AddPurchaseOrderComponent } from './views/purchase-orders/add.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProjectStatusDataTableRendererComponent } from './common/data-table/renderers/project-status.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -171,6 +173,7 @@ Amplify.configure(awsconfig);
     PurchaseOrderListComponent,
     ViewPurchaseOrderComponent,
     AddPurchaseOrderComponent,
+    ProjectStatusDataTableRendererComponent,
   ],
   imports: [
     BrowserModule,
@@ -194,6 +197,7 @@ Amplify.configure(awsconfig);
     MatExpansionModule,
     MatSelectModule,
     MatAutocompleteModule,
+    MatPaginatorModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
     NgxChartsModule,
