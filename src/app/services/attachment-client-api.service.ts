@@ -37,6 +37,35 @@ export class AttachmentClientApiService {
     );
   }
 
+  downloadAttachment(projectId: number, attachment: Attachment): void {
+    this.getAuth()
+      .pipe(
+        mergeMap((auth: CognitoUserSession) => {
+          return this.httpClient.get(
+            `${PROJECT_API_ENDPOINT}/${projectId}/attachments/${attachment.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+              },
+              responseType: 'blob',
+            }
+          );
+        })
+      )
+      .subscribe((response) => {
+        let dataType = response.type;
+        let binaryData = [];
+        binaryData.push(response);
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(
+          new Blob(binaryData, { type: dataType })
+        );
+        downloadLink.setAttribute('download', attachment.name);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+      });
+  }
+
   private getAuth(): Observable<CognitoUserSession> {
     return from(Auth.currentSession());
   }

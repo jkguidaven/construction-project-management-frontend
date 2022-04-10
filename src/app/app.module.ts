@@ -22,6 +22,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 /* Other 3rd party library */
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -199,6 +200,7 @@ Amplify.configure(awsconfig);
     MatSelectModule,
     MatAutocompleteModule,
     MatPaginatorModule,
+    MatTooltipModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
     NgxChartsModule,

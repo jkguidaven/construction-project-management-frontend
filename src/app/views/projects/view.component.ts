@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StatusBarItem } from 'src/app/common/status-bar/status-bar.component';
+import { Attachment } from 'src/app/models/attachment.model';
 import { Project } from 'src/app/models/project.model';
+import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
 import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
 
 @Component({
@@ -44,7 +46,8 @@ export class ViewProjectComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private projectClientAPI: ProjectClientApiService
+    private projectClientAPI: ProjectClientApiService,
+    private attachmentClientAPI: AttachmentClientApiService
   ) {}
 
   ngOnInit(): void {
@@ -97,5 +100,17 @@ export class ViewProjectComponent implements OnInit {
       default:
         return 'Final Design';
     }
+  }
+
+  getAttachmentType(mime: string): 'pdf' | 'image' | 'document' {
+    if (mime.startsWith('image/')) {
+      return 'image';
+    } else if (mime === 'application/pdf') return 'pdf';
+
+    return 'document';
+  }
+
+  downloadAttachment(attachment: Attachment): void {
+    this.attachmentClientAPI.downloadAttachment(this.project.id, attachment);
   }
 }

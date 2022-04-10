@@ -11,39 +11,44 @@
     <app-status-bar [items]="statusBarItemsCancelled" [completed]="3">
     </app-status-bar>
   </ng-template>
+
+  <app-card>
+    <app-project-overview-viewer
+      [project]="project"
+    ></app-project-overview-viewer>
+  </app-card>
+
+  <app-card>
+    <h1>Attachments</h1>
+
+    <div class="attachment-list">
+      <app-attachment-card
+        *ngFor="let attachment of project.attachments"
+        [name]="attachment.name"
+        [type]="getAttachmentType(attachment.type)"
+        (click)="downloadAttachment(attachment)"
+      >
+      </app-attachment-card>
+    </div>
+  </app-card>
+
+  <app-card>
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Project Schedule">
+        <app-view-project-schedule></app-view-project-schedule>
+      </mat-tab>
+      <mat-tab label="Budget Tracking">
+        <div class="content">Budget Tracking</div>
+      </mat-tab>
+      <mat-tab label="Purchase Orders">
+        <div class="content">Purchase Orders</div>
+      </mat-tab>
+      <mat-tab label="Billing Progress">
+        <div class="content">Purchase Orders</div>
+      </mat-tab>
+      <mat-tab label="Document Logs">
+        <div class="content">Purchase Orders</div>
+      </mat-tab>
+    </mat-tab-group>
+  </app-card>
 </div>
-
-<app-card>
-  <app-project-overview-viewer
-    [project]="project"
-  ></app-project-overview-viewer>
-</app-card>
-
-<app-card>
-  <h1>Attachments</h1>
-
-  <div class="attachment-list">
-    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
-    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
-  </div>
-</app-card>
-
-<app-card>
-  <mat-tab-group animationDuration="0ms">
-    <mat-tab label="Project Schedule">
-      <app-view-project-schedule></app-view-project-schedule>
-    </mat-tab>
-    <mat-tab label="Budget Tracking">
-      <div class="content">Budget Tracking</div>
-    </mat-tab>
-    <mat-tab label="Purchase Orders">
-      <div class="content">Purchase Orders</div>
-    </mat-tab>
-    <mat-tab label="Billing Progress">
-      <div class="content">Purchase Orders</div>
-    </mat-tab>
-    <mat-tab label="Document Logs">
-      <div class="content">Purchase Orders</div>
-    </mat-tab>
-  </mat-tab-group>
-</app-card>

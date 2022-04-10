@@ -1,3 +1,4 @@
+import { Attachment } from './attachment.model';
 import { Customer } from './customer.model';
 
 export class Project {
@@ -8,6 +9,7 @@ export class Project {
   hasExistingDesign?: boolean;
   status?: string;
   designStatus?: string;
+  attachments?: Attachment[];
 }
 
 export class ProjectPageResult {

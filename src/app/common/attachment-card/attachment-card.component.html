@@ -1,4 +1,4 @@
-<mat-icon>{{
-  type === "pdf" ? "picture_as_pdf" : "photo_size_select_actual"
-}}</mat-icon>
-<p>{{ name }}</p>
+<div class="card" [matTooltip]="name">
+  <mat-icon>{{ icon }}</mat-icon>
+  <p>{{ name }}</p>
+</div>
