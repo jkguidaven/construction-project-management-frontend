@@ -22,6 +22,9 @@ export class AttachmentClientApiService {
         data.append('name', attachment.name);
         data.append('type', attachment.type);
 
+        if (attachment.task && attachment.task.id)
+          data.append('taskId', `${attachment.task.id}`);
+
         return this.httpClient.post(
           `${PROJECT_API_ENDPOINT}/${projectId}/attachments`,
           data,
@@ -31,6 +34,21 @@ export class AttachmentClientApiService {
             },
             reportProgress: true,
             observe: 'events',
+          }
+        );
+      })
+    );
+  }
+
+  deleteAttachment(projectId: number, id: number): Observable<any> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient.delete(
+          `${PROJECT_API_ENDPOINT}/${projectId}/attachments/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+            },
           }
         );
       })

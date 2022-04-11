@@ -21,9 +21,9 @@
     <li *ngFor="let upload of uploads; let i = index">
       <div class="label">
         <mat-icon>{{
-          isImageFile(upload.file) ? "image" : "insert_drive_file"
+          isImageFile(upload) ? "image" : "insert_drive_file"
         }}</mat-icon>
-        <span>{{ upload.file.name }}</span>
+        <span>{{ upload.name ? upload.name : upload.file.name }}</span>
 
         <span class="spacer"></span>
         <mat-icon class="remove-button" (click)="remove(i)">close</mat-icon>
@@ -35,6 +35,10 @@
         [value]="upload.progress"
       >
       </mat-progress-bar>
+
+      <div *ngIf="upload.error" class="error-box">
+        Unable to upload file. make sure it is not more than 10mb.
+      </div>
       {{ upload.progress === 100 ? "Completed" : upload.progress + "%" }}
     </li>
   </ul>

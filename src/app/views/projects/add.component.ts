@@ -169,7 +169,7 @@ export class AddProjectComponent implements OnInit {
 
     if (upload) {
       const attachment: Attachment = {
-        type: 'CONTRACT',
+        type: 'DESIGN',
         file: upload.file,
         name: upload.file.name,
       };

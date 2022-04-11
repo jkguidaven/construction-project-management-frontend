@@ -42,6 +42,24 @@ export class ProjectClientApiService {
     );
   }
 
+  setDesignStatus(id: number, status: string): Observable<Project> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .put(
+            `${PROJECT_API_ENDPOINT}/${id}/design-status`,
+            { status },
+            {
+              headers: {
+                Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+              },
+            }
+          )
+          .pipe(map((result) => result as Project));
+      })
+    );
+  }
+
   getAll(
     page: number = 0,
     size: number = 25,

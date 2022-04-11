@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface FileUpload {
-  file: File;
-  progress: number;
+  id?: number;
+  file?: File;
+  progress?: number;
+  error?: boolean;
+  name?: string;
+  mime?: string;
 }
 
 @Component({
@@ -13,6 +17,7 @@ export interface FileUpload {
 export class UploadFileDropboxComponent implements OnInit {
   @Input() uploads: FileUpload[];
   @Output() uploadsChange: EventEmitter<FileUpload[]> = new EventEmitter();
+  @Output() delete: EventEmitter<FileUpload> = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
@@ -35,11 +40,14 @@ export class UploadFileDropboxComponent implements OnInit {
     this.uploadsChange.emit([...this.uploads, ...files]);
   }
 
-  isImageFile(file: File): boolean {
-    return file.type.startsWith('image/');
+  isImageFile(upload: FileUpload): boolean {
+    return upload.file
+      ? upload.file.type.startsWith('image/')
+      : upload.mime.startsWith('image/');
   }
 
   remove(index: number) {
+    this.delete.emit(this.uploads[index]);
     this.uploadsChange.emit(this.uploads.filter((_, i) => index !== i));
   }
 }
