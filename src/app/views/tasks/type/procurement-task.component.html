@@ -35,7 +35,9 @@
                   <div class="line-no">#{{ i + 1 }}</div>
                   {{ material.name }}
                 </div>
-                <div class="qty">{{ material.qty }} {{ material.unit }}</div>
+                <div class="qty">
+                  {{ material.qty | number: "1.1-1" }} {{ material.unit }}
+                </div>
                 <div class="price" *ngIf="material.pricePerUnit">
                   {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
                   {{ material.unit }}

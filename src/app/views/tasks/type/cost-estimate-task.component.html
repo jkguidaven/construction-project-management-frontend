@@ -53,7 +53,9 @@
             <div class="name">
               <mat-icon>trending_flat</mat-icon> {{ task.name }}
             </div>
-            <div class="qty">{{ task.qty }} {{ task.unit }}</div>
+            <div class="qty">
+              {{ task.qty | number: "1.1-1" }} {{ task.unit }}
+            </div>
             <div class="spacer"></div>
             <div class="actions">
               <button
@@ -77,7 +79,9 @@
               <div class="line-no">#{{ i + 1 }}</div>
               {{ material.name }}
             </div>
-            <div class="qty">{{ material.qty }} {{ material.unit }}</div>
+            <div class="qty">
+              {{ material.qty | number: "1.1-1" }} {{ material.unit }}
+            </div>
             <div class="actions">
               <button mat-button (click)="deleteMaterial(material)">
                 REMOVE

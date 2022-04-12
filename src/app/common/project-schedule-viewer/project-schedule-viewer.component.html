@@ -22,7 +22,9 @@
             <td width="300px">
               {{ task.name }}
             </td>
-            <td align="right" class="fixed">{{ task.qty }} {{ task.unit }}</td>
+            <td align="right" class="fixed">
+              {{ task.qty | number: "1.1-1" }} {{ task.unit }}
+            </td>
             <td align="right" class="fixed"></td>
             <td align="right" class="fixed"></td>
             <td align="right" class="fixed add-subcon-button-container">
@@ -55,7 +57,7 @@
                     {{ material.name }}
                   </td>
                   <td align="right" class="fixed">
-                    {{ material.qty }} {{ material.unit }}
+                    {{ material.qty | number: "1.1-1" }} {{ material.unit }}
                   </td>
                   <td align="right" class="fixed">
                     <span *ngIf="material.pricePerUnit">

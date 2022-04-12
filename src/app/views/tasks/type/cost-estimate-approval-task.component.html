@@ -2,8 +2,15 @@
   <h1>Attachments</h1>
 
   <div class="attachment-list">
-    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
-    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
+    <div *ngIf="project">
+      <app-attachment-card
+        *ngFor="let attachment of project.attachments"
+        [name]="attachment.name"
+        [type]="getAttachmentType(attachment.type)"
+        (click)="downloadAttachment(attachment)"
+      >
+      </app-attachment-card>
+    </div>
   </div>
 </app-card>
 
@@ -13,185 +20,47 @@
   </div>
 
   <div *ngIf="!scopes.length; else list" class="no-scope-message">
-    You have not yet added scope of work.
+    No scope of work defined.
   </div>
 
   <ng-template #list>
-    <mat-accordion multi>
-      <mat-expansion-panel
-        class="mat-elevation-z0"
-        *ngFor="let scope of scopes"
-        expanded
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>folder</mat-icon>
-            {{ scope.name }}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+    <div class="scope-container" *ngFor="let scope of scopes">
+      <div class="header">
+        <div class="name">
+          <mat-icon>folder</mat-icon>
+          {{ scope.name | uppercase }}
+        </div>
+        <div class="spacer"></div>
+        <div class="actions"></div>
+      </div>
 
-        <table class="task-list">
-          <tbody *ngFor="let task of scope.tasks; let i = index">
-            <tr>
-              <td width="300px">
-                {{ task.name }}
-              </td>
-              <td align="right" class="fixed">
-                {{ task.qty }} {{ task.unit }}
-              </td>
-              <td align="right" class="fixed"></td>
-              <td align="right" class="fixed"></td>
-              <td align="right" class="fixed add-subcon-button-container">
-                <span
-                  *ngIf="task.subconPricePerUnit; else noSubconPrice"
-                  (click)="showAddTaskSubconBudgetForm(task)"
-                  style="cursor: pointer"
-                >
-                  {{ task.subconPricePerUnit | currency: "PHP":"symbol" }} /
-                  {{ task.unit }}
-                </span>
+      <div class="content" *ngIf="scope.tasks.length">
+        <div class="task-container" *ngFor="let task of scope.tasks">
+          <div class="header">
+            <div class="name">
+              <mat-icon>trending_flat</mat-icon> {{ task.name }}
+            </div>
+            <div class="qty">
+              {{ task.qty | number: "1.1-1" }} {{ task.unit }}
+            </div>
+            <div class="spacer"></div>
+            <div class="actions"></div>
+          </div>
 
-                <ng-template #noSubconPrice>
-                  <button
-                    mat-button
-                    color="primary"
-                    *ngIf="task.qty && task.unit"
-                    (click)="showAddTaskSubconBudgetForm(task)"
-                  >
-                    Add subcon budget
-                  </button>
-                </ng-template>
-              </td>
-              <td align="right" class="fixed">
-                <span
-                  *ngIf="task.subconPricePerUnit"
-                  (click)="showAddTaskSubconBudgetForm(task)"
-                  style="cursor: pointer"
-                  >{{
-                    task.subconPricePerUnit * task.qty
-                      | currency: "PHP":"symbol"
-                  }}
-                </span>
-              </td>
-              <td align="right" class="fixed">
-                <b *ngIf="task.subconPricePerUnit"
-                  >{{
-                    task.subconPricePerUnit * task.qty
-                      | currency: "PHP":"symbol"
-                  }}
-                </b>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td colspan="4" class="material-list-container">
-                <table class="material-list">
-                  <tr *ngFor="let material of task.materials">
-                    <td>
-                      {{ material.name }}
-                    </td>
-                    <td align="right" class="fixed">
-                      {{ material.qty }} {{ material.unit }}
-                    </td>
-                    <td align="right" class="fixed">
-                      <span *ngIf="material.pricePerUnit">
-                        {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
-                        {{ material.unit }}
-                      </span>
-                    </td>
-                    <td align="right" class="fixed">
-                      <span *ngIf="material.pricePerUnit">
-                        {{
-                          material.pricePerUnit * material.qty
-                            | currency: "PHP":"symbol"
-                        }}
-                      </span>
-                    </td>
-
-                    <td align="right" class="fixed">
-                      <span
-                        *ngIf="
-                          material.subconPricePerUnit;
-                          else noSubconPriceMaterial
-                        "
-                      >
-                        {{
-                          material.subconPricePerUnit | currency: "PHP":"symbol"
-                        }}
-                        /
-                        {{ material.unit }}
-                      </span>
-
-                      <ng-template #noSubconPriceMaterial>
-                        <button
-                          mat-button
-                          color="primary"
-                          *ngIf="!(task.qty && task.unit)"
-                          (click)="showAddMaterialSubconBudgetForm(material)"
-                        >
-                          Add subcon budget
-                        </button>
-                      </ng-template>
-                    </td>
-                    <td align="right" class="fixed">
-                      <span *ngIf="material.subconPricePerUnit">
-                        {{
-                          material.subconPricePerUnit * material.qty
-                            | currency: "PHP":"symbol"
-                        }}
-                      </span>
-                    </td>
-
-                    <td align="right" class="fixed">
-                      <b *ngIf="material.subconPricePerUnit">
-                        {{
-                          material.subconPricePerUnit * material.qty +
-                            material.pricePerUnit * material.qty
-                            | currency: "PHP":"symbol"
-                        }}
-                      </b>
-                    </td>
-                  </tr>
-                  <tr *ngIf="getTotalMaterialCost(task)">
-                    <td></td>
-                    <td class="fixed"></td>
-                    <td class="fixed"></td>
-                    <td class="fixed" align="right">
-                      <b>{{
-                        getTotalMaterialCost(task) | currency: "PHP":"symbol"
-                      }}</b>
-                    </td>
-                    <td class="fixed"></td>
-                    <td class="fixed" align="right">
-                      <b>{{
-                        getTotalLaborCost(task) | currency: "PHP":"symbol"
-                      }}</b>
-                    </td>
-                    <td class="fixed" align="right">
-                      <b>{{
-                        getTotalMaterialCost(task) + getTotalLaborCost(task)
-                          | currency: "PHP":"symbol"
-                      }}</b>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="total-description">
-          <div class="label">SUB TOTAL</div>
-          <div class="value">
-            {{ getSubTotal(scope) | currency: "PHP":"symbol" }}
+          <div
+            class="material"
+            *ngFor="let material of task.materials; let i = index"
+          >
+            <div class="name">
+              <div class="line-no">#{{ i + 1 }}</div>
+              {{ material.name }}
+            </div>
+            <div class="qty">
+              {{ material.qty | number: "1.1-1" }} {{ material.unit }}
+            </div>
+            <div class="actions"></div>
           </div>
         </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <div class="total-description grand">
-      <div class="label">GRAND TOTAL</div>
-      <div class="value">
-        {{ grandTotal | currency: "PHP":"symbol" }}
       </div>
     </div>
   </ng-template>
@@ -212,8 +81,15 @@
 </app-card>
 
 <app-action-panel>
-  <button mat-raised-button>Exit</button>
-  <button mat-raised-button color="primary" (click)="complete()">
+  <button mat-raised-button (click)="exit()" [disabled]="saving">Exit</button>
+  <button mat-raised-button (click)="update()" [disabled]="saving">Save</button>
+  <button
+    mat-raised-button
+    *ngIf="task.status != 'COMPLETED'"
+    color="primary"
+    [disabled]="saving"
+    (click)="complete()"
+  >
     Mark as Complete
   </button>
 </app-action-panel>
