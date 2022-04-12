@@ -13,13 +13,22 @@
   <h2>Attach here Project Contract signed by the client</h2>
 
   <app-form-row>
-    <app-upload-file-dropbox></app-upload-file-dropbox>
+    <app-upload-file-dropbox
+      [uploads]="uploads"
+      (uploadsChange)="onUploadChanges($event)"
+      (delete)="onUploadDelete($event)"
+    ></app-upload-file-dropbox>
   </app-form-row>
 </app-card>
 
 <app-action-panel>
   <button mat-raised-button>Exit</button>
-  <button mat-raised-button color="primary" (click)="complete()">
+  <button
+    *ngIf="task.status != 'COMPLETED'"
+    mat-raised-button
+    color="primary"
+    (click)="complete()"
+  >
     Mark as Complete
   </button>
 </app-action-panel>

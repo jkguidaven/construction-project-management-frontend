@@ -86,6 +86,18 @@ export class ViewProjectComponent implements OnInit {
           : 'For Clients Approval';
       case 'DEFINE_SCOPE':
         return 'Define Scope of Work';
+      case 'COST_ESTIMATE':
+        return 'Resource and Schedule Planning';
+      case 'ACCOUNTING_APPROVAL':
+        return 'Waitng for Budget Approval';
+      case 'STATEKHOLDER_APPROVAL':
+        return 'Waiting for final Budget Approval';
+      case 'CLIENT_APPROVAL':
+        return `Waiting for Client's Approval`;
+      case 'STARTED':
+        return 'Construction on going';
+      case 'COMPLETED':
+        return 'Project turnover';
     }
 
     return '';
