@@ -45,21 +45,15 @@ export class CostEstimateTaskComponent implements OnInit, TaskHandler {
   ngOnInit(): void {}
 
   getScopes(): ScopeOfWork[] {
-    return this.scopes
-      .filter((scope) => scope.type !== 'DELETE')
-      .sort((a, b) => b.id - a.id);
+    return this.scopes.filter((scope) => scope.type !== 'DELETE');
   }
 
   getTasks(scope: ScopeOfWork): ScopeOfWorkTask[] {
-    return scope.tasks
-      .filter((task) => task.type !== 'DELETE')
-      .sort((a, b) => a.id - b.id);
+    return scope.tasks.filter((task) => task.type !== 'DELETE');
   }
 
   getMaterials(task: ScopeOfWorkTask): ScopeOfWorkTaskMaterial[] {
-    return task.materials
-      .filter((material) => material.type !== 'DELETE')
-      .sort((a, b) => a.id - b.id);
+    return task.materials.filter((material) => material.type !== 'DELETE');
   }
 
   showAddScopeForm(): void {
@@ -92,6 +86,10 @@ export class CostEstimateTaskComponent implements OnInit, TaskHandler {
 
   deleteTask(task: ScopeOfWorkTask): void {
     task.type = 'DELETE';
+  }
+
+  deleteMaterial(material: ScopeOfWorkTaskMaterial): void {
+    material.type = 'DELETE';
   }
 
   editTask(task: ScopeOfWorkTask): void {

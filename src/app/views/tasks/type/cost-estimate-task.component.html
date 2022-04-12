@@ -48,10 +48,7 @@
       </div>
 
       <div class="content" *ngIf="getTasks(scope).length">
-        <div
-          class="task-container"
-          *ngFor="let task of getTasks(scope); let i = index"
-        >
+        <div class="task-container" *ngFor="let task of getTasks(scope)">
           <div class="header">
             <div class="name">
               <mat-icon>trending_flat</mat-icon> {{ task.name }}
@@ -81,6 +78,11 @@
               {{ material.name }}
             </div>
             <div class="qty">{{ material.qty }} {{ material.unit }}</div>
+            <div class="actions">
+              <button mat-button (click)="deleteMaterial(material)">
+                REMOVE
+              </button>
+            </div>
           </div>
         </div>
       </div>

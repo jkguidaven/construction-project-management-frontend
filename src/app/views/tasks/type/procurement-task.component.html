@@ -1,13 +1,4 @@
 <app-card>
-  <h1>Attachments</h1>
-
-  <div class="attachment-list">
-    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
-    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
-  </div>
-</app-card>
-
-<app-card>
   <div class="header">
     <h1>Scope of Work</h1>
   </div>
@@ -17,94 +8,81 @@
   </div>
 
   <ng-template #list>
-    <mat-accordion multi>
-      <mat-expansion-panel
-        class="mat-elevation-z0"
-        *ngFor="let scope of scopes"
-        expanded
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
+    <div *ngFor="let scope of scopes">
+      <div class="scope-container" *ngIf="hasMaterials(scope)">
+        <div class="header">
+          <div class="name">
             <mat-icon>folder</mat-icon>
             {{ scope.name | uppercase }}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+          </div>
+          <div class="spacer"></div>
+        </div>
 
-        <table class="task-list">
-          <tbody *ngFor="let task of scope.tasks; let i = index">
-            <tr>
-              <td width="300px">
-                {{ task.name }}
-              </td>
-              <td align="right" class="fixed">{{ task.qty }}</td>
-              <td align="right" class="fixed">{{ task.unit }}</td>
-              <td align="right"></td>
-            </tr>
-            <tr>
-              <td colspan="4" class="material-list-container">
-                <table class="material-list">
-                  <tr *ngFor="let material of task.materials">
-                    <td>
-                      {{ material.name }}
-                    </td>
-                    <td align="right" class="fixed">
-                      {{ material.qty }}
-                    </td>
-                    <td align="right" class="fixed">{{ material.unit }}</td>
-                    <td align="right" class="fixed">
-                      <span
-                        *ngIf="material.pricePerUnit; else noPrice"
-                        (click)="addPrice(material)"
-                      >
-                        {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
-                        {{ material.unit }}
-                      </span>
-                      <ng-template #noPrice>
-                        <button
-                          mat-button
-                          color="primary"
-                          (click)="addPrice(material)"
-                        >
-                          Add Price
-                        </button>
-                      </ng-template>
-                    </td>
-                    <td align="right" class="fixed">
-                      <b
-                        *ngIf="material.pricePerUnit"
-                        (click)="addPrice(material)"
-                      >
-                        {{
-                          material.pricePerUnit * material.qty
-                            | currency: "PHP":"symbol"
-                        }}
-                      </b>
-                    </td>
-                  </tr>
-                  <tr *ngIf="getTotalMaterialCost(task)">
-                    <td></td>
-                    <td class="fixed"></td>
-                    <td class="fixed"></td>
-                    <td class="fixed" align="right"><b>MATERIRAL COST</b></td>
-                    <td class="fixed" align="right">
-                      <b style="text-decoration: underline">{{
-                        getTotalMaterialCost(task) | currency: "PHP":"symbol"
-                      }}</b>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </mat-expansion-panel>
-    </mat-accordion>
+        <div class="content" *ngIf="scope.tasks.length">
+          <div *ngFor="let task of scope.tasks">
+            <div class="task-container" *ngIf="task.materials.length">
+              <div class="header">
+                <div class="name">
+                  <mat-icon>trending_flat</mat-icon> {{ task.name }}
+                </div>
+              </div>
+
+              <div
+                class="material"
+                *ngFor="let material of task.materials; let i = index"
+              >
+                <div class="name">
+                  <div class="line-no">#{{ i + 1 }}</div>
+                  {{ material.name }}
+                </div>
+                <div class="qty">{{ material.qty }} {{ material.unit }}</div>
+                <div class="price" *ngIf="material.pricePerUnit">
+                  {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
+                  {{ material.unit }}
+                </div>
+
+                <div class="subtotal" *ngIf="material.pricePerUnit">
+                  {{
+                    material.pricePerUnit * material.qty
+                      | currency: "PHP":"symbol"
+                  }}
+                </div>
+
+                <div class="actions">
+                  <button
+                    mat-button
+                    color="primary"
+                    (click)="addPrice(material)"
+                  >
+                    {{ material.pricePerUnit ? "EDIT" : "ADD PRICE" }}
+                  </button>
+                </div>
+              </div>
+
+              <div class="material">
+                <div class="total-label">MATERIAL TOTAL</div>
+                <div class="total">
+                  {{ getTotalMaterialCost(task) | currency: "PHP":"symbol" }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </ng-template>
 </app-card>
 
 <app-action-panel>
-  <button mat-raised-button>Exit</button>
-  <button mat-raised-button color="primary" (click)="complete()">
+  <button mat-raised-button (click)="exit()" [disabled]="saving">Exit</button>
+  <button mat-raised-button (click)="update()" [disabled]="saving">Save</button>
+  <button
+    mat-raised-button
+    *ngIf="task.status != 'COMPLETED'"
+    color="primary"
+    [disabled]="saving"
+    (click)="complete()"
+  >
     Mark as Complete
   </button>
 </app-action-panel>

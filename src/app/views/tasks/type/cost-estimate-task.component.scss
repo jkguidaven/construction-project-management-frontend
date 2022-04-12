@@ -21,90 +21,10 @@ mat-icon {
   margin-right: var(--spacing);
 }
 
-table.task-list {
-  width: 100%;
-  margin-bottom: var(--spacing);
-  border-collapse: separate;
-  border-spacing: 0 1px;
-
-  tr {
-    &.header {
-      text-transform: uppercase;
-      font-size: 10px;
-      font-weight: bold;
-
-      td {
-        padding: 0 !important;
-      }
-    }
-
-    td {
-      padding: calc(var(--spacing) - 3px);
-      display: inline-block;
-      background-color: rgba(lightgrey, 0.3);
-      min-height: 52px;
-      box-sizing: border-box;
-    }
-
-    td:first-child {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      width: 300px;
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    td.fixed {
-      width: 100px;
-    }
-
-    td:last-child {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      width: calc(100% - 500px);
-    }
-  }
-
-  mat-icon {
-    cursor: pointer;
-    margin-left: calc(var(--spacing) / 2);
-    width: 20px;
-    height: 20x;
-    font-size: 20px;
-  }
-
-  .add-material-button {
-    cursor: pointer;
-    display: block;
-    font-size: 12px;
-  }
-}
-
-table.material-list {
-  width: 100%;
-  margin-bottom: var(--spacing);
-  border-collapse: separate;
-  border-spacing: 0 2px;
-
-  tr {
-    td {
-      background-color: transparent;
-    }
-  }
-}
-
 app-action-panel {
   button {
     margin-left: calc(var(--spacing) / 2);
   }
-}
-
-.material-list-container {
-  background-color: transparent !important;
-  padding: 0 !important;
-  min-height: 0 !important;
 }
 
 ::ng-deep {
@@ -130,6 +50,7 @@ app-action-panel {
   }
 
   .task-container {
+    margin-bottom: 10px;
     .header {
       background-color: rgb(233, 233, 233);
       padding: 6px;
@@ -181,5 +102,6 @@ app-action-panel {
   .actions {
     text-align: right;
     white-space: nowrap;
+    margin-left: 10px;
   }
 }

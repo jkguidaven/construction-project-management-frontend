@@ -13,62 +13,12 @@ app-card {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: var(--spacing);
 }
 
 mat-icon {
   margin-right: var(--spacing);
-}
-
-table.task-list {
-  width: 100%;
-  margin-bottom: var(--spacing);
-  border-collapse: separate;
-  border-spacing: 0 1px;
-
-  tr {
-    td {
-      padding: calc(var(--spacing) - 3px);
-      display: inline-block;
-      background-color: rgba(lightgrey, 0.3);
-      min-height: 52px;
-      box-sizing: border-box;
-    }
-
-    td:first-child {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      width: 300px;
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    td.fixed {
-      width: 150px;
-    }
-
-    td:last-child {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      width: calc(100% - 600px);
-    }
-  }
-
-  mat-icon {
-    cursor: pointer;
-    margin-left: calc(var(--spacing) / 2);
-    width: 20px;
-    height: 20x;
-    font-size: 20px;
-  }
-
-  .add-material-button {
-    cursor: pointer;
-    display: block;
-    font-size: 12px;
-  }
 }
 
 app-action-panel {
@@ -77,37 +27,107 @@ app-action-panel {
   }
 }
 
-.material-list-container {
-  background-color: transparent !important;
-  padding: 0 !important;
-  min-height: 0 !important;
-  width: 100% !important;
+::ng-deep {
+  .scope-container {
+    border: 1px solid rgb(231, 231, 231);
+    margin-bottom: 10px;
 
-  table.material-list {
-    width: 100%;
-    margin-bottom: var(--spacing);
-    border-collapse: separate;
-    border-spacing: 0 2px;
+    > .header {
+      height: 50px !important;
+      padding: calc(var(--spacing) / 2);
+      background-color: rgb(250, 250, 250);
+      margin: 0;
 
-    tr {
-      td {
-        background-color: transparent;
-
-        span,
-        b {
-          cursor: pointer;
-        }
+      .name {
+        display: flex;
+        align-items: center;
       }
     }
 
-    td.fixed {
-      width: 150px;
+    .content {
+      padding: var(--spacing);
     }
   }
-}
 
-::ng-deep {
-  .mat-expansion-panel-body {
-    padding: 0 var(--spacing) !important;
+  .task-container {
+    .header {
+      background-color: rgb(233, 233, 233);
+      padding: 6px;
+      border-radius: 5px;
+    }
+
+    .material {
+      display: flex;
+      align-items: center;
+
+      .line-no {
+        padding: 5px 16px !important;
+        text-align: center;
+        color: rgb(118, 118, 118);
+      }
+    }
+
+    .name {
+      min-width: 150px;
+      width: 100%;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      align-items: center;
+      display: flex;
+
+      mat-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+      }
+    }
+
+    .qty,
+    .unit,
+    .price,
+    .total,
+    .subtotal,
+    .total-label {
+      min-width: 50px;
+      width: 100%;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: right;
+    }
+
+    .total-label {
+      min-width: 200px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .total,
+    .total-label,
+    .subtotal {
+      font-weight: bold;
+    }
+
+    .total {
+      text-decoration: underline;
+    }
+
+    .total,
+    .total-label {
+      margin: 10px 0;
+      padding: 10px 0;
+      border-top: 1px solid black;
+    }
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  .actions {
+    text-align: right;
+    white-space: nowrap;
+    margin-left: 10px;
   }
 }
