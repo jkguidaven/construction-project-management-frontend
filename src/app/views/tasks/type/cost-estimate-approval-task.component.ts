@@ -48,6 +48,14 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
 
   ngOnInit(): void {}
 
+  hasMaterials(scope: ScopeOfWork): boolean {
+    if (scope.tasks.length) {
+      return Boolean(scope.tasks.find((task) => task.materials.length));
+    }
+
+    return false;
+  }
+
   getSubTotal(scope: ScopeOfWork): number {
     let total = 0;
     for (let task of scope.tasks) {

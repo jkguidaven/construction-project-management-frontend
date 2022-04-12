@@ -49,8 +49,23 @@ app-action-panel {
     }
   }
 
+  .guide {
+    display: flex;
+    padding: 10px 0 5px;
+    text-transform: uppercase;
+    font-size: 10px;
+
+    > * {
+      font-weight: bold;
+    }
+  }
+
   .task-container {
     margin-bottom: 10px;
+    &.with-material {
+      margin-bottom: 64px;
+    }
+
     .header {
       background-color: rgb(233, 233, 233);
       padding: 6px;
@@ -67,31 +82,76 @@ app-action-panel {
         color: rgb(118, 118, 118);
       }
     }
+  }
 
-    .name {
-      min-width: 150px;
-      width: 100%;
-      max-width: 300px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      align-items: center;
-      display: flex;
+  .name {
+    min-width: 150px;
+    width: 100%;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+    display: flex;
 
-      mat-icon {
-        width: 20px;
-        height: 20px;
-        font-size: 20px;
-      }
+    mat-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
     }
+  }
 
-    .qty,
-    .unit {
-      min-width: 50px;
-      width: 100%;
-      max-width: 150px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: right;
+  .qty,
+  .unit,
+  .price,
+  .total,
+  .subtotal,
+  .total-label {
+    min-width: 50px;
+    width: 100%;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+  }
+
+  .total-label {
+    min-width: 200px;
+    width: 100%;
+    max-width: 1050px;
+  }
+
+  .total,
+  .total-label,
+  .subtotal {
+    font-weight: bold;
+  }
+
+  .total,
+  .grand {
+    text-decoration: underline;
+  }
+
+  .total,
+  .total-label {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 1px solid black;
+  }
+
+  .summary-info {
+    display: flex;
+
+    &.grand {
+      margin-left: 24px;
+      font-weight: bolder;
+      font-size: 16px;
+      color: var(--blue-color);
+      text-decoration: none;
+
+      .total,
+      .total-label {
+        border-top: none !important;
+      }
     }
   }
 
