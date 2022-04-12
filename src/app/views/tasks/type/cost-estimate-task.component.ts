@@ -8,6 +8,7 @@ import { Project } from 'src/app/models/project.model';
 import {
   ScopeOfWork,
   ScopeOfWorkTask,
+  ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
 import { Task } from 'src/app/models/task.model';
 import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
@@ -44,11 +45,21 @@ export class CostEstimateTaskComponent implements OnInit, TaskHandler {
   ngOnInit(): void {}
 
   getScopes(): ScopeOfWork[] {
-    return this.scopes.filter((scope) => scope.type !== 'DELETE');
+    return this.scopes
+      .filter((scope) => scope.type !== 'DELETE')
+      .sort((a, b) => b.id - a.id);
   }
 
   getTasks(scope: ScopeOfWork): ScopeOfWorkTask[] {
-    return scope.tasks.filter((task) => task.type !== 'DELETE');
+    return scope.tasks
+      .filter((task) => task.type !== 'DELETE')
+      .sort((a, b) => a.id - b.id);
+  }
+
+  getMaterials(task: ScopeOfWorkTask): ScopeOfWorkTaskMaterial[] {
+    return task.materials
+      .filter((material) => material.type !== 'DELETE')
+      .sort((a, b) => a.id - b.id);
   }
 
   showAddScopeForm(): void {
@@ -143,11 +154,7 @@ export class CostEstimateTaskComponent implements OnInit, TaskHandler {
   }
 
   exit(): void {
-    this.save().subscribe((scopes: ScopeOfWork[]) => {
-      if (scopes) {
-        this.router.navigate(['/tasks']);
-      }
-    });
+    this.router.navigate(['/tasks']);
   }
 
   save(): Observable<ScopeOfWork[]> {
