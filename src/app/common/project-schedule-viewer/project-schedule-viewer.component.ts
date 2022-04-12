@@ -16,6 +16,14 @@ export class ProjectScheduleViewerComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  hasMaterials(scope: ScopeOfWork): boolean {
+    if (scope.tasks.length) {
+      return Boolean(scope.tasks.find((task) => task.materials.length));
+    }
+
+    return false;
+  }
+
   getSubTotal(scope: ScopeOfWork): number {
     let total = 0;
     for (let task of scope.tasks) {
@@ -45,17 +53,5 @@ export class ProjectScheduleViewerComponent implements OnInit {
     }
 
     return total;
-  }
-
-  getTotalMaterialCost(task: ScopeOfWorkTask): number {
-    return task.materials.reduce((total, material) => {
-      return total + (material.pricePerUnit * material.qty ?? 0);
-    }, 0);
-  }
-
-  getTotalLaborCost(task: ScopeOfWorkTask): number {
-    return task.materials.reduce((total, material) => {
-      return total + (material.subconPricePerUnit * material.qty ?? 0);
-    }, 0);
   }
 }

@@ -1,10 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Attachment } from 'src/app/models/attachment.model';
+import { Project } from 'src/app/models/project.model';
 import {
   ScopeOfWork,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
 import { Task } from 'src/app/models/task.model';
+import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
+import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
+import { ScopeOfWorkClientApiService } from 'src/app/services/scope-of-work-client-api.service';
 import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 import { TaskHandler } from './task-handler';
 
@@ -15,91 +20,43 @@ import { TaskHandler } from './task-handler';
 })
 export class AccountingApprovalTaskComponent implements OnInit, TaskHandler {
   @Input() task!: Task;
-  scopes: ScopeOfWork[] = [
-    {
-      name: 'EARTHWORK',
-      tasks: [
-        {
-          name: 'Demotion Works',
-          unit: 'LOT',
-          qty: 1.0,
-          subconPricePerUnit: 4,
-          materials: [],
-        },
-        {
-          name: 'Excavation Works',
-          unit: 'cu.m.',
-          qty: 112.98,
-          subconPricePerUnit: 2.3,
-          materials: [],
-        },
-        {
-          name: 'Backfilling',
-          unit: 'cu.m.',
-          qty: 210.74,
-          subconPricePerUnit: 10,
-          materials: [],
-        },
-      ],
-    },
-    {
-      name: 'RETAINING WALL',
-      tasks: [
-        {
-          name: 'Reinforcement Bars',
-          materials: [
-            {
-              name: 'Footing RSB 25mm x 9mm',
-              unit: 'pcs',
-              qty: 20.0,
-              contingency: 5,
-              pricePerUnit: 300,
-              subconPricePerUnit: 5,
-            },
-            {
-              name: 'Footing RSB 20mm x 6mm',
-              unit: 'pcs',
-              qty: 42.0,
-              contingency: 5,
-              pricePerUnit: 231.14,
-              subconPricePerUnit: 4,
-            },
-            {
-              name: 'Footing RSB 16mm x 6mm',
-              unit: 'pcs',
-              qty: 240.0,
-              contingency: 5,
-              pricePerUnit: 900.2,
-              subconPricePerUnit: 4,
-            },
-          ],
-        },
-        {
-          name: 'Formworks',
-          materials: [
-            {
-              name: 'Phenolic Board 3/4',
-              unit: 'pcs',
-              qty: 1,
-              contingency: 5,
-              pricePerUnit: 1050.12,
-              subconPricePerUnit: 4.5,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  @Input() scopes: ScopeOfWork[] = [];
+  @Input() project!: Project;
 
   constructor(
     private router: Router,
-    private taskClientAPI: TaskClientApiService
+    private taskClientAPI: TaskClientApiService,
+    private attachmentClientAPI: AttachmentClientApiService,
+    private projectClientAPI: ProjectClientApiService,
+    private scopeOfWorkClientAPI: ScopeOfWorkClientApiService
   ) {}
 
   ngOnInit(): void {}
 
   setTask(task: Task): void {
     this.task = task;
+
+    this.projectClientAPI.get(task.project.id).subscribe((project) => {
+      this.project = project;
+
+      this.scopeOfWorkClientAPI
+        .get(this.project.id)
+        .subscribe((scopes: ScopeOfWork[]) => {
+          this.scopes = scopes;
+        });
+    });
+  }
+
+  getAttachmentType(mime: string): 'pdf' | 'image' | 'document' {
+    if (mime.startsWith('image/')) {
+      return 'image';
+    } else if (mime === 'application/pdf') return 'pdf';
+
+    return 'document';
+  }
+
+  downloadAttachment(attachment: Attachment): void {
+    this.attachmentClientAPI.downloadAttachment(this.project.id, attachment);
   }
 
   complete() {

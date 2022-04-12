@@ -1,147 +1,135 @@
-<div *ngIf="!scopes.length; else list" class="no-scope-message">
-  You have not yet added scope of work.
-</div>
+<app-card>
+  <div class="header">
+    <h1>Scope of Work</h1>
+  </div>
 
-<ng-template #list>
-  <mat-accordion multi>
-    <mat-expansion-panel
-      class="mat-elevation-z0"
-      *ngFor="let scope of scopes"
-      expanded
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+  <div *ngIf="!scopes.length; else list" class="no-scope-message">
+    No scope of work defined.
+  </div>
+
+  <ng-template #list>
+    <div class="scope-container" *ngFor="let scope of scopes">
+      <div class="header">
+        <div class="name">
           <mat-icon>folder</mat-icon>
-          {{ scope.name }}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+          {{ scope.name | uppercase }}
+        </div>
+        <div class="spacer"></div>
+        <div class="actions"></div>
+      </div>
 
-      <table class="task-list">
-        <tbody *ngFor="let task of scope.tasks; let i = index">
-          <tr>
-            <td width="300px">
-              {{ task.name }}
-            </td>
-            <td align="right" class="fixed">
+      <div class="content" *ngIf="scope.tasks.length">
+        <div class="guide">
+          <div class="name"></div>
+          <div class="qty">Quantity</div>
+          <div class="price">{{ hasMaterials(scope) ? "Price/Unit" : "" }}</div>
+
+          <div class="subtotal">
+            {{ hasMaterials(scope) ? "Total Price" : "" }}
+          </div>
+
+          <div class="subtotal">Labor/Unit</div>
+
+          <div class="subtotal">Total Labor</div>
+          <div class="subtotal">Subtotal</div>
+        </div>
+
+        <div
+          class="task-container"
+          [ngClass]="{ 'with-material': task.materials.length }"
+          *ngFor="let task of scope.tasks"
+        >
+          <div class="header">
+            <div class="name">
+              <mat-icon>trending_flat</mat-icon> {{ task.name }}
+            </div>
+            <div class="qty">
               {{ task.qty | number: "1.1-1" }} {{ task.unit }}
-            </td>
-            <td align="right" class="fixed"></td>
-            <td align="right" class="fixed"></td>
-            <td align="right" class="fixed add-subcon-button-container">
-              <span *ngIf="task.subconPricePerUnit" style="cursor: pointer">
-                {{ task.subconPricePerUnit | currency: "PHP":"symbol" }} /
-                {{ task.unit }}
-              </span>
-            </td>
-            <td align="right" class="fixed">
-              <span *ngIf="task.subconPricePerUnit" style="cursor: pointer"
-                >{{
-                  task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
-                }}
-              </span>
-            </td>
-            <td align="right" class="fixed">
-              <b *ngIf="task.subconPricePerUnit"
-                >{{
-                  task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
-                }}
-              </b>
-            </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td colspan="4" class="material-list-container">
-              <table class="material-list">
-                <tr *ngFor="let material of task.materials">
-                  <td>
-                    {{ material.name }}
-                  </td>
-                  <td align="right" class="fixed">
-                    {{ material.qty | number: "1.1-1" }} {{ material.unit }}
-                  </td>
-                  <td align="right" class="fixed">
-                    <span *ngIf="material.pricePerUnit">
-                      {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
-                      {{ material.unit }}
-                    </span>
-                  </td>
-                  <td align="right" class="fixed">
-                    <span *ngIf="material.pricePerUnit">
-                      {{
-                        material.pricePerUnit * material.qty
-                          | currency: "PHP":"symbol"
-                      }}
-                    </span>
-                  </td>
+            </div>
 
-                  <td align="right" class="fixed">
-                    <span *ngIf="material.subconPricePerUnit">
-                      {{
-                        material.subconPricePerUnit | currency: "PHP":"symbol"
-                      }}
-                      /
-                      {{ material.unit }}
-                    </span>
-                  </td>
-                  <td align="right" class="fixed">
-                    <span *ngIf="material.subconPricePerUnit">
-                      {{
-                        material.subconPricePerUnit * material.qty
-                          | currency: "PHP":"symbol"
-                      }}
-                    </span>
-                  </td>
+            <div class="price"></div>
+            <div class="price"></div>
 
-                  <td align="right" class="fixed">
-                    <b *ngIf="material.subconPricePerUnit">
-                      {{
-                        material.subconPricePerUnit * material.qty +
-                          material.pricePerUnit * material.qty
-                          | currency: "PHP":"symbol"
-                      }}
-                    </b>
-                  </td>
-                </tr>
-                <tr *ngIf="getTotalMaterialCost(task)">
-                  <td></td>
-                  <td class="fixed"></td>
-                  <td class="fixed"></td>
-                  <td class="fixed" align="right">
-                    <b>{{
-                      getTotalMaterialCost(task) | currency: "PHP":"symbol"
-                    }}</b>
-                  </td>
-                  <td class="fixed"></td>
-                  <td class="fixed" align="right">
-                    <b>{{
-                      getTotalLaborCost(task) | currency: "PHP":"symbol"
-                    }}</b>
-                  </td>
-                  <td class="fixed" align="right">
-                    <b>{{
-                      getTotalMaterialCost(task) + getTotalLaborCost(task)
-                        | currency: "PHP":"symbol"
-                    }}</b>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <div class="price" *ngIf="task.subconPricePerUnit">
+              {{ task.subconPricePerUnit | currency: "PHP":"symbol" }} /
+              {{ task.unit }}
+            </div>
 
-      <div class="total-description">
-        <div class="label">SUB TOTAL</div>
-        <div class="value">
-          {{ getSubTotal(scope) | currency: "PHP":"symbol" }}
+            <div class="subtotal" *ngIf="task.subconPricePerUnit">
+              {{
+                task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
+              }}
+            </div>
+
+            <div class="subtotal" *ngIf="task.subconPricePerUnit">
+              {{
+                task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
+              }}
+            </div>
+
+            <div class="actions"></div>
+            <div class="spacer"></div>
+          </div>
+
+          <div
+            class="material"
+            *ngFor="let material of task.materials; let i = index"
+          >
+            <div class="name">
+              <div class="line-no">#{{ i + 1 }}</div>
+              {{ material.name }}
+            </div>
+            <div class="qty">
+              {{ material.qty | number: "1.1-1" }} {{ material.unit }}
+            </div>
+            <div class="price" *ngIf="material.pricePerUnit">
+              {{ material.pricePerUnit | currency: "PHP":"symbol" }} /
+              {{ material.unit }}
+            </div>
+
+            <div class="subtotal" *ngIf="material.pricePerUnit">
+              {{
+                material.pricePerUnit * material.qty | currency: "PHP":"symbol"
+              }}
+            </div>
+
+            <div class="price" *ngIf="material.subconPricePerUnit">
+              {{ material.subconPricePerUnit | currency: "PHP":"symbol" }} /
+              {{ material.unit }}
+            </div>
+
+            <div class="subtotal" *ngIf="material.subconPricePerUnit">
+              {{
+                material.subconPricePerUnit * material.qty
+                  | currency: "PHP":"symbol"
+              }}
+            </div>
+
+            <div class="subtotal grand" *ngIf="material.subconPricePerUnit">
+              {{
+                (material.pricePerUnit + material.subconPricePerUnit) *
+                  material.qty | currency: "PHP":"symbol"
+              }}
+            </div>
+
+            <div class="actions"></div>
+          </div>
+        </div>
+
+        <div class="summary-info">
+          <div class="total-label">TOTAL</div>
+          <div class="total">
+            {{ getSubTotal(scope) | currency: "PHP":"symbol" }}
+          </div>
         </div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <div class="total-description grand">
-    <div class="label">GRAND TOTAL</div>
-    <div class="value">
-      {{ grandTotal | currency: "PHP":"symbol" }}
     </div>
-  </div>
-</ng-template>
+
+    <div class="summary-info grand">
+      <div class="total-label">PROJECT TOTAL COST</div>
+      <div class="total">
+        {{ grandTotal | currency: "PHP":"symbol" }}
+      </div>
+    </div>
+  </ng-template>
+</app-card>

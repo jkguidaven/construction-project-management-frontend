@@ -7,7 +7,7 @@
     [scopes]="scopes"
   ></app-project-cost-summary-viewer>
 
-  <app-action-panel>
+  <app-action-panel *ngIf="task.status != 'COMPLETED'">
     <a class="reject-button">Reject</a>
     <a class="approve-button" (click)="complete()">Approve</a>
   </app-action-panel>
@@ -23,9 +23,13 @@
     </mat-tab>
     <mat-tab label="Design Documents">
       <div class="attachment-list">
-        <app-attachment-card name="Design Doc 1" type="pdf">
+        <app-attachment-card
+          *ngFor="let attachment of project.attachments"
+          [name]="attachment.name"
+          [type]="getAttachmentType(attachment.type)"
+          (click)="downloadAttachment(attachment)"
+        >
         </app-attachment-card>
-        <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
       </div>
     </mat-tab>
     <mat-tab label="Scope of Work">
