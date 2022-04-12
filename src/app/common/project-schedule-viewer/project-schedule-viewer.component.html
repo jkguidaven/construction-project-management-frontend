@@ -22,9 +22,7 @@
             <td width="300px">
               {{ task.name }}
             </td>
-            <td align="right" class="fixed">
-              {{ task.quantity }} {{ task.unit }}
-            </td>
+            <td align="right" class="fixed">{{ task.qty }} {{ task.unit }}</td>
             <td align="right" class="fixed"></td>
             <td align="right" class="fixed"></td>
             <td align="right" class="fixed add-subcon-button-container">
@@ -36,16 +34,14 @@
             <td align="right" class="fixed">
               <span *ngIf="task.subconPricePerUnit" style="cursor: pointer"
                 >{{
-                  task.subconPricePerUnit * task.quantity
-                    | currency: "PHP":"symbol"
+                  task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
                 }}
               </span>
             </td>
             <td align="right" class="fixed">
               <b *ngIf="task.subconPricePerUnit"
                 >{{
-                  task.subconPricePerUnit * task.quantity
-                    | currency: "PHP":"symbol"
+                  task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
                 }}
               </b>
             </td>
@@ -59,7 +55,7 @@
                     {{ material.name }}
                   </td>
                   <td align="right" class="fixed">
-                    {{ material.quantity }} {{ material.unit }}
+                    {{ material.qty }} {{ material.unit }}
                   </td>
                   <td align="right" class="fixed">
                     <span *ngIf="material.pricePerUnit">
@@ -70,7 +66,7 @@
                   <td align="right" class="fixed">
                     <span *ngIf="material.pricePerUnit">
                       {{
-                        material.pricePerUnit * material.quantity
+                        material.pricePerUnit * material.qty
                           | currency: "PHP":"symbol"
                       }}
                     </span>
@@ -88,7 +84,7 @@
                   <td align="right" class="fixed">
                     <span *ngIf="material.subconPricePerUnit">
                       {{
-                        material.subconPricePerUnit * material.quantity
+                        material.subconPricePerUnit * material.qty
                           | currency: "PHP":"symbol"
                       }}
                     </span>
@@ -97,8 +93,8 @@
                   <td align="right" class="fixed">
                     <b *ngIf="material.subconPricePerUnit">
                       {{
-                        material.subconPricePerUnit * material.quantity +
-                          material.pricePerUnit * material.quantity
+                        material.subconPricePerUnit * material.qty +
+                          material.pricePerUnit * material.qty
                           | currency: "PHP":"symbol"
                       }}
                     </b>

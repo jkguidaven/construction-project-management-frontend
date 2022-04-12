@@ -37,7 +37,7 @@
                 {{ task.name }}
               </td>
               <td align="right" class="fixed">
-                {{ task.quantity }} {{ task.unit }}
+                {{ task.qty }} {{ task.unit }}
               </td>
               <td align="right" class="fixed"></td>
               <td align="right" class="fixed"></td>
@@ -55,7 +55,7 @@
                   <button
                     mat-button
                     color="primary"
-                    *ngIf="task.quantity && task.unit"
+                    *ngIf="task.qty && task.unit"
                     (click)="showAddTaskSubconBudgetForm(task)"
                   >
                     Add subcon budget
@@ -68,7 +68,7 @@
                   (click)="showAddTaskSubconBudgetForm(task)"
                   style="cursor: pointer"
                   >{{
-                    task.subconPricePerUnit * task.quantity
+                    task.subconPricePerUnit * task.qty
                       | currency: "PHP":"symbol"
                   }}
                 </span>
@@ -76,7 +76,7 @@
               <td align="right" class="fixed">
                 <b *ngIf="task.subconPricePerUnit"
                   >{{
-                    task.subconPricePerUnit * task.quantity
+                    task.subconPricePerUnit * task.qty
                       | currency: "PHP":"symbol"
                   }}
                 </b>
@@ -91,7 +91,7 @@
                       {{ material.name }}
                     </td>
                     <td align="right" class="fixed">
-                      {{ material.quantity }} {{ material.unit }}
+                      {{ material.qty }} {{ material.unit }}
                     </td>
                     <td align="right" class="fixed">
                       <span *ngIf="material.pricePerUnit">
@@ -102,7 +102,7 @@
                     <td align="right" class="fixed">
                       <span *ngIf="material.pricePerUnit">
                         {{
-                          material.pricePerUnit * material.quantity
+                          material.pricePerUnit * material.qty
                             | currency: "PHP":"symbol"
                         }}
                       </span>
@@ -126,7 +126,7 @@
                         <button
                           mat-button
                           color="primary"
-                          *ngIf="!(task.quantity && task.unit)"
+                          *ngIf="!(task.qty && task.unit)"
                           (click)="showAddMaterialSubconBudgetForm(material)"
                         >
                           Add subcon budget
@@ -136,7 +136,7 @@
                     <td align="right" class="fixed">
                       <span *ngIf="material.subconPricePerUnit">
                         {{
-                          material.subconPricePerUnit * material.quantity
+                          material.subconPricePerUnit * material.qty
                             | currency: "PHP":"symbol"
                         }}
                       </span>
@@ -145,8 +145,8 @@
                     <td align="right" class="fixed">
                       <b *ngIf="material.subconPricePerUnit">
                         {{
-                          material.subconPricePerUnit * material.quantity +
-                            material.pricePerUnit * material.quantity
+                          material.subconPricePerUnit * material.qty +
+                            material.pricePerUnit * material.qty
                             | currency: "PHP":"symbol"
                         }}
                       </b>

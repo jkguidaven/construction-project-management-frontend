@@ -27,7 +27,7 @@ export class AddScopeOfWorkTaskSubconBudgetComponent implements OnInit {
     this.form.get('unit').disable();
 
     this.form.get('name').setValue(this.data.name);
-    this.form.get('qty').setValue(this.data.quantity);
+    this.form.get('qty').setValue(this.data.qty);
     this.form.get('unit').setValue(this.data.unit);
     this.form.get('price').setValue(this.data.subconPricePerUnit);
   }

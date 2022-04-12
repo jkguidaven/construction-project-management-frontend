@@ -21,6 +21,7 @@ export class AddScopeComponent implements OnInit {
     if (this.form.valid) {
       const scope: ScopeOfWork = {
         name: this.form.get('name').value as string,
+        type: 'CREATE',
         tasks: [],
       };
 

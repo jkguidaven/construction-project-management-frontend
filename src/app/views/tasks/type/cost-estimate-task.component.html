@@ -2,8 +2,15 @@
   <h1>Attachments</h1>
 
   <div class="attachment-list">
-    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
-    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
+    <div *ngIf="project">
+      <app-attachment-card
+        *ngFor="let attachment of project.attachments"
+        [name]="attachment.name"
+        [type]="getAttachmentType(attachment.type)"
+        (click)="downloadAttachment(attachment)"
+      >
+      </app-attachment-card>
+    </div>
   </div>
 </app-card>
 
@@ -23,41 +30,47 @@
     <mat-accordion multi>
       <mat-expansion-panel
         class="mat-elevation-z0"
-        *ngFor="let scope of scopes"
+        *ngFor="let scope of getScopes()"
         expanded
       >
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>folder</mat-icon>
             {{ scope.name | uppercase }}
+
+            <span class="spacer"></span>
+            <mat-icon (click)="deleteScope(scope)">delete_forever</mat-icon>
           </mat-panel-title>
         </mat-expansion-panel-header>
 
         <table class="task-list">
-          <tbody *ngFor="let task of scope.tasks; let i = index">
+          <tbody *ngFor="let task of getTasks(scope); let i = index">
             <tr>
               <td width="300px">
                 {{ task.name }}
               </td>
-              <td align="right" width="100px">{{ task.quantity }}</td>
+              <td align="right" width="100px">{{ task.qty }}</td>
               <td align="right" width="100px">{{ task.unit }}</td>
               <td align="right">
                 <mat-icon (click)="showAddMaterialsForm(task)">add</mat-icon>
                 <mat-icon (click)="editTask(task)">edit</mat-icon>
-                <mat-icon (click)="deleteTask(scope, i)"
-                  >delete_forever</mat-icon
-                >
+                <mat-icon (click)="deleteTask(task)">delete_forever</mat-icon>
               </td>
             </tr>
             <tr>
               <td width="100%" colspan="4" class="material-list-container">
                 <table class="material-list">
+                  <tr class="header">
+                    <td width="300px">Materials</td>
+                    <td width="100px">Quantity</td>
+                    <td width="100px">Unit</td>
+                  </tr>
                   <tr *ngFor="let material of task.materials">
                     <td width="300px">
                       {{ material.name }}
                     </td>
                     <td align="right" width="100px">
-                      {{ material.quantity }}
+                      {{ material.qty }}
                     </td>
                     <td align="right" width="100px">{{ material.unit }}</td>
                     <td align="right"></td>
@@ -81,8 +94,16 @@
 </app-card>
 
 <app-action-panel>
-  <button mat-raised-button>Exit</button>
-  <button mat-raised-button color="primary" (click)="complete()">
+  <button mat-raised-button (click)="exit()" [disabled]="saving">
+    Save and Exit
+  </button>
+  <button mat-raised-button (click)="update()" [disabled]="saving">Save</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="saving"
+    (click)="complete()"
+  >
     Mark as Complete
   </button>
 </app-action-panel>

@@ -27,6 +27,16 @@ table.task-list {
   border-spacing: 0 1px;
 
   tr {
+    &.header {
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: bold;
+
+      td {
+        padding: 0 !important;
+      }
+    }
+
     td {
       padding: calc(var(--spacing) - 3px);
       display: inline-block;
@@ -97,7 +107,15 @@ app-action-panel {
 }
 
 ::ng-deep {
+  mat-expansion-panel-header .mat-expansion-panel-body {
+    display: flex;
+  }
+
   .mat-expansion-panel-body {
     padding: 0 var(--spacing) !important;
+  }
+
+  .spacer {
+    flex-grow: 1;
   }
 }

@@ -25,8 +25,8 @@ export class ProjectCostSummaryViewerComponent implements OnInit {
     }
 
     return materials.reduce((total, material) => {
-      if (material.pricePerUnit && material.quantity) {
-        total += material.pricePerUnit * material.quantity;
+      if (material.pricePerUnit && material.qty) {
+        total += material.pricePerUnit * material.qty;
       }
       return total;
     }, 0);
@@ -36,13 +36,13 @@ export class ProjectCostSummaryViewerComponent implements OnInit {
     let total = 0;
 
     for (let task of scope.tasks) {
-      if (task.subconPricePerUnit && task.quantity) {
-        total += task.subconPricePerUnit * task.quantity;
+      if (task.subconPricePerUnit && task.qty) {
+        total += task.subconPricePerUnit * task.qty;
       }
 
       for (let material of task.materials) {
-        if (material.quantity && material.subconPricePerUnit) {
-          total += material.quantity * material.subconPricePerUnit;
+        if (material.qty && material.subconPricePerUnit) {
+          total += material.qty * material.subconPricePerUnit;
         }
       }
     }

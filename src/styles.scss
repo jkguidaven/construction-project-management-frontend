@@ -94,6 +94,16 @@ amplify-authenticator {
   padding: 0;
 }
 
+.error-snack-bar {
+  background-color: var(--red-color);
+  color: white;
+}
+
+.success-snack-bar {
+  background-color: var(--green-color);
+  color: white;
+}
+
 mat-form-field {
   width: 100%;
 }

@@ -19,17 +19,17 @@ export class ProjectScheduleViewerComponent implements OnInit {
   getSubTotal(scope: ScopeOfWork): number {
     let total = 0;
     for (let task of scope.tasks) {
-      if (task.subconPricePerUnit && task.quantity) {
-        total += task.subconPricePerUnit * task.quantity;
+      if (task.subconPricePerUnit && task.qty) {
+        total += task.subconPricePerUnit * task.qty;
       }
 
       for (let material of task.materials) {
-        if (material.pricePerUnit && material.quantity) {
-          total += material.pricePerUnit * material.quantity;
+        if (material.pricePerUnit && material.qty) {
+          total += material.pricePerUnit * material.qty;
         }
 
-        if (material.subconPricePerUnit && material.quantity) {
-          total += material.subconPricePerUnit * material.quantity;
+        if (material.subconPricePerUnit && material.qty) {
+          total += material.subconPricePerUnit * material.qty;
         }
       }
     }
@@ -49,13 +49,13 @@ export class ProjectScheduleViewerComponent implements OnInit {
 
   getTotalMaterialCost(task: ScopeOfWorkTask): number {
     return task.materials.reduce((total, material) => {
-      return total + (material.pricePerUnit * material.quantity ?? 0);
+      return total + (material.pricePerUnit * material.qty ?? 0);
     }, 0);
   }
 
   getTotalLaborCost(task: ScopeOfWorkTask): number {
     return task.materials.reduce((total, material) => {
-      return total + (material.subconPricePerUnit * material.quantity ?? 0);
+      return total + (material.subconPricePerUnit * material.qty ?? 0);
     }, 0);
   }
 }

@@ -1,20 +1,28 @@
+export type ActionCommand = 'DELETE' | 'CREATE' | 'UPDATE';
+
 export interface ScopeOfWork {
+  type?: ActionCommand;
+  id?: number;
   name: string;
   tasks: ScopeOfWorkTask[];
 }
 
 export interface ScopeOfWorkTask {
+  type?: ActionCommand;
+  id?: number;
   name: string;
-  quantity?: number;
+  qty?: number;
   unit?: string;
   subconPricePerUnit?: number;
   materials: ScopeOfWorkTaskMaterial[];
 }
 
 export interface ScopeOfWorkTaskMaterial {
+  type?: ActionCommand;
+  id?: number;
   name: string;
   unit: string;
-  quantity: number;
+  qty: number;
   contingency: number;
   pricePerUnit?: number;
   subconPricePerUnit?: number;

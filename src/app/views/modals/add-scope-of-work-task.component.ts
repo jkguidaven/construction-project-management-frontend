@@ -23,7 +23,7 @@ export class AddScopeOfWorkTaskComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.form.get('name').setValue(this.data.name);
-      this.form.get('qty').setValue(this.data.quantity);
+      this.form.get('qty').setValue(this.data.qty);
       this.form.get('unit').setValue(this.data.unit);
     }
   }
@@ -31,8 +31,9 @@ export class AddScopeOfWorkTaskComponent implements OnInit {
   add(): void {
     if (this.form.valid) {
       const task: ScopeOfWorkTask = {
+        type: this.data && this.data.id ? 'UPDATE' : 'CREATE',
         name: this.form.get('name').value as string,
-        quantity: this.form.get('qty').value,
+        qty: this.form.get('qty').value,
         unit: this.form.get('unit').value,
         materials: [],
       };

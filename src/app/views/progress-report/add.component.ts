@@ -25,21 +25,21 @@ export class AddProgressReportComponent implements OnInit {
         {
           name: 'Demotion Works',
           unit: 'LOT',
-          quantity: 1.0,
+          qty: 1.0,
           subconPricePerUnit: 4,
           materials: [],
         },
         {
           name: 'Excavation Works',
           unit: 'cu.m.',
-          quantity: 112.98,
+          qty: 112.98,
           subconPricePerUnit: 2.3,
           materials: [],
         },
         {
           name: 'Backfilling',
           unit: 'cu.m.',
-          quantity: 210.74,
+          qty: 210.74,
           subconPricePerUnit: 10,
           materials: [],
         },
@@ -54,7 +54,7 @@ export class AddProgressReportComponent implements OnInit {
             {
               name: 'Footing RSB 25mm x 9mm',
               unit: 'pcs',
-              quantity: 20.0,
+              qty: 20.0,
               contingency: 5,
               pricePerUnit: 300,
               subconPricePerUnit: 5,
@@ -62,7 +62,7 @@ export class AddProgressReportComponent implements OnInit {
             {
               name: 'Footing RSB 20mm x 6mm',
               unit: 'pcs',
-              quantity: 42.0,
+              qty: 42.0,
               contingency: 5,
               pricePerUnit: 231.14,
               subconPricePerUnit: 4,
@@ -70,7 +70,7 @@ export class AddProgressReportComponent implements OnInit {
             {
               name: 'Footing RSB 16mm x 6mm',
               unit: 'pcs',
-              quantity: 240.0,
+              qty: 240.0,
               contingency: 5,
               pricePerUnit: 900.2,
               subconPricePerUnit: 4,
@@ -83,7 +83,7 @@ export class AddProgressReportComponent implements OnInit {
             {
               name: 'Phenolic Board 3/4',
               unit: 'pcs',
-              quantity: 1,
+              qty: 1,
               contingency: 5,
               pricePerUnit: 1050.12,
               subconPricePerUnit: 4.5,

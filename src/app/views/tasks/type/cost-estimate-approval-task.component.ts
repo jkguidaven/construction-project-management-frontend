@@ -32,19 +32,19 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
         {
           name: 'Demotion Works',
           unit: 'LOT',
-          quantity: 1.0,
+          qty: 1.0,
           materials: [],
         },
         {
           name: 'Excavation Works',
           unit: 'cu.m.',
-          quantity: 112.98,
+          qty: 112.98,
           materials: [],
         },
         {
           name: 'Backfilling',
           unit: 'cu.m.',
-          quantity: 210.74,
+          qty: 210.74,
           materials: [],
         },
       ],
@@ -58,21 +58,21 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
             {
               name: 'Footing RSB 25mm x 9mm',
               unit: 'pcs',
-              quantity: 20.0,
+              qty: 20.0,
               contingency: 5,
               pricePerUnit: 300,
             },
             {
               name: 'Footing RSB 20mm x 6mm',
               unit: 'pcs',
-              quantity: 42.0,
+              qty: 42.0,
               contingency: 5,
               pricePerUnit: 231.14,
             },
             {
               name: 'Footing RSB 16mm x 6mm',
               unit: 'pcs',
-              quantity: 240.0,
+              qty: 240.0,
               contingency: 5,
               pricePerUnit: 900.2,
             },
@@ -84,7 +84,7 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
             {
               name: 'Phenolic Board 3/4',
               unit: 'pcs',
-              quantity: 1,
+              qty: 1,
               contingency: 5,
               pricePerUnit: 1050.12,
             },
@@ -105,17 +105,17 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
   getSubTotal(scope: ScopeOfWork): number {
     let total = 0;
     for (let task of scope.tasks) {
-      if (task.subconPricePerUnit && task.quantity) {
-        total += task.subconPricePerUnit * task.quantity;
+      if (task.subconPricePerUnit && task.qty) {
+        total += task.subconPricePerUnit * task.qty;
       }
 
       for (let material of task.materials) {
-        if (material.pricePerUnit && material.quantity) {
-          total += material.pricePerUnit * material.quantity;
+        if (material.pricePerUnit && material.qty) {
+          total += material.pricePerUnit * material.qty;
         }
 
-        if (material.subconPricePerUnit && material.quantity) {
-          total += material.subconPricePerUnit * material.quantity;
+        if (material.subconPricePerUnit && material.qty) {
+          total += material.subconPricePerUnit * material.qty;
         }
       }
     }
@@ -135,13 +135,13 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
 
   getTotalMaterialCost(task: ScopeOfWorkTask): number {
     return task.materials.reduce((total, material) => {
-      return total + (material.pricePerUnit * material.quantity ?? 0);
+      return total + (material.pricePerUnit * material.qty ?? 0);
     }, 0);
   }
 
   getTotalLaborCost(task: ScopeOfWorkTask): number {
     return task.materials.reduce((total, material) => {
-      return total + (material.subconPricePerUnit * material.quantity ?? 0);
+      return total + (material.subconPricePerUnit * material.qty ?? 0);
     }, 0);
   }
 

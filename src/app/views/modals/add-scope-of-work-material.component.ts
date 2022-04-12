@@ -24,7 +24,7 @@ export class AddScopeOfWorkMaterialComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.form.get('name').setValue(this.data.name);
-      this.form.get('qty').setValue(this.data.quantity);
+      this.form.get('qty').setValue(this.data.qty);
       this.form.get('unit').setValue(this.data.unit);
       this.form.get('contingency').setValue(this.data.contingency);
     }
@@ -33,8 +33,9 @@ export class AddScopeOfWorkMaterialComponent implements OnInit {
   add(): void {
     if (this.form.valid) {
       const material: ScopeOfWorkTaskMaterial = {
+        type: this.data && this.data.id ? 'UPDATE' : 'CREATE',
         name: this.form.get('name').value as string,
-        quantity: this.form.get('qty').value,
+        qty: this.form.get('qty').value,
         unit: this.form.get('unit').value,
         contingency: this.form.get('contingency').value,
       };

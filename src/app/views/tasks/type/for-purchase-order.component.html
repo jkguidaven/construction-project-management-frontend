@@ -43,10 +43,10 @@
       </div>
       <div class="row" *ngFor="let material of materials">
         <div class="column">{{ material.name }}</div>
-        <div class="column">{{ material.quantity }} {{ material.unit }}</div>
+        <div class="column">{{ material.qty }} {{ material.unit }}</div>
         <div class="column">{{ material.released }} {{ material.unit }}</div>
         <div class="column">
-          {{ material.quantity - material.released }} {{ material.unit }}
+          {{ material.qty - material.released }} {{ material.unit }}
         </div>
         <div class="column">{{ material.requested }} {{ material.unit }}</div>
       </div>
