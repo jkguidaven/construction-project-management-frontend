@@ -2,18 +2,17 @@
   <h1>Attachments</h1>
 
   <div class="attachment-list">
-    <app-attachment-card name="Design Doc 1" type="pdf"> </app-attachment-card>
-    <app-attachment-card name="Sketch" type="image"> </app-attachment-card>
+    <app-attachment-card
+      *ngFor="let attachment of project.attachments"
+      [name]="attachment.name"
+      [type]="getAttachmentType(attachment.type)"
+      (click)="downloadAttachment(attachment)"
+    >
+    </app-attachment-card>
   </div>
 </app-card>
 
-<app-card>
-  <div class="header">
-    <h1>Scope of Work</h1>
-  </div>
-
-  <app-project-schedule-viewer [scopes]="scopes"></app-project-schedule-viewer>
-</app-card>
+<app-project-schedule-viewer [scopes]="scopes"></app-project-schedule-viewer>
 
 <app-card class="timeline-card">
   <div class="header">

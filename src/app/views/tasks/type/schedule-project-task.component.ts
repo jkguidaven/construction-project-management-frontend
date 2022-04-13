@@ -4,9 +4,13 @@ import { Router } from '@angular/router';
 import {
   GroupTask,
   Task,
-  TaskDuration,
 } from 'src/app/common/charts/gantt-chart/gantt-chart.component';
+import { Attachment } from 'src/app/models/attachment.model';
+import { Project } from 'src/app/models/project.model';
 import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
+import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
+import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
+import { ScopeOfWorkClientApiService } from 'src/app/services/scope-of-work-client-api.service';
 import { AddProjectScheduleComponent } from '../../modals/add-project-schedule.component';
 import { TaskHandler } from './task-handler';
 
@@ -17,87 +21,20 @@ import { TaskHandler } from './task-handler';
 })
 export class ScheduleProjectTaskComponent implements OnInit, TaskHandler {
   @Input() task!: any;
+  @Input() project!: Project;
+  @Input() scopes: ScopeOfWork[] = [];
+
   startDate: Date = new Date();
   endDate: Date = new Date(2023, 3, 5);
   groupTasks: GroupTask[] = [];
 
-  scopes: ScopeOfWork[] = [
-    {
-      name: 'EARTHWORK',
-      tasks: [
-        {
-          name: 'Demotion Works',
-          unit: 'LOT',
-          qty: 1.0,
-          subconPricePerUnit: 4,
-          materials: [],
-        },
-        {
-          name: 'Excavation Works',
-          unit: 'cu.m.',
-          qty: 112.98,
-          subconPricePerUnit: 2.3,
-          materials: [],
-        },
-        {
-          name: 'Backfilling',
-          unit: 'cu.m.',
-          qty: 210.74,
-          subconPricePerUnit: 10,
-          materials: [],
-        },
-      ],
-    },
-    {
-      name: 'RETAINING WALL',
-      tasks: [
-        {
-          name: 'Reinforcement Bars',
-          materials: [
-            {
-              name: 'Footing RSB 25mm x 9mm',
-              unit: 'pcs',
-              qty: 20.0,
-              contingency: 5,
-              pricePerUnit: 300,
-              subconPricePerUnit: 5,
-            },
-            {
-              name: 'Footing RSB 20mm x 6mm',
-              unit: 'pcs',
-              qty: 42.0,
-              contingency: 5,
-              pricePerUnit: 231.14,
-              subconPricePerUnit: 4,
-            },
-            {
-              name: 'Footing RSB 16mm x 6mm',
-              unit: 'pcs',
-              qty: 240.0,
-              contingency: 5,
-              pricePerUnit: 900.2,
-              subconPricePerUnit: 4,
-            },
-          ],
-        },
-        {
-          name: 'Formworks',
-          materials: [
-            {
-              name: 'Phenolic Board 3/4',
-              unit: 'pcs',
-              qty: 1,
-              contingency: 5,
-              pricePerUnit: 1050.12,
-              subconPricePerUnit: 4.5,
-            },
-          ],
-        },
-      ],
-    },
-  ];
-
-  constructor(private dialog: MatDialog, public router: Router) {}
+  constructor(
+    private dialog: MatDialog,
+    public router: Router,
+    private attachmentClientAPI: AttachmentClientApiService,
+    private projectClientAPI: ProjectClientApiService,
+    private scopeOfWorkClientAPI: ScopeOfWorkClientApiService
+  ) {}
 
   ngOnInit(): void {
     this.groupTasks = this.scopes.map((scope) => {
@@ -141,7 +78,28 @@ export class ScheduleProjectTaskComponent implements OnInit, TaskHandler {
     });
   }
 
+  getAttachmentType(mime: string): 'pdf' | 'image' | 'document' {
+    if (mime.startsWith('image/')) {
+      return 'image';
+    } else if (mime === 'application/pdf') return 'pdf';
+
+    return 'document';
+  }
+
+  downloadAttachment(attachment: Attachment): void {
+    this.attachmentClientAPI.downloadAttachment(this.project.id, attachment);
+  }
+
   setTask(task: any): void {
     this.task = task;
+    this.projectClientAPI.get(task.project.id).subscribe((project) => {
+      this.project = project;
+
+      this.scopeOfWorkClientAPI
+        .get(this.project.id)
+        .subscribe((scopes: ScopeOfWork[]) => {
+          this.scopes = scopes;
+        });
+    });
   }
 }
