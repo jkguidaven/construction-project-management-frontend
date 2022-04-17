@@ -1,3 +1,4 @@
+import { MaterialRequest } from './material-request.model';
 import { Project } from './project.model';
 
 export class Task {
@@ -5,6 +6,7 @@ export class Task {
   type?: string;
   assignedTo?: string;
   project?: Project;
+  materialRequest?: MaterialRequest;
   status?: string;
   date?: Date;
 }

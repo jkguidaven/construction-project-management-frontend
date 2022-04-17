@@ -1,11 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { catchError, finalize, map, Observable, of } from 'rxjs';
+import {
+  MaterialRequest,
+  MaterialRequestItem,
+} from 'src/app/models/material-request.model';
 import {
   ScopeOfWork,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
 import { Task } from 'src/app/models/task.model';
+import { MaterialRequestClientApiService } from 'src/app/services/material-request-client-api.service';
+import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 import { TaskHandler } from './task-handler';
 
 @Component({
@@ -14,106 +22,45 @@ import { TaskHandler } from './task-handler';
   styleUrls: ['./approve-material-request.component.scss'],
 })
 export class ApproveMaterialRequestComponent implements OnInit, TaskHandler {
-  @Input() task!: Task;
+  task!: Task;
+  request: MaterialRequest;
 
   form: FormGroup = new FormGroup({
     project: new FormControl(undefined, [Validators.required]),
     scope: new FormControl(undefined, [Validators.required]),
     task: new FormControl(undefined, [Validators.required]),
+    status: new FormControl(undefined, [Validators.required]),
   });
 
-  scopes: ScopeOfWork[] = [
-    {
-      name: 'EARTHWORK',
-      tasks: [
-        {
-          name: 'Demotion Works',
-          unit: 'LOT',
-          qty: 1.0,
-          subconPricePerUnit: 4,
-          materials: [],
-        },
-        {
-          name: 'Excavation Works',
-          unit: 'cu.m.',
-          qty: 112.98,
-          subconPricePerUnit: 2.3,
-          materials: [],
-        },
-        {
-          name: 'Backfilling',
-          unit: 'cu.m.',
-          qty: 210.74,
-          subconPricePerUnit: 10,
-          materials: [],
-        },
-      ],
-    },
-    {
-      name: 'RETAINING WALL',
-      tasks: [
-        {
-          name: 'Reinforcement Bars',
-          materials: [
-            {
-              name: 'Footing RSB 25mm x 9mm',
-              unit: 'pcs',
-              qty: 20.0,
-              requested: 1,
-              released: 18,
-              contingency: 5,
-              pricePerUnit: 300,
-              subconPricePerUnit: 5,
-            },
-            {
-              name: 'Footing RSB 20mm x 6mm',
-              unit: 'pcs',
-              qty: 42.0,
-              requested: 10,
-              released: 10,
-              contingency: 5,
-              pricePerUnit: 231.14,
-              subconPricePerUnit: 4,
-            },
-            {
-              name: 'Footing RSB 16mm x 6mm',
-              unit: 'pcs',
-              qty: 240.0,
-              requested: 5,
-              released: 10,
-              contingency: 5,
-              pricePerUnit: 900.2,
-              subconPricePerUnit: 4,
-            },
-          ],
-        },
-        {
-          name: 'Formworks',
-          materials: [
-            {
-              name: 'Phenolic Board 3/4',
-              unit: 'pcs',
-              qty: 1,
-              contingency: 5,
-              pricePerUnit: 1050.12,
-              subconPricePerUnit: 4.5,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  processing: boolean;
 
-  constructor(public router: Router) {}
+  constructor(
+    public router: Router,
+    private materialRequestClientAPI: MaterialRequestClientApiService,
+    private taskClientAPI: TaskClientApiService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.form.get('project').disable();
     this.form.get('scope').disable();
     this.form.get('task').disable();
+    this.form.get('status').disable();
+  }
 
-    this.form.get('project').setValue('Home remodelling');
-    this.form.get('scope').setValue(this.scopes[1]);
-    this.form.get('task').setValue(this.scopes[1].tasks[0]);
+  setTask(task: Task): void {
+    this.task = task;
+
+    this.materialRequestClientAPI
+      .get(task.materialRequest.id)
+      .subscribe((request) => {
+        this.request = request;
+
+        this.form.get('project').setValue(this.request.project.name);
+        this.form.get('scope').setValue(this.request.task.scope.name);
+        this.form.get('task').setValue(this.request.task.name);
+        this.form.get('status').setValue(this.request.status);
+      });
   }
 
   get tasks(): ScopeOfWork[] {
@@ -124,14 +71,85 @@ export class ApproveMaterialRequestComponent implements OnInit, TaskHandler {
     return [];
   }
 
-  get materials(): ScopeOfWorkTaskMaterial[] {
-    if (this.form.get('task').value) {
-      return this.form.get('task').value.materials;
-    }
-    return [];
+  get items(): MaterialRequestItem[] {
+    return this.request.items;
   }
 
-  setTask(task: Task): void {
-    this.task = task;
+  exit(): void {
+    this.router.navigate(['/tasks']);
+  }
+
+  complete(approve: boolean): void {
+    if (approve) {
+      this.approve().subscribe((scopes: MaterialRequest) => {
+        if (scopes) {
+          this.taskClientAPI.completeTask(this.task).subscribe(() => {
+            this.exit();
+          });
+        }
+      });
+    } else {
+      this.reject().subscribe((scopes: MaterialRequest) => {
+        if (scopes) {
+          this.taskClientAPI.completeTask(this.task).subscribe(() => {
+            this.exit();
+          });
+        }
+      });
+    }
+  }
+
+  approve(): Observable<MaterialRequest> {
+    this.processing = true;
+    return this.materialRequestClientAPI.approve(this.request.id).pipe(
+      finalize(() => (this.processing = false)),
+      catchError(() => {
+        this._snackBar.open(
+          'Something went wrong while approving the request. please try again.',
+          null,
+          {
+            duration: 3000,
+            panelClass: 'error-snack-bar',
+          }
+        );
+        return of(null);
+      }),
+      map((result) => {
+        if (result) {
+          this._snackBar.open('Successfully approved.', null, {
+            duration: 3000,
+            panelClass: 'success-snack-bar',
+          });
+        }
+        return result;
+      })
+    );
+  }
+
+  reject(): Observable<MaterialRequest> {
+    this.processing = true;
+    return this.materialRequestClientAPI.reject(this.request.id).pipe(
+      finalize(() => (this.processing = false)),
+      catchError(() => {
+        this._snackBar.open(
+          'Something went wrong while rejecting the request. please try again.',
+          null,
+          {
+            duration: 3000,
+            panelClass: 'error-snack-bar',
+          }
+        );
+        return of(null);
+      }),
+      map((result) => {
+        if (result) {
+          this._snackBar.open('Successfully rejected.', null, {
+            duration: 3000,
+            panelClass: 'success-snack-bar',
+          });
+        }
+        return result;
+      })
+    );
   }
 }
