@@ -1,4 +1,15 @@
 <div class="content">
+  <div class="divider">
+    <div class="year-divider" *ngFor="let section of sections">
+      <div class="month-divider">
+        <span
+          *ngFor="let sub of section.sub"
+          [ngStyle]="{ width: dividerGap + 'px' }"
+        ></span>
+      </div>
+    </div>
+  </div>
+
   <div class="data">
     <div class="group" *ngFor="let scope of scopes">
       <div
@@ -26,17 +37,6 @@
             {{ task.name }} P{{ ti + 1 }}
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider">
-    <div class="year-divider" *ngFor="let section of sections">
-      <div class="month-divider">
-        <span
-          *ngFor="let sub of section.sub"
-          [ngStyle]="{ width: dividerGap + 'px' }"
-        ></span>
       </div>
     </div>
   </div>
