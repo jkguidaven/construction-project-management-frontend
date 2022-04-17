@@ -57,6 +57,10 @@
 
       &.active {
         border-left: 3px var(--accent-color) solid;
+
+        .mat-icon {
+          margin-left: -3px;
+        }
       }
     }
   }
