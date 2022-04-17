@@ -81,7 +81,15 @@ export class GanttChartComponent implements OnInit {
     ][month];
   }
 
-  getScheduleColor(index: number): string {
+  getScheduleColor(task: ScopeOfWorkTask): string {
+    const tasks = this.scopes.reduce((arr, scope) => {
+      scope.tasks.forEach((item) => {
+        arr.push(item);
+      });
+      return arr;
+    }, []);
+
+    let index = tasks.findIndex((match) => match.id === task.id);
     return this.colorScheme[index % this.colorScheme.length];
   }
 
@@ -152,5 +160,11 @@ export class GanttChartComponent implements OnInit {
 
   getSchedules(task: ScopeOfWorkTask): TargetSchedule[] {
     return this.schedules.filter((schedule) => schedule.taskId === task.id);
+  }
+
+  get totalWidth(): number {
+    return this.sections.reduce((total, section) => {
+      return total + section.sub.length * this.dividerGap;
+    }, 0);
   }
 }

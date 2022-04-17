@@ -1,4 +1,4 @@
-<div class="content">
+<div class="gantt-chart">
   <div class="divider">
     <div class="year-divider" *ngFor="let section of sections">
       <div class="month-divider">
@@ -10,49 +10,51 @@
     </div>
   </div>
 
-  <div class="data">
-    <div class="group" *ngFor="let scope of scopes">
-      <div
-        class="expand-toggle"
-        [ngClass]="{ collapsed: collapsedToggle[scope.id] }"
-        (click)="collapsedToggle[scope.id] = !collapsedToggle[scope.id]"
-      >
-        {{ scope.name }}
+  <div class="content" [ngStyle]="{ 'margin-left': -totalWidth + 'px' }">
+    <div class="data">
+      <div class="group" *ngFor="let scope of scopes">
+        <div
+          class="expand-toggle"
+          [ngClass]="{ collapsed: collapsedToggle[scope.id] }"
+          (click)="collapsedToggle[scope.id] = !collapsedToggle[scope.id]"
+        >
+          {{ scope.name }}
 
-        <mat-icon>keyboard_arrow_down</mat-icon>
-      </div>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
 
-      <div *ngIf="!collapsedToggle[scope.id]">
-        <div class="schedule" *ngFor="let task of scope.tasks; let i = index">
-          <div
-            class="schedule-item"
-            *ngFor="let schedule of getSchedules(task); let ti = index"
-            [ngStyle]="{
-              'background-color': getScheduleColor(i),
-              left:
-                getSchedulePosByDate(schedule.start, dividerGap, true) + 'px',
-              width: getScheduleWidth(schedule, dividerGap) + 'px'
-            }"
-          >
-            {{ task.name }} P{{ ti + 1 }}
+        <div *ngIf="!collapsedToggle[scope.id]">
+          <div class="schedule" *ngFor="let task of scope.tasks">
+            <div
+              class="schedule-item"
+              *ngFor="let schedule of getSchedules(task); let ti = index"
+              [ngStyle]="{
+                'background-color': getScheduleColor(task),
+                left:
+                  getSchedulePosByDate(schedule.start, dividerGap, true) + 'px',
+                width: getScheduleWidth(schedule, dividerGap) + 'px'
+              }"
+            >
+              {{ task.name }} P{{ ti + 1 }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="heading">
-    <div class="year-heading" *ngFor="let section of sections">
-      <div class="month-heading">
-        <span
-          *ngFor="let sub of section.sub"
-          [ngStyle]="{ width: dividerGap + 'px' }"
-        >
-          {{ getMonthString(sub) }}
-        </span>
+    <div class="heading">
+      <div class="year-heading" *ngFor="let section of sections">
+        <div class="month-heading">
+          <span
+            *ngFor="let sub of section.sub"
+            [ngStyle]="{ width: dividerGap + 'px' }"
+          >
+            {{ getMonthString(sub) }}
+          </span>
+        </div>
+
+        <span>{{ section.label }}</span>
       </div>
-
-      <span>{{ section.label }}</span>
     </div>
   </div>
 </div>
