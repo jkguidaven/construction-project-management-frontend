@@ -14,6 +14,7 @@ export interface ScopeOfWorkTask {
   qty?: number;
   unit?: string;
   subconPricePerUnit?: number;
+  scope?: ScopeOfWork;
   materials: ScopeOfWorkTaskMaterial[];
 }
 

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { DataTableColumnDef } from 'src/app/common/data-table/data-table.component';
 import { ActionDataTableRendererComponent } from 'src/app/common/data-table/renderers/action.component';
 import { DateDataTableRendererComponent } from 'src/app/common/data-table/renderers/date.component';
+import { LinkDataTableRendererComponent } from 'src/app/common/data-table/renderers/link.component';
+import { MaterialRequestStatusDataTableRendererComponent } from 'src/app/common/data-table/renderers/material-request-status.component';
+import { MaterialRequestPageResult } from 'src/app/models/material-request.model';
+import { MaterialRequestClientApiService } from 'src/app/services/material-request-client-api.service';
 
 @Component({
   selector: 'app-list',
@@ -12,11 +17,16 @@ import { DateDataTableRendererComponent } from 'src/app/common/data-table/render
 export class MaterialRequestListComponent implements OnInit {
   columns: DataTableColumnDef[] = [
     {
+      id: 'id',
+      label: 'ID',
+      renderer: LinkDataTableRendererComponent,
+    },
+    {
       id: 'name',
       label: 'Project name',
     },
     { id: 'customer', label: 'Customer name' },
-    { id: 'scope', label: 'Scope of work' },
+    { id: 'task', label: 'Scope of work' },
     {
       id: 'date',
       label: 'Date',
@@ -24,30 +34,63 @@ export class MaterialRequestListComponent implements OnInit {
       renderer: DateDataTableRendererComponent,
     },
     {
-      id: 'action',
-      label: 'Action',
+      id: 'status',
+      label: 'Status',
       width: '10%',
-      renderer: ActionDataTableRendererComponent,
+      renderer: MaterialRequestStatusDataTableRendererComponent,
     },
   ];
 
-  data: any = [
-    {
-      id: 1,
-      name: 'House remodelling',
-      customer: 'James Kenneth A. Guidaven',
-      scope: 'Retaining walls',
-      date: new Date(),
-      action: {
-        label: 'View',
-        handler: () => {
-          this.router.navigate(['/material-request', 1]);
-        },
-      },
-    },
-  ];
+  result!: MaterialRequestPageResult;
+  size: number = 25;
+  loading!: boolean;
 
-  constructor(private router: Router) {}
+  sort!: string;
+  sortDir!: string;
 
-  ngOnInit(): void {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private materialRequestClientAPI: MaterialRequestClientApiService
+  ) {}
+
+  ngOnInit(): void {
+    this.refreshList();
+  }
+
+  refreshList(): void {
+    this.loading = true;
+    this.materialRequestClientAPI
+      .getAll(this.page, this.size, this.sort, this.sortDir)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe((result) => {
+        this.result = result;
+      });
+  }
+
+  get data(): any[] {
+    return this.result
+      ? this.result.results.map((request) => ({
+          id: request.id,
+          name: request.project.name,
+          customer: request.project.customer.name,
+          task: request.task.name,
+          status: request.status,
+          link: ['/material-request', request.id],
+        }))
+      : [];
+  }
+
+  get page(): number {
+    const page = this.activatedRoute.snapshot.queryParams['page'];
+    return page ? Number(page) : 0;
+  }
+
+  set page(value: number) {
+    this.router.navigate(['/material-request'], {
+      queryParams: { page: value },
+    });
+
+    setTimeout(() => this.refreshList(), 100);
+  }
 }

@@ -6,7 +6,9 @@
       <mat-form-field appearance="outline">
         <mat-label>Project</mat-label>
         <mat-select formControlName="project">
-          <mat-option value="1"> House remodelling </mat-option>
+          <mat-option *ngFor="let project of projects" [value]="project">
+            {{ project.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </app-form-row>
@@ -38,12 +40,12 @@
         <div class="column"><b>Materials</b></div>
         <div class="column"><b>Request (qty)</b></div>
       </div>
-      <div class="row" *ngFor="let material of materials">
-        <div class="column">{{ material.name }}</div>
+      <div class="row" *ngFor="let input of inputs">
+        <div class="column">{{ input.material.name }}</div>
         <div class="column">
           <mat-form-field appearance="outline">
             <mat-label></mat-label>
-            <input matInput type="number" [value]="material.qty" />
+            <input matInput type="number" [formControl]="input.control" />
           </mat-form-field>
         </div>
       </div>
@@ -57,7 +59,8 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="router.navigate(['/material-request'])"
+      [disabled]="processing || !hasOneInput"
+      (click)="submit()"
     >
       Create
     </button>

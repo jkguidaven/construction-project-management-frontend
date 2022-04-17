@@ -104,6 +104,7 @@ import { ViewPurchaseOrderComponent } from './views/purchase-orders/view.compone
 import { AddPurchaseOrderComponent } from './views/purchase-orders/add.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectStatusDataTableRendererComponent } from './common/data-table/renderers/project-status.component';
+import { MaterialRequestStatusDataTableRendererComponent } from './common/data-table/renderers/material-request-status.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -175,6 +176,7 @@ Amplify.configure(awsconfig);
     ViewPurchaseOrderComponent,
     AddPurchaseOrderComponent,
     ProjectStatusDataTableRendererComponent,
+    MaterialRequestStatusDataTableRendererComponent,
   ],
   imports: [
     FormsModule,

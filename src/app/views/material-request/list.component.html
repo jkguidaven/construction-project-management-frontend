@@ -1,7 +1,21 @@
 <div class="container">
   <button mat-button class="add-button" routerLink="/material-request/new">
     <mat-icon>add</mat-icon>
-    Create a request
+    Create New Request
   </button>
-  <app-data-table [columns]="columns" [data]="data"> </app-data-table>
+  <app-data-table
+    [columns]="columns"
+    [data]="data"
+    [loading]="loading"
+    [(size)]="size"
+    [(page)]="page"
+    [paginated]="true"
+    [sortable]="true"
+    [(sort)]="sort"
+    (sortChange)="refreshList()"
+    [(sortDir)]="sortDir"
+    (sortDirChange)="refreshList()"
+    [length]="result ? result.total : 0"
+  >
+  </app-data-table>
 </div>
