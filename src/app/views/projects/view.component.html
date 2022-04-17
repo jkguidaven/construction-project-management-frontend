@@ -21,7 +21,7 @@
   <app-card>
     <h1>Attachments</h1>
 
-    <div class="attachment-list">
+    <div class="attachment-list" *ngIf="project">
       <app-attachment-card
         *ngFor="let attachment of project.attachments"
         [name]="attachment.name"
@@ -35,7 +35,12 @@
   <app-card>
     <mat-tab-group animationDuration="0ms">
       <mat-tab label="Project Schedule">
-        <app-view-project-schedule></app-view-project-schedule>
+        <app-gantt-chart
+          *ngIf="scopes && schedules"
+          [scopes]="scopes"
+          [schedules]="schedules"
+          (select)="onScheduleSelect($event)"
+        ></app-gantt-chart>
       </mat-tab>
       <mat-tab label="Budget Tracking">
         <div class="content">Budget Tracking</div>

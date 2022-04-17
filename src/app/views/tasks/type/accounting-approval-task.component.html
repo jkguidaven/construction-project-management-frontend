@@ -22,7 +22,7 @@
       ></app-project-overview-viewer>
     </mat-tab>
     <mat-tab label="Design Documents">
-      <div class="attachment-list">
+      <div class="attachment-list" *ngIf="project">
         <app-attachment-card
           *ngFor="let attachment of project.attachments"
           [name]="attachment.name"
@@ -38,7 +38,12 @@
       ></app-project-schedule-viewer>
     </mat-tab>
     <mat-tab label="Project Schedule">
-      <app-view-project-schedule></app-view-project-schedule>
+      <app-gantt-chart
+        *ngIf="scopes && schedules"
+        [scopes]="scopes"
+        [schedules]="schedules"
+        (select)="onScheduleSelect($event)"
+      ></app-gantt-chart>
     </mat-tab>
   </mat-tab-group>
 </app-card>
