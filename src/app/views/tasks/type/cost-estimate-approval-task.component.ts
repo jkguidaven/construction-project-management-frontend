@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { catchError, finalize, map, Observable, of } from 'rxjs';
-import { GroupTask } from 'src/app/common/charts/gantt-chart/gantt-chart.component';
 import { Attachment } from 'src/app/models/attachment.model';
 import { Project } from 'src/app/models/project.model';
 import {
@@ -31,10 +30,6 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
   @Input() scopes!: ScopeOfWork[];
 
   saving: boolean;
-
-  startDate: Date = new Date();
-  endDate: Date = new Date(2023, 3, 5);
-  groupTasks: GroupTask[] = [];
 
   constructor(
     private dialog: MatDialog,
@@ -85,18 +80,6 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
     }
 
     return total;
-  }
-
-  getTotalMaterialCost(task: ScopeOfWorkTask): number {
-    return task.materials.reduce((total, material) => {
-      return total + (material.pricePerUnit * material.qty ?? 0);
-    }, 0);
-  }
-
-  getTotalLaborCost(task: ScopeOfWorkTask): number {
-    return task.materials.reduce((total, material) => {
-      return total + (material.subconPricePerUnit * material.qty ?? 0);
-    }, 0);
   }
 
   showAddTaskSubconBudgetForm(task: ScopeOfWorkTask): void {

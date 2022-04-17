@@ -16,8 +16,8 @@ export class AddProjectScheduleComponent implements OnInit {
   form: FormGroup = new FormGroup({
     scope: new FormControl(undefined, [Validators.required]),
     task: new FormControl(undefined, [Validators.required]),
-    from: new FormControl(undefined, [Validators.required]),
-    to: new FormControl(undefined, [Validators.required]),
+    start: new FormControl(undefined, [Validators.required]),
+    end: new FormControl(undefined, [Validators.required]),
   });
 
   constructor(
@@ -40,10 +40,9 @@ export class AddProjectScheduleComponent implements OnInit {
 
   add(): void {
     this.dialogRef.close({
-      scope: this.form.get('scope').value,
-      task: this.form.get('task').value,
-      from: this.form.get('from').value,
-      to: this.form.get('to').value,
+      taskId: this.form.get('task').value.id,
+      start: this.form.get('start').value,
+      end: this.form.get('end').value,
     });
   }
 
@@ -57,13 +56,13 @@ export class AddProjectScheduleComponent implements OnInit {
   }
 
   get hasDates(): boolean {
-    return this.form.get('from').value && this.form.get('to').value;
+    return this.form.get('start').value && this.form.get('end').value;
   }
 
   get scheduledDates(): Date[] {
     const ONE_DAY_IN_MS = 24 * 3600 * 1000;
-    const startms = this.form.get('from').value.getTime();
-    const endms = this.form.get('to').value.getTime();
+    const startms = this.form.get('start').value.getTime();
+    const endms = this.form.get('end').value.getTime();
     const dates: Date[] = [];
     for (
       let ms = startms * 1, last = endms * 1;

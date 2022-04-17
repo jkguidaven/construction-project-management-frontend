@@ -1,4 +1,4 @@
-<app-card>
+<app-card *ngIf="project">
   <h1>Attachments</h1>
 
   <div class="attachment-list">
@@ -29,9 +29,8 @@
 
   <div class="timeline">
     <app-gantt-chart
-      [startDate]="startDate"
-      [endDate]="endDate"
-      [tasks]="groupTasks"
+      [scopes]="scopes"
+      [schedules]="schedules"
     ></app-gantt-chart>
   </div>
 </app-card>

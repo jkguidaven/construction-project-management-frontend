@@ -1,22 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
-
-export interface GroupTask {
-  label: string;
-  tasks: Task[];
-}
-
-export interface Task {
-  id: any;
-  label: string;
-  dates: TaskDuration[];
-}
-
-export interface TaskDuration {
-  from: Date;
-  to: Date;
-  progress: number;
-}
+import {
+  ScopeOfWork,
+  ScopeOfWorkTask,
+} from 'src/app/models/scope-of-work.model';
+import { TargetSchedule } from 'src/app/models/target-schedule.model';
 
 @Component({
   selector: 'app-gantt-chart',
@@ -24,9 +12,8 @@ export interface TaskDuration {
   styleUrls: ['./gantt-chart.component.scss'],
 })
 export class GanttChartComponent implements OnInit {
-  @Input() startDate: Date;
-  @Input() endDate: Date;
-  @Input() tasks: GroupTask[];
+  @Input() scopes: ScopeOfWork[];
+  @Input() schedules: TargetSchedule[];
 
   dividerGap: number = 200;
 
@@ -41,6 +28,39 @@ export class GanttChartComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  get startDate(): Date {
+    if (this.schedules.length) {
+      let lowestDate = null;
+
+      for (let schedule of this.schedules) {
+        if (!lowestDate || lowestDate.getTime() > schedule.start.getTime()) {
+          lowestDate = schedule.start;
+        }
+      }
+
+      return lowestDate;
+    } else {
+      return new Date();
+    }
+  }
+
+  get endDate(): Date {
+    const nextYear = moment(this.startDate).add(1, 'year').toDate();
+
+    let highestDate: Date = null;
+    for (let schedule of this.schedules) {
+      if (!highestDate || highestDate.getTime() < schedule.end.getTime()) {
+        highestDate = schedule.end;
+      }
+    }
+
+    return highestDate
+      ? highestDate.getTime() > nextYear.getTime()
+        ? highestDate
+        : nextYear
+      : nextYear;
+  }
 
   getMonthString(month: number): string {
     return [
@@ -59,14 +79,14 @@ export class GanttChartComponent implements OnInit {
     ][month];
   }
 
-  getTaskColor(index: number): string {
+  getScheduleColor(index: number): string {
     return this.colorScheme[index % this.colorScheme.length];
   }
 
-  getTaskPosByDate(from: Date, size: number): number {
-    const year = from.getFullYear();
-    const month = from.getMonth();
-    const day = from.getDay() + 1;
+  getSchedulePosByDate(start: Date, size: number, isHead: boolean): number {
+    const year = start.getFullYear();
+    const month = start.getMonth();
+    const day = start.getDate() + (isHead ? -1 : 1);
     const sections = this.sections;
 
     const daysInMonth = moment(`${year}-${month}`, 'YYYY-MM').daysInMonth();
@@ -92,9 +112,9 @@ export class GanttChartComponent implements OnInit {
     return i * size + offset;
   }
 
-  getTaskWidth(task: TaskDuration, size: number): number {
-    const start = this.getTaskPosByDate(task.from, size);
-    const end = this.getTaskPosByDate(task.to, size);
+  getScheduleWidth(schedule: TargetSchedule, size: number): number {
+    const start = this.getSchedulePosByDate(schedule.start, size, true);
+    const end = this.getSchedulePosByDate(schedule.end, size, false);
     return end - start;
   }
 
@@ -126,5 +146,9 @@ export class GanttChartComponent implements OnInit {
     }
 
     return years;
+  }
+
+  getSchedules(task: ScopeOfWorkTask): TargetSchedule[] {
+    return this.schedules.filter((schedule) => schedule.taskId === task.id);
   }
 }

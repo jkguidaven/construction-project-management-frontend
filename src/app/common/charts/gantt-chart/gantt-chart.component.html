@@ -1,19 +1,19 @@
 <div class="content">
   <div class="data">
-    <div class="group" *ngFor="let group of tasks">
-      {{ group.label }}
+    <div class="group" *ngFor="let scope of scopes">
+      {{ scope.name }}
 
-      <div class="task" *ngFor="let task of group.tasks; let i = index">
+      <div class="schedule" *ngFor="let task of scope.tasks; let i = index">
         <div
-          class="task-item"
-          *ngFor="let item of task.dates; let ti = index"
+          class="schedule-item"
+          *ngFor="let schedule of getSchedules(task); let ti = index"
           [ngStyle]="{
-            'background-color': getTaskColor(i),
-            left: getTaskPosByDate(item.from, dividerGap) + 'px',
-            width: getTaskWidth(item, dividerGap) + 'px'
+            'background-color': getScheduleColor(i),
+            left: getSchedulePosByDate(schedule.start, dividerGap, true) + 'px',
+            width: getScheduleWidth(schedule, dividerGap) + 'px'
           }"
         >
-          {{ task.label }} P{{ ti + 1 }}
+          {{ task.name }} P{{ ti + 1 }}
         </div>
       </div>
     </div>
