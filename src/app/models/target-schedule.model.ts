@@ -1,4 +1,5 @@
 export class TargetSchedule {
+  type: 'CREATE' | 'UPDATE' | 'DELETE';
   id?: number;
   taskId: number;
   start: Date;

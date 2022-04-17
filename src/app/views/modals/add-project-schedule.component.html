@@ -1,23 +1,25 @@
 <h1>Add Project Schedule</h1>
 
 <form [formGroup]="form">
-  <mat-form-field appearance="outline">
-    <mat-label>Scope of work</mat-label>
-    <mat-select formControlName="scope">
-      <mat-option *ngFor="let scope of scopes" [value]="scope">
-        {{ scope.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>Scope of work</mat-label>
+      <mat-select formControlName="scope">
+        <mat-option *ngFor="let scope of scopes" [value]="scope">
+          {{ scope.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Task</mat-label>
-    <mat-select formControlName="task">
-      <mat-option *ngFor="let task of currentTaskList" [value]="task">
-        {{ task.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Task</mat-label>
+      <mat-select formControlName="task">
+        <mat-option *ngFor="let task of currentTaskList" [value]="task">
+          {{ task.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
   <mat-form-field appearance="outline">
     <mat-label>Project Schedule</mat-label>

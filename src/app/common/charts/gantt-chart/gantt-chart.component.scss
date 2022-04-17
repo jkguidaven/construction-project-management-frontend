@@ -25,6 +25,9 @@
           position: absolute;
           box-sizing: border-box;
           white-space: nowrap;
+
+          cursor: pointer;
+          user-select: none;
         }
       }
     }

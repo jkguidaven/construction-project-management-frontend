@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import {
   ScopeOfWork,
@@ -14,6 +14,7 @@ import { TargetSchedule } from 'src/app/models/target-schedule.model';
 export class GanttChartComponent implements OnInit {
   @Input() scopes: ScopeOfWork[];
   @Input() schedules: TargetSchedule[];
+  @Output() select: EventEmitter<TargetSchedule> = new EventEmitter();
 
   dividerGap: number = 200;
 
@@ -48,7 +49,7 @@ export class GanttChartComponent implements OnInit {
   }
 
   get endDate(): Date {
-    const nextYear = moment(this.startDate).add(1, 'year').toDate();
+    const nextYear = moment(this.startDate).add(7, 'month').toDate();
 
     let highestDate: Date = null;
     for (let schedule of this.schedules) {

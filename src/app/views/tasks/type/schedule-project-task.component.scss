@@ -21,3 +21,9 @@ app-card {
     overflow: auto;
   }
 }
+
+app-action-panel {
+  button {
+    margin-left: calc(var(--spacing) / 2);
+  }
+}

@@ -1,6 +1,7 @@
 .action-panel {
   display: flex;
   justify-content: flex-end;
+  margin-top: 10px;
 }
 
 .schedule-table-container {
@@ -36,6 +37,21 @@
       &:nth-child(2) {
         margin-left: 200px;
       }
+    }
+  }
+}
+
+.form-group {
+  display: flex;
+  > * {
+    margin: 5px;
+
+    &:first {
+      margin-left: 0px;
+    }
+
+    &:last {
+      margin-right: 0px;
     }
   }
 }

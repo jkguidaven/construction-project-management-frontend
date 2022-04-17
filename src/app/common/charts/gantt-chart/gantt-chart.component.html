@@ -28,6 +28,7 @@
             <div
               class="schedule-item"
               *ngFor="let schedule of getSchedules(task); let ti = index"
+              (click)="select.emit(schedule)"
               [ngStyle]="{
                 'background-color': getScheduleColor(task),
                 left:

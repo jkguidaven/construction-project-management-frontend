@@ -6,6 +6,7 @@ import {
   ScopeOfWorkTask,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { TargetSchedule } from 'src/app/models/target-schedule.model';
 
 @Component({
   selector: 'app-add-project-schedule',
@@ -39,11 +40,15 @@ export class AddProjectScheduleComponent implements OnInit {
   }
 
   add(): void {
-    this.dialogRef.close({
+    const schedule: TargetSchedule = {
+      type: 'CREATE',
       taskId: this.form.get('task').value.id,
       start: this.form.get('start').value,
       end: this.form.get('end').value,
-    });
+      dates: [],
+    };
+
+    this.dialogRef.close(schedule);
   }
 
   close(): void {

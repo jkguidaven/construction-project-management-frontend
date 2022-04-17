@@ -36,11 +36,14 @@
 </app-card>
 
 <app-action-panel>
-  <button mat-raised-button>Exit</button>
+  <button mat-raised-button (click)="exit()" [disabled]="saving">Exit</button>
+  <button mat-raised-button (click)="update()" [disabled]="saving">Save</button>
   <button
     mat-raised-button
+    *ngIf="task.status != 'COMPLETED'"
     color="primary"
-    (click)="router.navigate(['/tasks'])"
+    [disabled]="saving"
+    (click)="complete()"
   >
     Mark as Complete
   </button>
