@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -10,11 +10,14 @@ import {
   ScopeOfWorkTask,
   ScopeOfWorkTaskMaterial,
 } from 'src/app/models/scope-of-work.model';
+import { TargetSchedule } from 'src/app/models/target-schedule.model';
 import { Task } from 'src/app/models/task.model';
 import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
 import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
+import { ScheduleProjectClientApiService } from 'src/app/services/schedule-project-client-api.service';
 import { ScopeOfWorkClientApiService } from 'src/app/services/scope-of-work-client-api.service';
 import { TaskClientApiService } from 'src/app/services/task-client-api.service';
+import { AddProjectScheduleComponent } from '../../modals/add-project-schedule.component';
 import { AddScopeOfWorkMaterialSubconBudgetComponent } from '../../modals/add-scope-of-work-material-subcon-budget.component';
 import { AddScopeOfWorkTaskSubconBudgetComponent } from '../../modals/add-scope-of-work-task-subcon-budget.component';
 import { TaskHandler } from './task-handler';
@@ -25,9 +28,10 @@ import { TaskHandler } from './task-handler';
   styleUrls: ['./cost-estimate-approval-task.component.scss'],
 })
 export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
-  @Input() task!: Task;
-  @Input() project!: Project;
-  @Input() scopes!: ScopeOfWork[];
+  task!: Task;
+  project!: Project;
+  scopes: ScopeOfWork[] = [];
+  schedules: TargetSchedule[] = [];
 
   saving: boolean;
 
@@ -38,6 +42,7 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
     private attachmentClientAPI: AttachmentClientApiService,
     private projectClientAPI: ProjectClientApiService,
     private scopeOfWorkClientAPI: ScopeOfWorkClientApiService,
+    private scheduleProjectClientAPI: ScheduleProjectClientApiService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -136,6 +141,16 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
         .get(this.project.id)
         .subscribe((scopes: ScopeOfWork[]) => {
           this.scopes = this.getNormalizedData(scopes);
+          this.scopes = scopes.sort((a, b) => a.id - b.id);
+          this.scopes.forEach((scope) => {
+            scope.tasks = scope.tasks.sort((a, b) => a.id - b.id);
+          });
+        });
+
+      this.scheduleProjectClientAPI
+        .get(this.project.id)
+        .subscribe((schedules: TargetSchedule[]) => {
+          this.schedules = this.getNormalizedScheduleData(schedules);
         });
     });
   }
@@ -151,6 +166,15 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
         });
       });
       return scope;
+    });
+  }
+
+  getNormalizedScheduleData(schedules: TargetSchedule[]): TargetSchedule[] {
+    return schedules.map((schedule: any) => {
+      schedule.start = new Date(schedule.start);
+      schedule.end = new Date(schedule.end);
+      schedule.taskId = schedule.task.id;
+      return schedule;
     });
   }
 
@@ -198,6 +222,17 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
   update(): void {
     this.save().subscribe((scope: ScopeOfWork[]) => {
       this.scopes = this.getNormalizedData(scope);
+    });
+  }
+
+  onScheduleSelect(schedule: TargetSchedule): void {
+    const dialogRef = this.dialog.open(AddProjectScheduleComponent, {
+      width: '90%',
+      data: {
+        scopes: this.scopes,
+        schedule,
+        viewMode: true,
+      },
     });
   }
 }

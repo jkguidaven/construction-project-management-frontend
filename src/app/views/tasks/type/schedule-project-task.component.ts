@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -21,9 +21,9 @@ import { TaskHandler } from './task-handler';
   styleUrls: ['./schedule-project-task.component.scss'],
 })
 export class ScheduleProjectTaskComponent implements OnInit, TaskHandler {
-  @Input() task!: any;
-  @Input() project!: Project;
-  @Input() scopes: ScopeOfWork[] = [];
+  task!: any;
+  project!: Project;
+  scopes: ScopeOfWork[] = [];
   schedules: TargetSchedule[] = [];
 
   saving: boolean;
@@ -152,27 +152,12 @@ export class ScheduleProjectTaskComponent implements OnInit, TaskHandler {
   }
 
   onScheduleSelect(schedule: TargetSchedule): void {
-    const dialogRef = this.dialog.open(AddProjectScheduleComponent, {
+    this.dialog.open(AddProjectScheduleComponent, {
       width: '90%',
       data: {
         scopes: this.scopes,
         schedule,
       },
-    });
-
-    dialogRef.afterClosed().subscribe((data) => {
-      if (data) {
-        schedule.start = data.start;
-        schedule.end = data.end;
-        schedule.taskId = data.taskId;
-        schedule.type = data.type;
-        schedule.id = data.id;
-
-        if (schedule.type === 'DELETE' && !schedule.id) {
-          const index = this.schedules.indexOf(schedule);
-          this.schedules.splice(index, 1);
-        }
-      }
     });
   }
 }

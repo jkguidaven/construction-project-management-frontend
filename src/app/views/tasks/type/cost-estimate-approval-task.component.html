@@ -173,7 +173,12 @@
   </div>
 
   <div class="timeline">
-    <app-gantt-chart [scopes]="scopes"></app-gantt-chart>
+    <app-gantt-chart
+      *ngIf="scopes && schedules"
+      [scopes]="scopes"
+      [schedules]="schedules"
+      (select)="onScheduleSelect($event)"
+    ></app-gantt-chart>
   </div>
 </app-card>
 

@@ -1,8 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  ScopeOfWork,
-  ScopeOfWorkTask,
-} from 'src/app/models/scope-of-work.model';
+import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
 
 @Component({
   selector: 'app-project-schedule-viewer',

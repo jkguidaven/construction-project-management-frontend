@@ -1,4 +1,4 @@
-<h1>Add Project Schedule</h1>
+<h1>{{ data.viewMode ? "" : "Add" }} Project Schedule</h1>
 
 <form [formGroup]="form">
   <div class="form-group">
@@ -55,7 +55,7 @@
 
 <div class="action-panel">
   <button
-    *ngIf="data.schedule"
+    *ngIf="data.schedule && !data.viewMode"
     mat-button
     class="delete-button"
     (click)="delete()"
@@ -64,7 +64,13 @@
   </button>
   <span class="spacer"></span>
   <button mat-button (click)="close()">Cancel</button>
-  <button mat-button color="primary" (click)="add()" [disabled]="!form.valid">
+  <button
+    *ngIf="!data.viewMode"
+    mat-button
+    color="primary"
+    (click)="add()"
+    [disabled]="!form.valid"
+  >
     {{ data.schedule ? "Update" : "Add" }}
   </button>
 </div>

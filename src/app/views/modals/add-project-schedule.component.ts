@@ -11,6 +11,7 @@ import { TargetSchedule } from 'src/app/models/target-schedule.model';
 interface Data {
   scopes: ScopeOfWork[];
   schedule?: TargetSchedule;
+  viewMode: boolean;
 }
 
 @Component({
@@ -34,6 +35,7 @@ export class AddProjectScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.scopes = this.data.scopes;
     this.form.get('task').disable();
+
     this.form.get('scope').valueChanges.subscribe(() => {
       this.form.get('task').setValue(undefined);
 
@@ -55,9 +57,13 @@ export class AddProjectScheduleComponent implements OnInit {
 
         if (task) {
           this.form.get('scope').setValue(scope);
-          this.form.get('task').setValue(task);
+          setTimeout(() => this.form.get('task').setValue(task), 10);
         }
       });
+    }
+
+    if (this.data.viewMode) {
+      this.form.disable();
     }
   }
 
