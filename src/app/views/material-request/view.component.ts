@@ -22,6 +22,8 @@ export class ViewMaterialRequestComponent implements OnInit {
     scope: new FormControl(undefined, [Validators.required]),
     task: new FormControl(undefined, [Validators.required]),
     status: new FormControl(undefined, []),
+    approver: new FormControl(undefined, []),
+    finalApprover: new FormControl(undefined, []),
   });
 
   request: MaterialRequest;
@@ -37,6 +39,8 @@ export class ViewMaterialRequestComponent implements OnInit {
     this.form.get('scope').disable();
     this.form.get('task').disable();
     this.form.get('status').disable();
+    this.form.get('approver').disable();
+    this.form.get('finalApprover').disable();
 
     const id = this.activatedRoute.snapshot.params['id'];
     this.materialRequestClientAPI.get(id).subscribe((request) => {
@@ -46,6 +50,8 @@ export class ViewMaterialRequestComponent implements OnInit {
       this.form.get('scope').setValue(this.request.task.scope.name);
       this.form.get('task').setValue(this.request.task.name);
       this.form.get('status').setValue(this.request.status);
+      this.form.get('approver').setValue(this.request.approver);
+      this.form.get('finalApprover').setValue(this.request.finalApprover);
     });
   }
 

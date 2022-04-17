@@ -10,6 +10,8 @@ export class MaterialRequest {
   task: ScopeOfWorkTask;
   items: MaterialRequestItem[];
   status?: string;
+  approver?: string;
+  finalApprover?: string;
 }
 
 export class MaterialRequestItem {

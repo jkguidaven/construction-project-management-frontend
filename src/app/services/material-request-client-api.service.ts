@@ -116,6 +116,34 @@ export class MaterialRequestClientApiService {
     );
   }
 
+  finalApprove(id: number): Observable<MaterialRequest> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .put(`${MATERIAL_REQUEST_API_ENDPOINT}/${id}/final-approve`, null, {
+            headers: {
+              Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+            },
+          })
+          .pipe(map((result) => result as MaterialRequest));
+      })
+    );
+  }
+
+  finalReject(id: number): Observable<MaterialRequest> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .put(`${MATERIAL_REQUEST_API_ENDPOINT}/${id}/final-reject`, null, {
+            headers: {
+              Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+            },
+          })
+          .pipe(map((result) => result as MaterialRequest));
+      })
+    );
+  }
+
   private getAuth(): Observable<CognitoUserSession> {
     return from(Auth.currentSession());
   }

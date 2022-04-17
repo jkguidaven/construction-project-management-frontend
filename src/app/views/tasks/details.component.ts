@@ -9,6 +9,7 @@ import { ClientApprovalTaskComponent } from './type/client-approval-task.compone
 import { CostEstimateApprovalTaskComponent } from './type/cost-estimate-approval-task.component';
 import { CostEstimateTaskComponent } from './type/cost-estimate-task.component';
 import { DesignTaskComponent } from './type/design-task.component';
+import { FinalApproveMaterialRequestComponent } from './type/final-approve-material-request.component';
 import { ForPurchaseOrderComponent } from './type/for-purchase-order.component';
 import { ProcurementTaskComponent } from './type/procurement-task.component';
 import { ScheduleProjectTaskComponent } from './type/schedule-project-task.component';
@@ -31,6 +32,7 @@ export class TaskDetailsComponent implements OnInit {
     STATEKHOLDER_APPROVAL: StakeholderApprovalTaskComponent,
     CLIENT_APPROVAL: ClientApprovalTaskComponent,
     MATERIAL_REQUEST_APPROVAL: ApproveMaterialRequestComponent,
+    MATERIAL_REQUEST_APPROVAL_CE: FinalApproveMaterialRequestComponent,
     PROGRESS_APPROVAL: ApproveProgressReportComponent,
     FOR_PURCHASE_ORDER: ForPurchaseOrderComponent,
   };

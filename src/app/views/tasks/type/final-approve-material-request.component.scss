@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+
+  .column {
+    width: 100px;
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+      width: 200px;
+    }
+  }
+}
+
+button {
+  margin-left: calc(var(--spacing) / 2);
+}

@@ -113,7 +113,7 @@ export class TaskListComponent implements OnInit {
       .subscribe((tasks: Task[]) => {
         this.dataUnassigned = tasks.map((task: Task) => ({
           id: task.id,
-          name: task.project.name,
+          name: task.project?.name,
           date: task.date,
           task: this.getTaskName(task),
           action: {
@@ -134,7 +134,7 @@ export class TaskListComponent implements OnInit {
       .subscribe((tasks: Task[]) => {
         this.dataAssigned = tasks.map((task: Task) => ({
           id: task.id,
-          name: task.project.name,
+          name: task.project?.name,
           date: task.date,
           task: this.getTaskName(task),
           status: task.status,
@@ -156,7 +156,7 @@ export class TaskListComponent implements OnInit {
       .subscribe((tasks: Task[]) => {
         this.dataCompleted = tasks.map((task: Task) => ({
           id: task.id,
-          name: task.project.name,
+          name: task.project?.name,
           date: task.date,
           task: this.getTaskName(task),
           status: task.status,

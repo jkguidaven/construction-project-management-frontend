@@ -25,32 +25,38 @@
 
     <app-form-row>
       <mat-form-field appearance="outline">
-        <mat-label>Approver</mat-label>
-        <input matInput formControlName="approver" />
-      </mat-form-field>
-    </app-form-row>
-
-    <app-form-row>
-      <mat-form-field appearance="outline">
-        <mat-label>Final Approver</mat-label>
-        <input matInput formControlName="finalApprover" />
-      </mat-form-field>
-    </app-form-row>
-
-    <app-form-row>
-      <mat-form-field appearance="outline">
         <mat-label>Status</mat-label>
         <input matInput formControlName="status" />
+      </mat-form-field>
+    </app-form-row>
+
+    <app-form-row>
+      <mat-form-field appearance="outline">
+        <mat-label>Approver</mat-label>
+        <input matInput formControlName="approver" />
       </mat-form-field>
     </app-form-row>
 
     <app-form-row *ngIf="form.get('task').value">
       <div class="row">
         <div class="column"><b>Materials</b></div>
+        <div class="column"><b>Total Budget</b></div>
+        <div class="column"><b>Released</b></div>
+        <div class="column"><b>Remaining</b></div>
         <div class="column"><b>Request (qty)</b></div>
       </div>
       <div class="row" *ngFor="let item of items">
         <div class="column">{{ item.material.name }}</div>
+        <div class="column">
+          {{ item.material.qty | number: "1.1-1" }} {{ item.material.unit }}
+        </div>
+        <div class="column">
+          {{ item.material.released ?? 0 }} {{ item.material.unit }}
+        </div>
+        <div class="column">
+          {{ item.material.qty - (item.material.released ?? 0) }}
+          {{ item.material.unit }}
+        </div>
         <div class="column">
           <mat-form-field appearance="outline">
             <mat-label></mat-label>
@@ -61,3 +67,26 @@
     </app-form-row>
   </app-card>
 </form>
+
+<app-action-panel>
+  <button mat-raised-button (click)="exit()" [disabled]="processing">
+    Exit
+  </button>
+  <button
+    mat-raised-button
+    *ngIf="task.status != 'COMPLETED'"
+    (click)="complete(false)"
+    [disabled]="processing"
+  >
+    Reject
+  </button>
+  <button
+    *ngIf="task.status != 'COMPLETED'"
+    mat-raised-button
+    color="primary"
+    (click)="complete(true)"
+    [disabled]="processing"
+  >
+    Approve
+  </button>
+</app-action-panel>
