@@ -8,6 +8,11 @@ import {
 } from 'src/app/models/scope-of-work.model';
 import { TargetSchedule } from 'src/app/models/target-schedule.model';
 
+interface Data {
+  scopes: ScopeOfWork[];
+  schedule?: TargetSchedule;
+}
+
 @Component({
   selector: 'app-add-project-schedule',
   templateUrl: './add-project-schedule.component.html',
@@ -20,13 +25,14 @@ export class AddProjectScheduleComponent implements OnInit {
     start: new FormControl(undefined, [Validators.required]),
     end: new FormControl(undefined, [Validators.required]),
   });
-
+  scopes!: ScopeOfWork[];
   constructor(
-    @Inject(MAT_DIALOG_DATA) public scopes: ScopeOfWork[],
+    @Inject(MAT_DIALOG_DATA) public data: Data,
     private dialogRef: MatDialogRef<AddProjectScheduleComponent>
   ) {}
 
   ngOnInit(): void {
+    this.scopes = this.data.scopes;
     this.form.get('task').disable();
     this.form.get('scope').valueChanges.subscribe(() => {
       this.form.get('task').setValue(undefined);
@@ -37,11 +43,41 @@ export class AddProjectScheduleComponent implements OnInit {
         this.form.get('task').disable();
       }
     });
+
+    if (this.data.schedule) {
+      this.form.get('start').setValue(this.data.schedule.start);
+      this.form.get('end').setValue(this.data.schedule.end);
+
+      this.scopes.forEach((scope) => {
+        const task = scope.tasks.find(
+          ({ id }) => this.data.schedule.taskId === id
+        );
+
+        if (task) {
+          this.form.get('scope').setValue(scope);
+          this.form.get('task').setValue(task);
+        }
+      });
+    }
   }
 
   add(): void {
     const schedule: TargetSchedule = {
-      type: 'CREATE',
+      type: this.data.schedule && this.data.schedule.id ? 'UPDATE' : 'CREATE',
+      id: this.data.schedule ? this.data.schedule.id : undefined,
+      taskId: this.form.get('task').value.id,
+      start: this.form.get('start').value,
+      end: this.form.get('end').value,
+      dates: [],
+    };
+
+    this.dialogRef.close(schedule);
+  }
+
+  delete(): void {
+    const schedule: TargetSchedule = {
+      type: 'DELETE',
+      id: this.data.schedule.id,
       taskId: this.form.get('task').value.id,
       start: this.form.get('start').value,
       end: this.form.get('end').value,

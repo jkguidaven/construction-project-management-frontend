@@ -160,7 +160,9 @@ export class GanttChartComponent implements OnInit {
   }
 
   getSchedules(task: ScopeOfWorkTask): TargetSchedule[] {
-    return this.schedules.filter((schedule) => schedule.taskId === task.id);
+    return this.schedules.filter(
+      (schedule) => schedule.taskId === task.id && schedule.type !== 'DELETE'
+    );
   }
 
   get totalWidth(): number {

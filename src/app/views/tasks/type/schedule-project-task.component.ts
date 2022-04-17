@@ -44,7 +44,9 @@ export class ScheduleProjectTaskComponent implements OnInit, TaskHandler {
   showAddProjectScheduleForm(): void {
     const dialogRef = this.dialog.open(AddProjectScheduleComponent, {
       width: '90%',
-      data: this.scopes,
+      data: {
+        scopes: this.scopes,
+      },
     });
 
     dialogRef.afterClosed().subscribe((data) => {
@@ -146,6 +148,31 @@ export class ScheduleProjectTaskComponent implements OnInit, TaskHandler {
       schedule.end = new Date(schedule.end);
       schedule.taskId = schedule.task.id;
       return schedule;
+    });
+  }
+
+  onScheduleSelect(schedule: TargetSchedule): void {
+    const dialogRef = this.dialog.open(AddProjectScheduleComponent, {
+      width: '90%',
+      data: {
+        scopes: this.scopes,
+        schedule,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        schedule.start = data.start;
+        schedule.end = data.end;
+        schedule.taskId = data.taskId;
+        schedule.type = data.type;
+        schedule.id = data.id;
+
+        if (schedule.type === 'DELETE' && !schedule.id) {
+          const index = this.schedules.indexOf(schedule);
+          this.schedules.splice(index, 1);
+        }
+      }
     });
   }
 }

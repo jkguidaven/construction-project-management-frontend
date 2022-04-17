@@ -31,6 +31,7 @@
     <app-gantt-chart
       [scopes]="scopes"
       [schedules]="schedules"
+      (select)="onScheduleSelect($event)"
     ></app-gantt-chart>
   </div>
 </app-card>
