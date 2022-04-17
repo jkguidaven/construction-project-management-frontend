@@ -17,6 +17,8 @@ export class GanttChartComponent implements OnInit {
 
   dividerGap: number = 200;
 
+  collapsedToggle: Record<number, boolean> = {};
+
   @Input() colorScheme: string[] = [
     '#2DB6F5',
     '#FFC107',

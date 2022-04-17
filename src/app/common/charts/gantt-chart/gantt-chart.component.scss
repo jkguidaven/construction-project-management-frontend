@@ -76,3 +76,20 @@
     }
   }
 }
+
+.expand-toggle {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+
+  mat-icon {
+    transition: all ease-out 200ms;
+  }
+
+  &.collapsed {
+    mat-icon {
+      transform: rotate(90deg);
+    }
+  }
+}

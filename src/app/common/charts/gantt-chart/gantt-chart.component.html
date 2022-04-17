@@ -1,19 +1,30 @@
 <div class="content">
   <div class="data">
     <div class="group" *ngFor="let scope of scopes">
-      {{ scope.name }}
+      <div
+        class="expand-toggle"
+        [ngClass]="{ collapsed: collapsedToggle[scope.id] }"
+        (click)="collapsedToggle[scope.id] = !collapsedToggle[scope.id]"
+      >
+        {{ scope.name }}
 
-      <div class="schedule" *ngFor="let task of scope.tasks; let i = index">
-        <div
-          class="schedule-item"
-          *ngFor="let schedule of getSchedules(task); let ti = index"
-          [ngStyle]="{
-            'background-color': getScheduleColor(i),
-            left: getSchedulePosByDate(schedule.start, dividerGap, true) + 'px',
-            width: getScheduleWidth(schedule, dividerGap) + 'px'
-          }"
-        >
-          {{ task.name }} P{{ ti + 1 }}
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </div>
+
+      <div *ngIf="!collapsedToggle[scope.id]">
+        <div class="schedule" *ngFor="let task of scope.tasks; let i = index">
+          <div
+            class="schedule-item"
+            *ngFor="let schedule of getSchedules(task); let ti = index"
+            [ngStyle]="{
+              'background-color': getScheduleColor(i),
+              left:
+                getSchedulePosByDate(schedule.start, dividerGap, true) + 'px',
+              width: getScheduleWidth(schedule, dividerGap) + 'px'
+            }"
+          >
+            {{ task.name }} P{{ ti + 1 }}
+          </div>
         </div>
       </div>
     </div>
