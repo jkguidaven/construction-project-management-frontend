@@ -5,31 +5,21 @@
     <app-form-row>
       <mat-form-field appearance="outline">
         <mat-label>Project</mat-label>
-        <mat-select formControlName="project">
-          <mat-option value="1"> House remodelling </mat-option>
-        </mat-select>
+        <input matInput formControlName="project" />
       </mat-form-field>
     </app-form-row>
 
     <app-form-row>
       <mat-form-field appearance="outline">
         <mat-label>Scope of Work</mat-label>
-        <mat-select formControlName="scope">
-          <mat-option [value]="scope" *ngFor="let scope of scopes">{{
-            scope.name
-          }}</mat-option>
-        </mat-select>
+        <input matInput formControlName="scope" />
       </mat-form-field>
     </app-form-row>
 
     <app-form-row>
       <mat-form-field appearance="outline">
         <mat-label>Task</mat-label>
-        <mat-select formControlName="task">
-          <mat-option [value]="task" *ngFor="let task of tasks">{{
-            task.name
-          }}</mat-option>
-        </mat-select>
+        <input matInput formControlName="task" />
       </mat-form-field>
     </app-form-row>
 
@@ -41,16 +31,19 @@
         <div class="column"><b>Remaining</b></div>
         <div class="column"><b>Request (qty)</b></div>
       </div>
-      <div class="row" *ngFor="let material of materials">
-        <div class="column">{{ material.name }}</div>
+      <div class="row" *ngFor="let item of items">
+        <div class="column">{{ item.material.name }}</div>
         <div class="column">
-          {{ material.qty | number: "1.1-1" }} {{ material.unit }}
+          {{ item.material.qty | number: "1.1-1" }} {{ item.material.unit }}
         </div>
-        <div class="column">{{ material.released }} {{ material.unit }}</div>
         <div class="column">
-          {{ material.qty - material.released }} {{ material.unit }}
+          {{ item.material.released ?? 0 }} {{ item.material.unit }}
         </div>
-        <div class="column">{{ material.requested }} {{ material.unit }}</div>
+        <div class="column">
+          {{ item.material.qty - (item.material.released ?? 0) }}
+          {{ item.material.unit }}
+        </div>
+        <div class="column">{{ item.qty ?? 0 }} {{ item.material.unit }}</div>
       </div>
     </app-form-row>
   </app-card>
