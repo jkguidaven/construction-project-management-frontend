@@ -86,4 +86,12 @@ export class ForPurchaseOrderComponent implements OnInit, TaskHandler {
     }
     return [];
   }
+
+  createNewPO(): void {
+    this.router.navigate(['/purchase-orders', 'new'], {
+      queryParams: {
+        task: this.task.id,
+      },
+    });
+  }
 }

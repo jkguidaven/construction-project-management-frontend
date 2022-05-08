@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, finalize, Observable } from 'rxjs';
+import { MaterialRequest } from 'src/app/models/material-request.model';
 import { Project, ProjectPageResult } from 'src/app/models/project.model';
 import { Supplier } from 'src/app/models/supplier.model';
+import { Task } from 'src/app/models/task.model';
+import { MaterialRequestClientApiService } from 'src/app/services/material-request-client-api.service';
 import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
 import { SupplierClientApiService } from 'src/app/services/supplier-client-api.service';
+import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 
 @Component({
   selector: 'app-add',
@@ -15,8 +19,16 @@ import { SupplierClientApiService } from 'src/app/services/supplier-client-api.s
 export class AddPurchaseOrderComponent implements OnInit {
   suppliers$!: Observable<Supplier[]>;
   projects: Project[] = [];
+  task!: Task;
+  request: MaterialRequest;
 
-  lines: any[] = [{}];
+  lines: any[] = [
+    {
+      itemControl: new FormControl(),
+      quantityControl: new FormControl(0),
+      priceControl: new FormControl(0),
+    },
+  ];
 
   form: FormGroup = new FormGroup({
     date: new FormControl(new Date(), [Validators.required]),
@@ -35,13 +47,42 @@ export class AddPurchaseOrderComponent implements OnInit {
     deliveryAddress: new FormControl(),
   });
 
+  processing: boolean;
+
   constructor(
     public router: Router,
     private supplierClientAPI: SupplierClientApiService,
-    private projectClientAPI: ProjectClientApiService
+    private projectClientAPI: ProjectClientApiService,
+    private taskClientAPI: TaskClientApiService,
+    private activatedRoute: ActivatedRoute,
+    private materialRequestClientAPI: MaterialRequestClientApiService
   ) {}
 
   ngOnInit(): void {
+    const taskId = this.activatedRoute.snapshot.queryParams['task'];
+
+    if (taskId) {
+      this.processing = true;
+      this.taskClientAPI
+        .getTask(taskId)
+        .pipe(
+          catchError((err) => {
+            this.processing = false;
+            throw err;
+          })
+        )
+        .subscribe((task: Task) => {
+          this.task = task;
+
+          this.materialRequestClientAPI
+            .get(task.materialRequest.id)
+            .pipe(finalize(() => (this.processing = false)))
+            .subscribe((request) => {
+              this.request = request;
+            });
+        });
+    }
+
     this.projectClientAPI
       .getAll(0, 1000, 'id', 'asc')
       .subscribe((result: ProjectPageResult) => {
@@ -89,10 +130,9 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   addLine(): void {
     this.lines.push({
-      description: 'item 1',
+      quantityControl: new FormControl(0),
+      priceControl: new FormControl(0),
     });
-
-    console.log(this.lines);
   }
 
   filterSupplier(suppliers: Supplier[]): Supplier[] {

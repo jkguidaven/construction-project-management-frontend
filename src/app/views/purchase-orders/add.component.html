@@ -21,7 +21,10 @@
       </div>
     </app-form-row>
 
-    <app-form-row description="Select which project">
+    <app-form-row
+      description="Select which project"
+      *ngIf="!request; else materialRequestProject"
+    >
       <mat-form-field appearance="outline">
         <mat-label>Project</mat-label>
         <mat-select formControlName="project">
@@ -31,6 +34,15 @@
         </mat-select>
       </mat-form-field>
     </app-form-row>
+
+    <ng-template #materialRequestProject>
+      <app-form-row>
+        <mat-form-field appearance="outline">
+          <mat-label>Project</mat-label>
+          <input type="text" matInput [value]="request.project.name" disabled />
+        </mat-form-field>
+      </app-form-row>
+    </ng-template>
 
     <h2>Supplier Information</h2>
 
@@ -126,7 +138,7 @@
   </form>
 </app-card>
 
-<app-card>
+<app-card *ngIf="!request; else materialRequestParticles">
   <h2>Particulars</h2>
   <table>
     <thead>
@@ -188,6 +200,82 @@
     </tbody>
   </table>
 </app-card>
+
+<ng-template #materialRequestParticles>
+  <app-card>
+    <h2>Particulars</h2>
+    <table>
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Item Description</td>
+          <td>qty</td>
+          <td>price</td>
+          <td>amount</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of lines; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-select [formControl]="line.itemControl">
+                <mat-option *ngFor="let item of request.items" [value]="item">
+                  {{ item.material.name }} | {{ item.material.unit }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                type="number"
+                [formControl]="line.quantityControl"
+              />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <input matInput type="number" [formControl]="line.priceControl" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                class="currency-input"
+                value="{{
+                  line.priceControl.value * line.quantityControl.value
+                    | currency: 'PHP':'symbol'
+                }}"
+                disabled
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <button mat-button color="primary" (click)="addLine()">
+              Add Line
+            </button>
+          </td>
+          <td align="right"><b>GRAND TOTAL</b></td>
+          <td>
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                class="currency-input"
+                value="{{ 0 | currency: 'PHP':'symbol' }}"
+                disabled
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </app-card>
+</ng-template>
 
 <app-action-panel>
   <button mat-raised-button>Exit</button>
