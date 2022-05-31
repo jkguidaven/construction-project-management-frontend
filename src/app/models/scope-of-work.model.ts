@@ -5,6 +5,7 @@ export interface ScopeOfWork {
   id?: number;
   name: string;
   tasks: ScopeOfWorkTask[];
+  subconPrice?: number;
 }
 
 export interface ScopeOfWorkTask {

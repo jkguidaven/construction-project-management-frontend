@@ -106,6 +106,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProjectStatusDataTableRendererComponent } from './common/data-table/renderers/project-status.component';
 import { MaterialRequestStatusDataTableRendererComponent } from './common/data-table/renderers/material-request-status.component';
 import { FinalApproveMaterialRequestComponent } from './views/tasks/type/final-approve-material-request.component';
+import { AddScopeOfWorkSubconBudgetComponent } from './views/modals/add-scope-of-work-subcon-budget.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -179,6 +180,7 @@ Amplify.configure(awsconfig);
     ProjectStatusDataTableRendererComponent,
     MaterialRequestStatusDataTableRendererComponent,
     FinalApproveMaterialRequestComponent,
+    AddScopeOfWorkSubconBudgetComponent,
   ],
   imports: [
     FormsModule,

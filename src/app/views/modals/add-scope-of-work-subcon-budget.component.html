@@ -1,0 +1,32 @@
+<h1>Add Subcon Budget</h1>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Scope</mat-label>
+    <input
+      matInput
+      formControlName="name"
+      (keyup.enter)="priceField.select()"
+    />
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Subcon Budget</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="price"
+        (keyup.enter)="add()"
+        #priceField
+      />
+    </mat-form-field>
+  </div>
+</form>
+
+<div class="action-panel">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button color="primary" (click)="add()" [disabled]="!form.valid">
+    Add Budget
+  </button>
+</div>

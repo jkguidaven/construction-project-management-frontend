@@ -19,6 +19,7 @@ import { ScopeOfWorkClientApiService } from 'src/app/services/scope-of-work-clie
 import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 import { AddProjectScheduleComponent } from '../../modals/add-project-schedule.component';
 import { AddScopeOfWorkMaterialSubconBudgetComponent } from '../../modals/add-scope-of-work-material-subcon-budget.component';
+import { AddScopeOfWorkSubconBudgetComponent } from '../../modals/add-scope-of-work-subcon-budget.component';
 import { AddScopeOfWorkTaskSubconBudgetComponent } from '../../modals/add-scope-of-work-task-subcon-budget.component';
 import { TaskHandler } from './task-handler';
 
@@ -82,6 +83,10 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
 
     for (let scope of this.scopes) {
       total += this.getSubTotal(scope);
+
+      if (this.getSubconPrice(scope)) {
+        total += this.getSubconPrice(scope);
+      }
     }
 
     return total;
@@ -233,6 +238,23 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
         schedule,
         viewMode: true,
       },
+    });
+  }
+
+  getSubconPrice(scope: ScopeOfWork): number {
+    return scope.subconPrice;
+  }
+
+  showAddScopeSubconBudgetForm(scope: ScopeOfWork): void {
+    const dialogRef = this.dialog.open(AddScopeOfWorkSubconBudgetComponent, {
+      data: scope,
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        scope.subconPrice = data.subconPrice;
+      }
     });
   }
 }
