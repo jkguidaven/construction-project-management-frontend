@@ -27,11 +27,6 @@
           <div class="subtotal">
             {{ hasMaterials(scope) ? "Total Price" : "" }}
           </div>
-
-          <div class="subtotal">Labor/Unit</div>
-
-          <div class="subtotal">Total Labor</div>
-          <div class="subtotal">Subtotal</div>
         </div>
 
         <div
@@ -53,18 +48,6 @@
             <div class="price" *ngIf="task.subconPricePerUnit">
               {{ task.subconPricePerUnit | currency: "PHP":"symbol" }} /
               {{ task.unit }}
-            </div>
-
-            <div class="subtotal" *ngIf="task.subconPricePerUnit">
-              {{
-                task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
-              }}
-            </div>
-
-            <div class="subtotal" *ngIf="task.subconPricePerUnit">
-              {{
-                task.subconPricePerUnit * task.qty | currency: "PHP":"symbol"
-              }}
             </div>
 
             <div class="actions"></div>
@@ -93,25 +76,6 @@
               }}
             </div>
 
-            <div class="price" *ngIf="material.subconPricePerUnit">
-              {{ material.subconPricePerUnit | currency: "PHP":"symbol" }} /
-              {{ material.unit }}
-            </div>
-
-            <div class="subtotal" *ngIf="material.subconPricePerUnit">
-              {{
-                material.subconPricePerUnit * material.qty
-                  | currency: "PHP":"symbol"
-              }}
-            </div>
-
-            <div class="subtotal grand" *ngIf="material.subconPricePerUnit">
-              {{
-                (material.pricePerUnit + material.subconPricePerUnit) *
-                  material.qty | currency: "PHP":"symbol"
-              }}
-            </div>
-
             <div class="actions"></div>
           </div>
         </div>
@@ -120,6 +84,13 @@
           <div class="total-label">TOTAL</div>
           <div class="total">
             {{ getSubTotal(scope) | currency: "PHP":"symbol" }}
+          </div>
+        </div>
+
+        <div class="summary-info end">
+          <div class="total-label">SUBCON TOTAL</div>
+          <div class="total">
+            {{ getSubcon(scope) | currency: "PHP":"symbol" }}
           </div>
         </div>
       </div>

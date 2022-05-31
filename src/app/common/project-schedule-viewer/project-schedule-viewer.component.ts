@@ -42,11 +42,19 @@ export class ProjectScheduleViewerComponent implements OnInit {
     return total;
   }
 
+  getSubcon(scope: ScopeOfWork): number {
+    return scope.subconPrice;
+  }
+
   get grandTotal(): number {
     let total = 0;
 
     for (let scope of this.scopes) {
       total += this.getSubTotal(scope);
+
+      if (this.getSubcon(scope)) {
+        total += this.getSubcon(scope);
+      }
     }
 
     return total;
