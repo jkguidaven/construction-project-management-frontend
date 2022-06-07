@@ -10,6 +10,7 @@ export class Project {
   status?: string;
   designStatus?: string;
   attachments?: Attachment[];
+  tasks?: Task[];
 }
 
 export class ProjectPageResult {

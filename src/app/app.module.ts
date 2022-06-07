@@ -107,6 +107,8 @@ import { ProjectStatusDataTableRendererComponent } from './common/data-table/ren
 import { MaterialRequestStatusDataTableRendererComponent } from './common/data-table/renderers/material-request-status.component';
 import { FinalApproveMaterialRequestComponent } from './views/tasks/type/final-approve-material-request.component';
 import { AddScopeOfWorkSubconBudgetComponent } from './views/modals/add-scope-of-work-subcon-budget.component';
+import { ViewProjectTaskComponent } from './views/projects/view-project-task.component';
+import { TaskTypeDataTableRendererComponent } from './common/data-table/renderers/task-type.component';
 
 /* Configure Amplify resources */
 Amplify.configure(awsconfig);
@@ -181,6 +183,8 @@ Amplify.configure(awsconfig);
     MaterialRequestStatusDataTableRendererComponent,
     FinalApproveMaterialRequestComponent,
     AddScopeOfWorkSubconBudgetComponent,
+    ViewProjectTaskComponent,
+    TaskTypeDataTableRendererComponent,
   ],
   imports: [
     FormsModule,

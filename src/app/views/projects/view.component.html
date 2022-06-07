@@ -42,16 +42,18 @@
           (select)="onScheduleSelect($event)"
         ></app-gantt-chart>
       </mat-tab>
-      <mat-tab label="Budget Tracking">
-        <div class="content">Budget Tracking</div>
+
+      <mat-tab label="Tasks">
+        <div class="content">
+          <app-view-project-task
+            [tasks]="project.tasks"
+          ></app-view-project-task>
+        </div>
       </mat-tab>
-      <mat-tab label="Purchase Orders">
+      <mat-tab label="Purchase Orders" disabled>
         <div class="content">Purchase Orders</div>
       </mat-tab>
-      <mat-tab label="Billing Progress">
-        <div class="content">Purchase Orders</div>
-      </mat-tab>
-      <mat-tab label="Document Logs">
+      <mat-tab label="Document Logs" disabled>
         <div class="content">Purchase Orders</div>
       </mat-tab>
     </mat-tab-group>
