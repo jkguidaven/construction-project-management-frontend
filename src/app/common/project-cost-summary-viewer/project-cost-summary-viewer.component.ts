@@ -33,21 +33,21 @@ export class ProjectCostSummaryViewerComponent implements OnInit {
   }
 
   getLaborCost(scope: ScopeOfWork): number {
-    // let total = 0;
+    let total = 0;
 
-    // for (let task of scope.tasks) {
-    //   if (task.subconPricePerUnit && task.qty) {
-    //     total += task.subconPricePerUnit * task.qty;
-    //   }
+    for (let task of scope.tasks) {
+      if (task.subconPricePerUnit && task.qty) {
+        total += task.subconPricePerUnit * task.qty;
+      }
 
-    //   for (let material of task.materials) {
-    //     if (material.qty && material.subconPricePerUnit) {
-    //       total += material.qty * material.subconPricePerUnit;
-    //     }
-    //   }
-    // }
+      for (let material of task.materials) {
+        if (material.qty && material.subconPricePerUnit) {
+          total += material.qty * material.subconPricePerUnit;
+        }
+      }
+    }
 
-    return scope.subconPrice ?? 0;
+    return total;
   }
 
   getSubTotal(scope: ScopeOfWork): number {

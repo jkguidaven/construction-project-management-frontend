@@ -86,7 +86,7 @@ app-action-panel {
 
   .name {
     min-width: 150px;
-    max-width: 750px;
+    max-width: 300px;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -135,13 +135,7 @@ app-action-panel {
   .total-label {
     margin: 10px 0;
     padding: 10px 0;
-  }
-
-  .end {
-    .total,
-    .total-label {
-      border-bottom: 1px solid black;
-    }
+    border-top: 1px solid black;
   }
 
   .summary-info {
@@ -169,6 +163,5 @@ app-action-panel {
     text-align: right;
     white-space: nowrap;
     margin-left: 10px;
-    margin-top: -10px;
   }
 }

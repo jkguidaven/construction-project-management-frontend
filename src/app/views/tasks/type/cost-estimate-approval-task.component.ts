@@ -83,10 +83,6 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
 
     for (let scope of this.scopes) {
       total += this.getSubTotal(scope);
-
-      if (this.getSubconPrice(scope)) {
-        total += this.getSubconPrice(scope);
-      }
     }
 
     return total;
@@ -239,10 +235,6 @@ export class CostEstimateApprovalTaskComponent implements OnInit, TaskHandler {
         viewMode: true,
       },
     });
-  }
-
-  getSubconPrice(scope: ScopeOfWork): number {
-    return scope.subconPrice;
   }
 
   showAddScopeSubconBudgetForm(scope: ScopeOfWork): void {
