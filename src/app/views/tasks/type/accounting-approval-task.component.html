@@ -7,10 +7,24 @@
     [scopes]="scopes"
   ></app-project-cost-summary-viewer>
 
-  <app-action-panel *ngIf="task.status != 'COMPLETED'">
-    <a class="reject-button">Reject</a>
-    <a class="approve-button" (click)="complete()">Approve</a>
+  <app-action-panel *ngIf="task.status != 'COMPLETED'; else result">
+    <a class="reject-button" (click)="reject()" [ngClass]="{ processing }"
+      >Reject</a
+    >
+    <a class="approve-button" (click)="approve()" [ngClass]="{ processing }"
+      >Approve</a
+    >
   </app-action-panel>
+
+  <ng-template #result>
+    <h2
+      *ngIf="project"
+      class="result-message"
+      [ngClass]="{ approve: project.accountingApprover }"
+    >
+      {{ resultMessage }}
+    </h2>
+  </ng-template>
 </app-card>
 
 <app-card>

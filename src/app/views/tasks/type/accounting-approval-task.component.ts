@@ -1,12 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Attachment } from 'src/app/models/attachment.model';
 import { Project } from 'src/app/models/project.model';
-import {
-  ScopeOfWork,
-  ScopeOfWorkTaskMaterial,
-} from 'src/app/models/scope-of-work.model';
+import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
 import { TargetSchedule } from 'src/app/models/target-schedule.model';
 import { Task } from 'src/app/models/task.model';
 import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
@@ -27,6 +24,8 @@ export class AccountingApprovalTaskComponent implements OnInit, TaskHandler {
   scopes: ScopeOfWork[] = [];
   schedules: TargetSchedule[] = [];
   project!: Project;
+
+  processing: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -100,5 +99,33 @@ export class AccountingApprovalTaskComponent implements OnInit, TaskHandler {
         viewMode: true,
       },
     });
+  }
+
+  reject(): void {
+    if (!this.processing) {
+      this.processing = true;
+      this.projectClientAPI
+        .reject(this.project.id, 'accounting')
+        .subscribe(() => {
+          this.complete();
+        });
+    }
+  }
+
+  approve(): void {
+    if (!this.processing) {
+      this.processing = true;
+      this.projectClientAPI
+        .approve(this.project.id, 'accounting')
+        .subscribe(() => {
+          this.complete();
+        });
+    }
+  }
+
+  get resultMessage(): string {
+    return this.project.accountingApprover
+      ? 'This has been approved.'
+      : 'This has been rejected.';
   }
 }

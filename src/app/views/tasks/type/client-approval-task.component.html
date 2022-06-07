@@ -7,6 +7,25 @@
     [scopes]="scopes"
     [contractorPrice]="500000"
   ></app-project-cost-summary-viewer>
+
+  <app-action-panel *ngIf="task.status != 'COMPLETED'; else result">
+    <a class="reject-button" (click)="reject()" [ngClass]="{ processing }"
+      >Reject</a
+    >
+    <a class="approve-button" (click)="approve()" [ngClass]="{ processing }"
+      >Approve</a
+    >
+  </app-action-panel>
+
+  <ng-template #result>
+    <h2
+      *ngIf="project"
+      class="result-message"
+      [ngClass]="{ approve: project.clientApprover }"
+    >
+      {{ resultMessage }}
+    </h2>
+  </ng-template>
 </app-card>
 
 <app-card>
@@ -20,15 +39,3 @@
     ></app-upload-file-dropbox>
   </app-form-row>
 </app-card>
-
-<app-action-panel>
-  <button mat-raised-button>Exit</button>
-  <button
-    *ngIf="task.status != 'COMPLETED'"
-    mat-raised-button
-    color="primary"
-    (click)="complete()"
-  >
-    Mark as Complete
-  </button>
-</app-action-panel>

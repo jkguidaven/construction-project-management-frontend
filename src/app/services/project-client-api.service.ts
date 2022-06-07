@@ -60,6 +60,42 @@ export class ProjectClientApiService {
     );
   }
 
+  approve(
+    id: number,
+    asApprover: string,
+    payload: any = {}
+  ): Observable<Project> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .post(
+            `${PROJECT_API_ENDPOINT}/${id}/${asApprover}/approve`,
+            payload,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+              },
+            }
+          )
+          .pipe(map((result) => result as Project));
+      })
+    );
+  }
+
+  reject(id: number, asRejector: string): Observable<Project> {
+    return this.getAuth().pipe(
+      mergeMap((auth: CognitoUserSession) => {
+        return this.httpClient
+          .post(`${PROJECT_API_ENDPOINT}/${id}/${asRejector}/reject`, null, {
+            headers: {
+              Authorization: `Bearer ${auth.getIdToken().getJwtToken()}`,
+            },
+          })
+          .pipe(map((result) => result as Project));
+      })
+    );
+  }
+
   getAll(
     page: number = 0,
     size: number = 25,

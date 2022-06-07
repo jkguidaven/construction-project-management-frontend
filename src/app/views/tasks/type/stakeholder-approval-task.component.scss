@@ -58,3 +58,13 @@ app-action-panel {
     }
   }
 }
+
+.result-message {
+  text-align: right;
+  margin: 16px 0;
+  color: var(--red-color);
+
+  &.approve {
+    color: var(--green-color);
+  }
+}

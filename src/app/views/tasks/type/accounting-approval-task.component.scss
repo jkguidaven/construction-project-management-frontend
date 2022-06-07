@@ -34,8 +34,23 @@ app-action-panel {
       background-color: var(--red-color);
     }
 
-    &:hover {
+    &:hover:not(.processing) {
       opacity: 1;
     }
+
+    &.processing {
+      opacity: 0.5;
+      background-color: grey;
+    }
+  }
+}
+
+.result-message {
+  text-align: right;
+  margin: 16px 0;
+  color: var(--red-color);
+
+  &.approve {
+    color: var(--green-color);
   }
 }

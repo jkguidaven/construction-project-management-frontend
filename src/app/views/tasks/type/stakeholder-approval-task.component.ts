@@ -29,6 +29,8 @@ export class StakeholderApprovalTaskComponent implements OnInit, TaskHandler {
   schedules: TargetSchedule[] = [];
   project!: Project;
 
+  processing: boolean;
+
   profitControl: FormControl = new FormControl(0, [Validators.required]);
 
   constructor(
@@ -151,5 +153,33 @@ export class StakeholderApprovalTaskComponent implements OnInit, TaskHandler {
         viewMode: true,
       },
     });
+  }
+
+  reject(): void {
+    if (!this.processing) {
+      this.processing = true;
+      this.projectClientAPI
+        .reject(this.project.id, 'stakeholder')
+        .subscribe(() => {
+          this.complete();
+        });
+    }
+  }
+
+  approve(): void {
+    if (!this.processing) {
+      this.processing = true;
+      this.projectClientAPI
+        .approve(this.project.id, 'stakeholder')
+        .subscribe(() => {
+          this.complete();
+        });
+    }
+  }
+
+  get resultMessage(): string {
+    return this.project.stakeholderApprover
+      ? 'This has been approved.'
+      : 'This has been rejected.';
   }
 }

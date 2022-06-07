@@ -10,6 +10,16 @@ export class Project {
   status?: string;
   designStatus?: string;
   attachments?: Attachment[];
+
+  accountingApprover?: string;
+  accountingRejector?: string;
+
+  stakeholderApprover?: string;
+  stakeholderRejector?: string;
+
+  clientApprover?: string;
+  clientRejector?: string;
+
   tasks?: Task[];
 }
 

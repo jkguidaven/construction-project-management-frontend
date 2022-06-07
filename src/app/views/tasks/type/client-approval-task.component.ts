@@ -24,6 +24,8 @@ export class ClientApprovalTaskComponent implements OnInit, TaskHandler {
 
   uploads: FileUpload[];
 
+  processing: boolean;
+
   constructor(
     public router: Router,
     private taskClientAPI: TaskClientApiService,
@@ -109,5 +111,29 @@ export class ClientApprovalTaskComponent implements OnInit, TaskHandler {
           upload.mime = event.body.mime;
         }
       });
+  }
+
+  reject(): void {
+    if (!this.processing) {
+      this.processing = true;
+      this.projectClientAPI.reject(this.project.id, 'client').subscribe(() => {
+        this.complete();
+      });
+    }
+  }
+
+  approve(): void {
+    if (!this.processing) {
+      this.processing = true;
+      this.projectClientAPI.approve(this.project.id, 'client').subscribe(() => {
+        this.complete();
+      });
+    }
+  }
+
+  get resultMessage(): string {
+    return this.project.clientApprover
+      ? 'This has been approved.'
+      : 'This has been rejected.';
   }
 }
