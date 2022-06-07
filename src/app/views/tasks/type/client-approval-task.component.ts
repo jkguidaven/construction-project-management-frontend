@@ -9,6 +9,7 @@ import { ScopeOfWork } from 'src/app/models/scope-of-work.model';
 import { Task } from 'src/app/models/task.model';
 import { AttachmentClientApiService } from 'src/app/services/attachment-client-api.service';
 import { ProjectClientApiService } from 'src/app/services/project-client-api.service';
+import { ScopeOfWorkClientApiService } from 'src/app/services/scope-of-work-client-api.service';
 import { TaskClientApiService } from 'src/app/services/task-client-api.service';
 import { TaskHandler } from './task-handler';
 
@@ -30,7 +31,8 @@ export class ClientApprovalTaskComponent implements OnInit, TaskHandler {
     public router: Router,
     private taskClientAPI: TaskClientApiService,
     private projectClientAPI: ProjectClientApiService,
-    private attachmentClientAPI: AttachmentClientApiService
+    private attachmentClientAPI: AttachmentClientApiService,
+    private scopeOfWorkClientAPI: ScopeOfWorkClientApiService
   ) {}
 
   ngOnInit(): void {}
@@ -39,6 +41,16 @@ export class ClientApprovalTaskComponent implements OnInit, TaskHandler {
     this.task = task;
     this.projectClientAPI.get(task.project.id).subscribe((project) => {
       this.project = project;
+
+      this.scopeOfWorkClientAPI
+        .get(this.project.id)
+        .subscribe((scopes: ScopeOfWork[]) => {
+          this.scopes = scopes;
+          this.scopes = scopes.sort((a, b) => a.id - b.id);
+          this.scopes.forEach((scope) => {
+            scope.tasks = scope.tasks.sort((a, b) => a.id - b.id);
+          });
+        });
 
       this.uploads = this.project.attachments
         .filter((attachment) => attachment.task && attachment.task.id)

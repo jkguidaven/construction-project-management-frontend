@@ -98,6 +98,7 @@ export class StakeholderApprovalTaskComponent implements OnInit, TaskHandler {
 
     this.projectClientAPI.get(task.project.id).subscribe((project) => {
       this.project = project;
+      this.profitControl.setValue(this.project.profit ?? 0);
 
       this.scopeOfWorkClientAPI
         .get(this.project.id)
@@ -170,7 +171,9 @@ export class StakeholderApprovalTaskComponent implements OnInit, TaskHandler {
     if (!this.processing) {
       this.processing = true;
       this.projectClientAPI
-        .approve(this.project.id, 'stakeholder')
+        .approve(this.project.id, 'stakeholder', {
+          profit: this.profitControl.value,
+        })
         .subscribe(() => {
           this.complete();
         });

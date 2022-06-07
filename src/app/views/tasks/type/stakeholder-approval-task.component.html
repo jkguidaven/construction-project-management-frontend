@@ -5,16 +5,18 @@
 
   <app-project-cost-summary-viewer
     [scopes]="scopes"
+    [contractorPrice]="task.status === 'COMPLETED' ? project.profit : 0"
   ></app-project-cost-summary-viewer>
 
-  <div class="contractor-input-box">
+  <div class="contractor-input-box" *ngIf="task.status !== 'COMPLETED'">
     <b>CONTRACTOR's PROFIT</b>
+
     <mat-form-field appearance="outline">
       <input matInput [formControl]="profitControl" type="number" />
     </mat-form-field>
   </div>
 
-  <div class="contractor-input-box">
+  <div class="contractor-input-box" *ngIf="task.status !== 'COMPLETED'">
     <b>GRAND TOTAL</b>
     <mat-form-field appearance="outline" class="disabled">
       <input

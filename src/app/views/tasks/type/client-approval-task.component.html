@@ -5,7 +5,7 @@
 
   <app-project-cost-summary-viewer
     [scopes]="scopes"
-    [contractorPrice]="500000"
+    [contractorPrice]="project.profit"
   ></app-project-cost-summary-viewer>
 
   <app-action-panel *ngIf="task.status != 'COMPLETED'; else result">

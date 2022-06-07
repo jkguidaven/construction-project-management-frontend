@@ -20,6 +20,8 @@ export class Project {
   clientApprover?: string;
   clientRejector?: string;
 
+  profit?: number;
+
   tasks?: Task[];
 }
 
